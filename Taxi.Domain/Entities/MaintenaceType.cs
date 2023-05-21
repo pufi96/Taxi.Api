@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taxi.DatabaseAccess.Entities
+namespace Taxi.Domain.Entities
 {
-    public class CarBrand : Entity
+    public class MaintenaceType : Entity
     {
-        public string CarBrandName { get; set; }
+        public string MaintenaceTypeName { get; set; }
     }
 }

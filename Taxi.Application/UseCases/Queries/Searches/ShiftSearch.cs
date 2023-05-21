@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Taxi.API.Searches
+namespace Taxi.Application.UseCases.Queries.Searches
 {
     public class ShiftSearch
     {

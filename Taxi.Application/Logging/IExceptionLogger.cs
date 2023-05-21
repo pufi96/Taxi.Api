@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taxi.DatabaseAccess.Entities
+namespace Taxi.Application.Logging
 {
-    public class MaintenaceType : Entity
+    public interface IExceptionLogger
     {
-        public string MaintenaceTypeName { get; set; }
+        void Log(Exception ex);
     }
 }

@@ -14,11 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Taxi.Application\Taxi.Application.csproj" />
     <ProjectReference Include="..\Taxi.DatabaseAccess\Taxi.DatabaseAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
+    <ProjectReference Include="..\Taxi.Domain\Taxi.Domain.csproj" />
+    <ProjectReference Include="..\Taxi.Implementation\Taxi.Implementation.csproj" />
   </ItemGroup>
 
 </Project>

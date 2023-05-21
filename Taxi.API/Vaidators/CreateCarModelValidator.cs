@@ -7,7 +7,7 @@ namespace Taxi.API.Vaidators
 {
     public class CreateCarModelValidator : AbstractValidator<CreateCarModelDto>
     {
-        public CreateCarModelValidator(TaxiContext context) 
+        public CreateCarModelValidator(TaxiDbContext context) 
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 

@@ -7,7 +7,7 @@ namespace Taxi.API.Vaidators
 {
     public class CreateCarBrandValidator : AbstractValidator<CarBrandDto>
     {
-        public CreateCarBrandValidator(TaxiContext context)
+        public CreateCarBrandValidator(TaxiDbContext context)
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 

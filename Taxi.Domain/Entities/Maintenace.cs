@@ -5,7 +5,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taxi.DatabaseAccess.Entities
+namespace Taxi.Domain.Entities
 {
     public class Maintenace : Entity
     {

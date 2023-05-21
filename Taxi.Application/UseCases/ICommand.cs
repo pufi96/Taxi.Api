@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taxi.DatabaseAccess.Entities
+namespace Taxi.Application.UseCases
 {
-    public class Location : Entity
+    public interface ICommand<TRequest> : IUseCase
     {
-        public string LocationName { get; set; }
+        void Execute(TRequest request);
     }
 }

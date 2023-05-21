@@ -8,7 +8,7 @@ using Taxi.API.DTO;
 using Taxi.API.ErrorLogging;
 using Taxi.API.Vaidators;
 using Taxi.DatabaseAccess;
-using Taxi.DatabaseAccess.Entities;
+using Taxi.Domain.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,9 +18,9 @@ namespace Taxi.API.Controllers
     [ApiController]
     public class CarBrandController : BaseController
     {
-        private TaxiContext _context;
+        private TaxiDbContext _context;
 
-        public CarBrandController(TaxiContext context, IErrorLogger logger)
+        public CarBrandController(TaxiDbContext context, IErrorLogger logger)
             : base(logger)
         {
             _context = context;

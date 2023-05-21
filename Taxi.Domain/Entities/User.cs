@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taxi.DatabaseAccess.Entities
+namespace Taxi.Domain.Entities
 {
     public class User : Entity
     {
@@ -17,6 +17,6 @@ namespace Taxi.DatabaseAccess.Entities
         public int UserRoleId { get; set; }
 
         public virtual Role UserRole { get; set; }
-
+        public virtual ICollection<UserUseCase> UseCases { get; set; }
     }
 }

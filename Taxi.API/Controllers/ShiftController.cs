@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Taxi.API.DTO;
 using Taxi.API.ErrorLogging;
-using Taxi.API.Searches;
+using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.DatabaseAccess;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -18,9 +18,9 @@ namespace Taxi.API.Controllers
     [ApiController]
     public class ShiftController : BaseController
     {
-        private TaxiContext _context;
+        private readonly TaxiDbContext _context;
 
-        public ShiftController(TaxiContext context, IErrorLogger logger)
+        public ShiftController(TaxiDbContext context, IErrorLogger logger)
             :base(logger)
         {
             _context = context;

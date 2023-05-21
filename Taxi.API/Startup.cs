@@ -11,10 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Taxi.API.Core;
 using Taxi.API.DTO;
 using Taxi.API.ErrorLogging;
+using Taxi.API.Extensions;
 using Taxi.API.Vaidators;
 using Taxi.DatabaseAccess;
+using Taxi.Implementation;
 
 namespace Taxi.API
 {
@@ -30,18 +33,26 @@ namespace Taxi.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var settings = new AppSettings();
+
+            Configuration.Bind(settings);
+
+            services.AddSingleton(settings);
+            services.AddTaxiDbContext();
+            services.AddTransient<UseCaseHandler>();
 
             services.AddTransient<IErrorLogger, ConsoleErrorLogger>();
-            services.AddTransient<TaxiContext>(x =>
-            {
-                DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
-                builder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
-                return new TaxiContext(builder.Options);
-            });
+            //services.AddTransient<TaxiDbContext>(x =>
+            //{
+            //    DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
+            //    builder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
+            //    return new TaxiDbContext(builder.Options);
+            //});
 
             services.AddTransient<CreateCarBrandValidator>();
             services.AddTransient<CreateCarModelValidator>();
 
+            services.AddUseCases();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

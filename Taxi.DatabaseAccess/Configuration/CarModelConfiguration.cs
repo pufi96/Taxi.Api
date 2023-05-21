@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Taxi.DatabaseAccess.Entities;
+using Taxi.Domain.Entities;
+using Taxi.DatabaseAccess.Configuration;
 
-namespace Taxi.DatabaseAccess.Configuration
+namespace Taxi.Domain.Configuration
 {
     public class CarModelConfiguration : EntityConfiguration<CarModel>
     {

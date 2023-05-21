@@ -1,28 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using Taxi.DatabaseAccess.Entities;
+using Taxi.Domain;
+using Taxi.Domain.Entities;
 
 namespace Taxi.DatabaseAccess
 {
-    public class TaxiContext : DbContext
+    public class TaxiDbContext : DbContext
     {
-        protected TaxiContext()
-        {
-        }
+        
 
-        public TaxiContext(DbContextOptions options) : base(options)
+        public TaxiDbContext(DbContextOptions options = null) : base(options)
         {
             Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
-        }
+        public IApplicationUser User { get; }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Entity).Assembly);
             modelBuilder.Entity<InDebted>().HasKey(x => new { x.RideId, x.DebtorId });
+            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UseCaseId });
 
             base.OnModelCreating(modelBuilder);
         }
@@ -40,5 +42,6 @@ namespace Taxi.DatabaseAccess
         public DbSet<Location> Locations { get; set; }
         public DbSet<LocationPrice> LocationPrices { get; set; }
         public DbSet<Ride> Rides { get; set; }
+        public DbSet<UserUseCase> UserUseCases { get; set; }
     }
 }
