@@ -16,9 +16,11 @@ namespace Taxi.Domain.Entities
         public int ChassisNumber { get; set; }
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
-        public string FuelType { get; set; }
+        public int FuelTypeId { get; set; }
+        public string ImageFileName{ get; set; }
         public int CarModelId { get; set; }
 
+        public virtual FuelType FuelType { get; set; }
         public virtual CarModel CarModel { get; set; }
     }
 }

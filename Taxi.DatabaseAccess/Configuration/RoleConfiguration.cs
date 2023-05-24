@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,11 @@ namespace Taxi.DatabaseAccess.Configuration
                     .HasMaxLength(50);
 
             builder.HasIndex(x => x.RoleName).IsUnique();
+
+            builder.HasMany(x => x.RoleUseCases)
+                    .WithOne(x => x.Role)
+                    .HasForeignKey(x => x.RoleId)
+                    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

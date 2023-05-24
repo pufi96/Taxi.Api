@@ -9,7 +9,7 @@ using Taxi.DatabaseAccess;
 namespace Taxi.DatabaseAccess.Migrations
 {
     [DbContext(typeof(TaxiDbContext))]
-    partial class TaxiContextModelSnapshot : ModelSnapshot
+    partial class TaxiDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -54,13 +54,14 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.Property<double>("EngineVolume")
                         .HasColumnType("float");
 
-                    b.Property<string>("FuelType")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("FuelTypeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("HorsePower")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImageFileName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -81,6 +82,8 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarModelId");
+
+                    b.HasIndex("FuelTypeId");
 
                     b.ToTable("Cars");
                 });
@@ -115,6 +118,9 @@ namespace Taxi.DatabaseAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CarBrandName")
+                        .IsUnique();
+
                     b.ToTable("CarBrands");
                 });
 
@@ -128,7 +134,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.Property<int>("CarBrandId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CardModelName")
+                    b.Property<string>("CarModelName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -152,6 +158,9 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarBrandId");
+
+                    b.HasIndex("CarModelName")
+                        .IsUnique();
 
                     b.ToTable("CarModels");
                 });
@@ -231,6 +240,33 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Debtors");
+                });
+
+            modelBuilder.Entity("Taxi.Domain.Entities.FuelType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EditedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FuelTypeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FuelTypes");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.InDebted", b =>
@@ -371,7 +407,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.ToTable("Maintenaces");
                 });
 
-            modelBuilder.Entity("Taxi.Domain.Entities.MaintenaceType", b =>
+            modelBuilder.Entity("Taxi.Domain.Entities.MaintenanceType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -394,14 +430,14 @@ namespace Taxi.DatabaseAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<string>("MaintenaceTypeName")
+                    b.Property<string>("MaintenanceTypeName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MaintenaceTypeName")
+                    b.HasIndex("MaintenanceTypeName")
                         .IsUnique();
 
                     b.ToTable("MaintenaceTypes");
@@ -436,7 +472,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.Property<int?>("LocationPriceId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("RidePrice")
                         .HasColumnType("float");
 
                     b.Property<int?>("ShiftId")
@@ -485,6 +521,19 @@ namespace Taxi.DatabaseAccess.Migrations
                         .IsUnique();
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Taxi.Domain.Entities.RoleUseCase", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UseCaseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "UseCaseId");
+
+                    b.ToTable("RoleUseCases");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.Shift", b =>
@@ -548,7 +597,7 @@ namespace Taxi.DatabaseAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Shift");
+                    b.ToTable("Shifts");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.User", b =>
@@ -625,7 +674,15 @@ namespace Taxi.DatabaseAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Taxi.Domain.Entities.FuelType", "FuelType")
+                        .WithMany("Cars")
+                        .HasForeignKey("FuelTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("CarModel");
+
+                    b.Navigation("FuelType");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.CarModel", b =>
@@ -672,13 +729,13 @@ namespace Taxi.DatabaseAccess.Migrations
             modelBuilder.Entity("Taxi.Domain.Entities.LocationPrice", b =>
                 {
                     b.HasOne("Taxi.Domain.Entities.Location", "LocationEnd")
-                        .WithMany()
+                        .WithMany("LocationPricesEnd")
                         .HasForeignKey("LocationEndId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Taxi.Domain.Entities.Location", "LocationStart")
-                        .WithMany()
+                        .WithMany("LocationPricesStart")
                         .HasForeignKey("LocationStartId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -696,7 +753,7 @@ namespace Taxi.DatabaseAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Taxi.Domain.Entities.MaintenaceType", "MaintenaceType")
+                    b.HasOne("Taxi.Domain.Entities.MaintenanceType", "MaintenaceType")
                         .WithMany()
                         .HasForeignKey("MaintenaceTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -714,10 +771,21 @@ namespace Taxi.DatabaseAccess.Migrations
                         .HasForeignKey("LocationPriceId");
 
                     b.HasOne("Taxi.Domain.Entities.Shift", null)
-                        .WithMany("Ride")
+                        .WithMany("Rides")
                         .HasForeignKey("ShiftId");
 
                     b.Navigation("LocationPrice");
+                });
+
+            modelBuilder.Entity("Taxi.Domain.Entities.RoleUseCase", b =>
+                {
+                    b.HasOne("Taxi.Domain.Entities.Role", "Role")
+                        .WithMany("RoleUseCases")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.Shift", b =>
@@ -757,14 +825,31 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.Navigation("InDebteds");
                 });
 
+            modelBuilder.Entity("Taxi.Domain.Entities.FuelType", b =>
+                {
+                    b.Navigation("Cars");
+                });
+
+            modelBuilder.Entity("Taxi.Domain.Entities.Location", b =>
+                {
+                    b.Navigation("LocationPricesEnd");
+
+                    b.Navigation("LocationPricesStart");
+                });
+
             modelBuilder.Entity("Taxi.Domain.Entities.Ride", b =>
                 {
                     b.Navigation("InDebteds");
                 });
 
+            modelBuilder.Entity("Taxi.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("RoleUseCases");
+                });
+
             modelBuilder.Entity("Taxi.Domain.Entities.Shift", b =>
                 {
-                    b.Navigation("Ride");
+                    b.Navigation("Rides");
                 });
 #pragma warning restore 612, 618
         }

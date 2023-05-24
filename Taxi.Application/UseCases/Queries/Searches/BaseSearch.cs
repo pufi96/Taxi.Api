@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Taxi.Domain.Entities
+namespace Taxi.Application.UseCases.Queries.Searches
 {
-    public class MaintenaceType : Entity
+    public class BaseSearch
     {
-        public string MaintenaceTypeName { get; set; }
+        public string Keyword { get; set; }
     }
 }

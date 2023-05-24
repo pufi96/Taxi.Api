@@ -21,15 +21,15 @@ namespace Taxi.DatabaseAccess.Configuration
                     .IsRequired()
                     .HasMaxLength(20);
 
-            builder.Property(x => x.FuelType)
-                    .IsRequired()
-                    .HasMaxLength(20);
-
             builder.HasOne(x => x.CarModel)
                     .WithMany()
                     .HasForeignKey(x => x.CarModelId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(x => x.FuelType)
+                    .WithMany(x => x.Cars)
+                    .HasForeignKey(x => x.FuelTypeId)
+                    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

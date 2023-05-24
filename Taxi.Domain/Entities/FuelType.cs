@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Taxi.Domain.Entities
 {
-    public class UserUseCase
+    public class FuelType : Entity
     {
-        public int UserId { get; set; }
-        public int UseCaseId { get; set; }
+        public string FuelTypeName { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual IEnumerable<Car> Cars { get; set; }  = new HashSet<Car>();
+
     }
 }

@@ -44,6 +44,23 @@ namespace Taxi.DatabaseAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FuelTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FuelTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FuelTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
                 {
@@ -66,7 +83,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MaintenaceTypeName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    MaintenanceTypeName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -100,7 +117,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CardModelName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CarModelName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CarBrandId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -174,6 +191,24 @@ namespace Taxi.DatabaseAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoleUseCases",
+                columns: table => new
+                {
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    UseCaseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleUseCases", x => new { x.RoleId, x.UseCaseId });
+                    table.ForeignKey(
+                        name: "FK_RoleUseCases_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -216,7 +251,8 @@ namespace Taxi.DatabaseAccess.Migrations
                     ChassisNumber = table.Column<int>(type: "int", nullable: false),
                     EngineVolume = table.Column<double>(type: "float", nullable: false),
                     HorsePower = table.Column<int>(type: "int", nullable: false),
-                    FuelType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    FuelTypeId = table.Column<int>(type: "int", nullable: false),
+                    ImageFileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CarModelId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -230,6 +266,12 @@ namespace Taxi.DatabaseAccess.Migrations
                         name: "FK_Cars_CarModels_CarModelId",
                         column: x => x.CarModelId,
                         principalTable: "CarModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Cars_FuelTypes_FuelTypeId",
+                        column: x => x.FuelTypeId,
+                        principalTable: "FuelTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -270,7 +312,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shift",
+                name: "Shifts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -292,15 +334,15 @@ namespace Taxi.DatabaseAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shift", x => x.Id);
+                    table.PrimaryKey("PK_Shifts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Shift_Cars_CarId",
+                        name: "FK_Shifts_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Shift_Users_UserId",
+                        name: "FK_Shifts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -314,7 +356,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsLocal = table.Column<bool>(type: "bit", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
+                    RidePrice = table.Column<double>(type: "float", nullable: false),
                     LocationPriceId = table.Column<int>(type: "int", nullable: true),
                     ShiftId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -332,9 +374,9 @@ namespace Taxi.DatabaseAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Rides_Shift_ShiftId",
+                        name: "FK_Rides_Shifts_ShiftId",
                         column: x => x.ShiftId,
-                        principalTable: "Shift",
+                        principalTable: "Shifts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -364,14 +406,31 @@ namespace Taxi.DatabaseAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarBrands_CarBrandName",
+                table: "CarBrands",
+                column: "CarBrandName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CarModels_CarBrandId",
                 table: "CarModels",
                 column: "CarBrandId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarModels_CarModelName",
+                table: "CarModels",
+                column: "CarModelName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cars_CarModelId",
                 table: "Cars",
                 column: "CarModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cars_FuelTypeId",
+                table: "Cars",
+                column: "FuelTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DebtCollections_DebtorId",
@@ -404,9 +463,9 @@ namespace Taxi.DatabaseAccess.Migrations
                 column: "MaintenaceTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaintenaceTypes_MaintenaceTypeName",
+                name: "IX_MaintenaceTypes_MaintenanceTypeName",
                 table: "MaintenaceTypes",
-                column: "MaintenaceTypeName",
+                column: "MaintenanceTypeName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -426,13 +485,13 @@ namespace Taxi.DatabaseAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Shift_CarId",
-                table: "Shift",
+                name: "IX_Shifts_CarId",
+                table: "Shifts",
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Shift_UserId",
-                table: "Shift",
+                name: "IX_Shifts_UserId",
+                table: "Shifts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -466,6 +525,9 @@ namespace Taxi.DatabaseAccess.Migrations
                 name: "Maintenaces");
 
             migrationBuilder.DropTable(
+                name: "RoleUseCases");
+
+            migrationBuilder.DropTable(
                 name: "Debtors");
 
             migrationBuilder.DropTable(
@@ -478,7 +540,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 name: "LocationPrices");
 
             migrationBuilder.DropTable(
-                name: "Shift");
+                name: "Shifts");
 
             migrationBuilder.DropTable(
                 name: "Locations");
@@ -491,6 +553,9 @@ namespace Taxi.DatabaseAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "CarModels");
+
+            migrationBuilder.DropTable(
+                name: "FuelTypes");
 
             migrationBuilder.DropTable(
                 name: "Roles");

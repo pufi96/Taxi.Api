@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 namespace Taxi.Application.UseCases.DTO
 {
-    public class ShiftDto
+    public class ShiftDto : BaseDto
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ShiftDate { get; set; }
@@ -18,17 +17,6 @@ namespace Taxi.Application.UseCases.DTO
         public IEnumerable<RideDto> Rides { get; set; }
     }
 
-    public class RideDto
-    {
-        public int Id { get; set; }
-        public bool IsLocal { get; set; }
-        public double Price { get; set; }
-        public LocationPricesDto LocationPrice { get; set; }
-    }
-    public class LocationPricesDto
-    {
-        public int Id { get; set; }
-        public string LocationStart { get; set; }
-        public string LocationEnd { get; set; }
-    }
+   
+   
 }

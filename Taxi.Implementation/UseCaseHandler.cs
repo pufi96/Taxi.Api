@@ -68,24 +68,24 @@ namespace Taxi.Implementation
 
         private void HandleLoggingAndAuthorization<TRequest>(IUseCase useCase, TRequest data)
         {
-            var isAuthorized = _user.UseCaseIds.Contains(useCase.Id);
+            //var isAuthorized = _user.UseCaseIds.Contains(useCase.Id);
 
-            var log = new UseCaseLog
-            {
-                User = _user.Identity,
-                ExecutionDateTime = DateTime.UtcNow,
-                UseCaseName = useCase.Name,
-                UserId = _user.Id,
-                Data = JsonConvert.SerializeObject(data),
-                IsAuthorized = isAuthorized
-            };
+            //var log = new UseCaseLog
+            //{
+            //    User = _user.Identity,
+            //    ExecutionDateTime = DateTime.UtcNow,
+            //    UseCaseName = useCase.Name,
+            //    UserId = _user.Id,
+            //    Data = JsonConvert.SerializeObject(data),
+            //    IsAuthorized = isAuthorized
+            //};
 
-            _useCaseLogger.Log(log);
+            //_useCaseLogger.Log(log);
 
-            if (!isAuthorized)
-            {
-                throw new ForbiddenUseCaseExecutionException(useCase.Name, _user.Identity);
-            }
+            //if (!isAuthorized)
+            //{
+            //    throw new ForbiddenUseCaseExecutionException(useCase.Name, _user.Identity);
+            //}
         }
     }
 }

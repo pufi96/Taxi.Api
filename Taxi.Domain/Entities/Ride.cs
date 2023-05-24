@@ -9,7 +9,7 @@ namespace Taxi.Domain.Entities
     public class Ride : Entity
     {
         public bool IsLocal { get; set; }
-        public double Price { get; set; }
+        public double RidePrice { get; set; }
         public int? LocationPriceId { get; set; }
         
         public virtual LocationPrice LocationPrice { get; set; }

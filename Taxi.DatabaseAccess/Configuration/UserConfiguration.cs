@@ -34,9 +34,6 @@ namespace Taxi.DatabaseAccess.Configuration
                     .WithMany()
                     .HasForeignKey(x => x.UserRoleId)
                     .OnDelete(DeleteBehavior.Restrict);
-
-
-            builder.HasMany(x => x.UseCases).WithOne(x => x.User).HasForeignKey(x => x.UserId);
         }
     }
 }

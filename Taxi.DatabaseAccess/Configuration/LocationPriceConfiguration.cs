@@ -9,12 +9,12 @@ namespace Taxi.DatabaseAccess.Configuration
         protected override void ConfigureEntity(EntityTypeBuilder<LocationPrice> builder)
         {
             builder.HasOne(x => x.LocationStart)
-                    .WithMany()
+                    .WithMany(x => x.LocationPricesStart)
                     .HasForeignKey(x => x.LocationStartId)
                     .OnDelete(DeleteBehavior.Restrict);
-            
+
             builder.HasOne(x => x.LocationEnd)
-                    .WithMany()
+                    .WithMany(x => x.LocationPricesEnd)
                     .HasForeignKey(x => x.LocationEndId)
                     .OnDelete(DeleteBehavior.Restrict);
         }

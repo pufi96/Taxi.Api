@@ -11,20 +11,19 @@ using Taxi.DatabaseAccess;
 
 namespace Taxi.Implementation.UseCases.Queries
 {
-    public class EfSearchShiftQuery : ISearchShiftQuery
+    public class EfSearchShiftQuery : EfUseCase, ISearchShiftQuery
     {
         private TaxiDbContext _context;
 
-        public EfSearchShiftQuery(TaxiDbContext context)
+        public EfSearchShiftQuery(TaxiDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public int Id => 1;
+        public int Id => 10;
 
         public string Name => "Shifts Search";
 
-        public string Description => "Searching shifts";
+        public string Description => "Searching shifts using EF";
 
         public IEnumerable<ShiftDto> Execute(ShiftSearch search)
         {
@@ -62,7 +61,7 @@ namespace Taxi.Implementation.UseCases.Queries
                 {
                     Id = z.Id,
                     IsLocal = z.IsLocal,
-                    Price = z.Price,
+                    Price = z.RidePrice,
                     LocationPrice = new LocationPricesDto
                     {
                         Id = z.LocationPrice.Id,

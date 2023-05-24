@@ -9,5 +9,7 @@ namespace Taxi.Domain.Entities
     public class Role : Entity
     {
         public string RoleName { get; set; }
+
+        public virtual IEnumerable<RoleUseCase> RoleUseCases { get; set; } = new HashSet<RoleUseCase>();
     }
 }

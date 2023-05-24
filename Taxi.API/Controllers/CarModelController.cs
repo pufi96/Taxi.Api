@@ -21,142 +21,141 @@ namespace Taxi.API.Controllers
         TaxiDbContext _context;
 
         public CarModelController(TaxiDbContext context, IErrorLogger logger)
-            : base(logger)
         {
             _context = context;
         }
     
-        // GET: api/<CarModelController>
-        [HttpGet]
-        public IActionResult Get()
-        {
-            try
-            {
-                var query = _context.CarModels
-                                    .Include(x => x.CarBrand);
+        //// GET: api/<CarModelController>
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    try
+        //    {
+        //        var query = _context.CarModels
+        //                            .Include(x => x.CarBrand);
 
-                IEnumerable<CarModelDto> result = query.Select(x => new CarModelDto
-                {
-                    Id = x.Id,
-                    CarModelName = x.CarModelName,
-                    CarBrandId = x.CarBrandId
-                }).ToList();
+        //        IEnumerable<CarModelDto> result = query.Select(x => new CarModelDto
+        //        {
+        //            Id = x.Id,
+        //            CarModelName = x.CarModelName,
+        //            CarBrandId = x.CarBrandId
+        //        }).ToList();
 
-                return Ok(result);
-            }
+        //        return Ok(result);
+        //    }
 
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        return Error(ex);
+        //    }
+        //}
 
-        // GET api/<CarModelController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            try
-            {
-                var query = _context.CarModels
-                                    .Include(x => x.CarBrand);
+        //// GET api/<CarModelController>/5
+        //[HttpGet("{id}")]
+        //public IActionResult Get(int id)
+        //{
+        //    try
+        //    {
+        //        var query = _context.CarModels
+        //                            .Include(x => x.CarBrand);
 
-                IEnumerable<CarModelDto> result = query.Where(x => x.Id == id).Select(x => new CarModelDto
-                {
-                    Id = x.Id,
-                    CarModelName = x.CarModelName,
-                    CarBrandId = x.CarBrandId
-                }).ToList();
+        //        IEnumerable<CarModelDto> result = query.Where(x => x.Id == id).Select(x => new CarModelDto
+        //        {
+        //            Id = x.Id,
+        //            CarModelName = x.CarModelName,
+        //            CarBrandId = x.CarBrandId
+        //        }).ToList();
 
-                return Ok(result);
-            }
+        //        return Ok(result);
+        //    }
 
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        return Error(ex);
+        //    }
+        //}
 
-        // POST api/<CarModelController>
-        [HttpPost]
-        public IActionResult Post([FromBody] CreateCarModelDto dto, [FromServices] CreateCarModelValidator validator)
-        {
-            try
-            {
-                var result = validator.Validate(dto);
+        //// POST api/<CarModelController>
+        //[HttpPost]
+        //public IActionResult Post([FromBody] CreateCarModelDto dto, [FromServices] CreateCarModelValidator validator)
+        //{
+        //    try
+        //    {
+        //        var result = validator.Validate(dto);
 
-                if (!result.IsValid)
-                {
-                    return result.ToUnprocessableEntity();
-                }
+        //        if (!result.IsValid)
+        //        {
+        //            return result.ToUnprocessableEntity();
+        //        }
 
-                _context.CarModels.Add(new CarModel
-                {
-                    CarModelName = dto.CarModelName,
-                    CarBrandId = dto.CarBrandId
-                });
+        //        _context.CarModels.Add(new CarModel
+        //        {
+        //            CarModelName = dto.CarModelName,
+        //            CarBrandId = dto.CarBrandId
+        //        });
 
-                _context.SaveChanges();
+        //        _context.SaveChanges();
 
-                return StatusCode(201);
-            }
+        //        return StatusCode(201);
+        //    }
 
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        return Error(ex);
+        //    }
+        //}
 
-        // PUT api/<CarModelController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] CreateCarModelDto dto)
-        {
-            try
-            {
-                var carModel = _context.CarModels.Find(id);
-                if (carModel == null || carModel.IsActive)
-                {
-                    return NotFound();
-                }
+        //// PUT api/<CarModelController>/5
+        //[HttpPut("{id}")]
+        //public IActionResult Put(int id, [FromBody] CreateCarModelDto dto)
+        //{
+        //    try
+        //    {
+        //        var carModel = _context.CarModels.Find(id);
+        //        if (carModel == null || carModel.IsActive)
+        //        {
+        //            return NotFound();
+        //        }
 
-                carModel.CarModelName = dto.CarModelName;
-                carModel.CarBrandId = dto.CarBrandId;
-                carModel.EditedAt = DateTime.UtcNow;
+        //        carModel.CarModelName = dto.CarModelName;
+        //        carModel.CarBrandId = dto.CarBrandId;
+        //        carModel.EditedAt = DateTime.UtcNow;
 
-                _context.SaveChanges();
+        //        _context.SaveChanges();
 
-                return StatusCode(204);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
+        //        return StatusCode(204);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Error(ex);
+        //    }
+        //}
 
-        // DELETE api/<CarModelController>/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                var carModel = _context.CarModels.Find(id);
+        //// DELETE api/<CarModelController>/5
+        //[HttpDelete("{id}")]
+        //public IActionResult Delete(int id)
+        //{
+        //    try
+        //    {
+        //        var carModel = _context.CarModels.Find(id);
 
-                if(carModel == null || !carModel.IsActive)
-                {
-                    return NotFound();
-                }
+        //        if(carModel == null || !carModel.IsActive)
+        //        {
+        //            return NotFound();
+        //        }
 
-                carModel.IsActive = false;
-                carModel.DeletedAt = DateTime.UtcNow;
+        //        carModel.IsActive = false;
+        //        carModel.DeletedAt = DateTime.UtcNow;
 
-                _context.SaveChanges();
+        //        _context.SaveChanges();
 
-                return NoContent();
-            }
+        //        return NoContent();
+        //    }
 
-            catch (Exception ex)
-            {
-                return Error(ex);
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        return Error(ex);
+        //    }
+        //}
     }
 }

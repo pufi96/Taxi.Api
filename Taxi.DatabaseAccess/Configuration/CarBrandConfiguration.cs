@@ -15,6 +15,9 @@ namespace Taxi.DatabaseAccess.Configuration
             builder.Property(x => x.CarBrandName)
                     .IsRequired()
                     .HasMaxLength(20);
+
+            builder.HasIndex(x => x.CarBrandName)
+                    .IsUnique();
         }
     }
 }

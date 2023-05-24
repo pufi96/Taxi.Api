@@ -17,7 +17,7 @@ namespace Taxi.Domain.Entities
         public int MaintenaceTypeId { get; set; }
         public int CarId { get; set; }
 
-        public virtual MaintenaceType MaintenaceType { get; set; }
+        public virtual MaintenanceType MaintenaceType { get; set; }
         public virtual Car Car { get; set; }
     }
 }

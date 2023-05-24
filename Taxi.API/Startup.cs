@@ -16,8 +16,13 @@ using Taxi.API.DTO;
 using Taxi.API.ErrorLogging;
 using Taxi.API.Extensions;
 using Taxi.API.Vaidators;
+using Taxi.Application.Logging;
+using Taxi.Application.UseCases;
+using Taxi.Application.UseCases.Queries.Debtor;
 using Taxi.DatabaseAccess;
 using Taxi.Implementation;
+using Taxi.Implementation.Logging;
+using Taxi.Implementation.UseCases.Queries.EfDebtors;
 
 namespace Taxi.API
 {
@@ -31,14 +36,19 @@ namespace Taxi.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             var settings = new AppSettings();
 
             Configuration.Bind(settings);
 
+            services.AddAppUser();
+            AutoMapperConfiguration.InitAutoMapper();
+
             services.AddSingleton(settings);
             services.AddTaxiDbContext();
+            services.AddHttpContextAccessor();
             services.AddTransient<UseCaseHandler>();
 
             services.AddTransient<IErrorLogger, ConsoleErrorLogger>();
@@ -49,8 +59,14 @@ namespace Taxi.API
             //    return new TaxiDbContext(builder.Options);
             //});
 
+            services.AddTransient<IUseCaseLogger, EfUseCaseLogger>();
+            services.AddTransient<IGetDebtor, EfGetDebtorsQuery>();
+            services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
             services.AddTransient<CreateCarBrandValidator>();
             services.AddTransient<CreateCarModelValidator>();
+
+
+
 
             services.AddUseCases();
 

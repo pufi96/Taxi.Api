@@ -18,6 +18,9 @@ namespace Taxi.Domain.Configuration
                     .IsRequired()
                     .HasMaxLength(50);
 
+            builder.HasIndex(x => x.CarModelName)
+                    .IsUnique();
+
             builder.HasOne(x => x.CarBrand)
                     .WithMany()
                     .HasForeignKey(x => x.CarBrandId)

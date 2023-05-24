@@ -7,12 +7,16 @@ namespace Taxi.DatabaseAccess
 {
     public class TaxiDbContext : DbContext
     {
-        
+
 
         public TaxiDbContext(DbContextOptions options = null) : base(options)
         {
             Database.EnsureCreated();
         }
+
+        //public TaxiDbContext()
+        //{
+        //}
 
         public IApplicationUser User { get; }
 
@@ -22,19 +26,47 @@ namespace Taxi.DatabaseAccess
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(Entity).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
             modelBuilder.Entity<InDebted>().HasKey(x => new { x.RideId, x.DebtorId });
-            modelBuilder.Entity<UserUseCase>().HasKey(x => new { x.UserId, x.UseCaseId });
+            modelBuilder.Entity<RoleUseCase>().HasKey(x => new { x.RoleId, x.UseCaseId });
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is Entity e)
+                {
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            e.IsActive = true;
+                            break;
+                        case EntityState.Modified:
+                            e.EditedAt = DateTime.UtcNow;
+                            break;
+                        case EntityState.Deleted:
+                            entry.State = EntityState.Modified;
+                            e.IsActive = false;
+                            e.DeletedAt = DateTime.UtcNow;
+                            break;
+                    }
+                }
+            }
+
+            return base.SaveChanges();
+        }
+
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<CarBrand> CarBrands { get; set; }
         public DbSet<CarModel> CarModels { get; set; }
+        public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Maintenace> Maintenaces { get; set; }
-        public DbSet<MaintenaceType> MaintenaceTypes { get; set; }
+        public DbSet<MaintenanceType> MaintenaceTypes { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<DebtCollection> DebtCollections { get; set; }
         public DbSet<Debtor> Debtors { get; set;}
@@ -42,6 +74,6 @@ namespace Taxi.DatabaseAccess
         public DbSet<Location> Locations { get; set; }
         public DbSet<LocationPrice> LocationPrices { get; set; }
         public DbSet<Ride> Rides { get; set; }
-        public DbSet<UserUseCase> UserUseCases { get; set; }
+        public DbSet<RoleUseCase> RoleUseCases { get; set; }
     }
 }
