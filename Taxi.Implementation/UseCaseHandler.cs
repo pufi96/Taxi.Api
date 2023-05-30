@@ -51,7 +51,7 @@ namespace Taxi.Implementation
             }
         }
 
-        public TResponse HandleQuery<TRequest, TResponse>(IQuery<TRequest, TResponse> query, TRequest data)
+        public TResponse HandleQuery<TRequest, TResponse>(EfUseCase<TRequest, TResponse> query, TRequest data)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Taxi.Implementation
             }
         }
 
-        private void HandleLoggingAndAuthorization<TRequest>(IUseCase useCase, TRequest data)
+        private void HandleLoggingAndAuthorization<TRequest>(EfUseCase useCase, TRequest data)
         {
             //var isAuthorized = _user.UseCaseIds.Contains(useCase.Id);
 

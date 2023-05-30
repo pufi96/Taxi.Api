@@ -13,14 +13,14 @@ namespace Taxi.DatabaseAccess.Configuration
                     .HasDefaultValueSql("GETDATE()");
 
             builder.HasOne(x => x.User)
-                    .WithMany()
+                    .WithMany(x => x.Shifts)
                     .HasForeignKey(x => x.UserId)
                     .OnDelete(DeleteBehavior.Restrict);
             
             builder.HasOne(x => x.Car)
-                    .WithMany()
+                    .WithMany(x => x.Shifts)
                     .HasForeignKey(x => x.CarId)
-                    .OnDelete(DeleteBehavior.Restrict);                    
+                    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

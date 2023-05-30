@@ -11,16 +11,6 @@ namespace Taxi.DatabaseAccess.Configuration
             builder.Property(x => x.LocationName)
                     .IsRequired()
                     .HasMaxLength(50);
-
-            builder.HasMany(x => x.LocationPricesStart)
-                    .WithOne(x => x.LocationStart)
-                    .HasForeignKey(x => x.LocationStartId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasMany(x => x.LocationPricesEnd)
-                    .WithOne(x => x.LocationEnd)
-                    .HasForeignKey(x => x.LocationEndId)
-                    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -17,5 +17,6 @@ namespace Taxi.Domain.Entities
         public int UserRoleId { get; set; }
 
         public virtual Role UserRole { get; set; }
+        public virtual ICollection<Shift> Shifts { get; set;} = new HashSet<Shift>();
     }
 }

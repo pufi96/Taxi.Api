@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Taxi.Application.UseCases
 {
-    public interface ICommand<TRequest> : IUseCase
+    public interface ICommand<TRequest> : EfUseCase
     {
         void Execute(TRequest request);
     }

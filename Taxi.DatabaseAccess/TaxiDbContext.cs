@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using Taxi.DatabaseAccess.Configuration;
 using Taxi.Domain;
 using Taxi.Domain.Entities;
 
@@ -20,15 +21,15 @@ namespace Taxi.DatabaseAccess
 
         public IApplicationUser User { get; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-            modelBuilder.Entity<InDebted>().HasKey(x => new { x.RideId, x.DebtorId });
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityConfiguration<>).Assembly);
             modelBuilder.Entity<RoleUseCase>().HasKey(x => new { x.RoleId, x.UseCaseId });
+            modelBuilder.Entity<InDebted>().HasKey(x => new { x.RideId, x.DebtorId });
 
             base.OnModelCreating(modelBuilder);
         }
@@ -65,8 +66,8 @@ namespace Taxi.DatabaseAccess
         public DbSet<CarModel> CarModels { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<Maintenace> Maintenaces { get; set; }
-        public DbSet<MaintenanceType> MaintenaceTypes { get; set; }
+        public DbSet<Maintenance> Maintenances { get; set; }
+        public DbSet<MaintenanceType> MaintenanceTypes { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<DebtCollection> DebtCollections { get; set; }
         public DbSet<Debtor> Debtors { get; set;}

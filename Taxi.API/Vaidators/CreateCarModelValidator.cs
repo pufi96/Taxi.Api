@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using System.Linq;
-using Taxi.API.DTO;
+using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
 
 namespace Taxi.API.Vaidators

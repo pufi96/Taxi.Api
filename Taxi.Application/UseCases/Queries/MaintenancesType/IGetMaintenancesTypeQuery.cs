@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.MaintenacesType
 {
-    public interface IGetMaintenanceTypeQuery : IQuery<BaseSearch, IEnumerable<MaintenanceTypeDto>>
+    public interface IGetMaintenanceTypesQuery : EfUseCase<BaseSearch, IEnumerable<MaintenanceTypeDto>>
     {
     }
 }

@@ -60,7 +60,7 @@ namespace Taxi.API
             //});
 
             services.AddTransient<IUseCaseLogger, EfUseCaseLogger>();
-            services.AddTransient<IGetDebtor, EfGetDebtorsQuery>();
+            services.AddTransient<IGetDebtorsQuery, EfGetDebtorsQuery>();
             services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
             services.AddTransient<CreateCarBrandValidator>();
             services.AddTransient<CreateCarModelValidator>();

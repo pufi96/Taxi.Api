@@ -15,11 +15,6 @@ namespace Taxi.DatabaseAccess.Configuration
         {
             builder.Property(x => x.DebtCollectionPrice)
                     .IsRequired();
-
-            //builder.HasOne(x => x.Debtor)
-            //        .WithMany()
-            //        .HasForeignKey(x => x.DebtorId)
-            //        .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

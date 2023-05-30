@@ -7,11 +7,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.API", "Taxi.API\Taxi.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.DatabaseAccess", "Taxi.DatabaseAccess\Taxi.DatabaseAccess.csproj", "{6AFF949D-09E3-4AD3-8B4A-134CC9E204F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi.Domain", "Taxi.Domain\Taxi.Domain.csproj", "{7DB257F9-F3C1-43DE-B5DE-AC2F319F101F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.Domain", "Taxi.Domain\Taxi.Domain.csproj", "{7DB257F9-F3C1-43DE-B5DE-AC2F319F101F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi.Application", "Taxi.Application\Taxi.Application.csproj", "{AACAD51A-313A-4804-805A-9C8B101F3E8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.Application", "Taxi.Application\Taxi.Application.csproj", "{AACAD51A-313A-4804-805A-9C8B101F3E8C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AFF949D-09E3-4AD3-8B4A-134CC9E204F4} = {6AFF949D-09E3-4AD3-8B4A-134CC9E204F4}
+		{7DB257F9-F3C1-43DE-B5DE-AC2F319F101F} = {7DB257F9-F3C1-43DE-B5DE-AC2F319F101F}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi.Implementation", "Taxi.Implementation\Taxi.Implementation.csproj", "{2BD852F4-6816-47B3-B4C3-E21B057492A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.Implementation", "Taxi.Implementation\Taxi.Implementation.csproj", "{2BD852F4-6816-47B3-B4C3-E21B057492A3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7DB257F9-F3C1-43DE-B5DE-AC2F319F101F} = {7DB257F9-F3C1-43DE-B5DE-AC2F319F101F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

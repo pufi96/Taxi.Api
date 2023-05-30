@@ -22,7 +22,7 @@ namespace Taxi.DatabaseAccess.Configuration
                     .HasMaxLength(20);
 
             builder.HasOne(x => x.CarModel)
-                    .WithMany()
+                    .WithMany(x => x.Cars)
                     .HasForeignKey(x => x.CarModelId)
                     .OnDelete(DeleteBehavior.Restrict);
 

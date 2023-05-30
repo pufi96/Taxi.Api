@@ -31,7 +31,7 @@ namespace Taxi.DatabaseAccess.Configuration
                     .HasMaxLength(50);
 
             builder.HasOne(x => x.UserRole)
-                    .WithMany()
+                    .WithMany(x => x.Users)
                     .HasForeignKey(x => x.UserRoleId)
                     .OnDelete(DeleteBehavior.Restrict);
         }

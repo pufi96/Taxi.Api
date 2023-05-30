@@ -14,5 +14,6 @@ namespace Taxi.Domain.Entities
 
         public virtual Location LocationStart { get; set; }
         public virtual Location LocationEnd { get; set; }
+        public virtual ICollection<Ride> Rides { get; set; } = new HashSet<Ride>();
     }
 }

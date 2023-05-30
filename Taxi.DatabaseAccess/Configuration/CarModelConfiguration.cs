@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Taxi.Domain.Entities;
-using Taxi.DatabaseAccess.Configuration;
 
-namespace Taxi.Domain.Configuration
+namespace Taxi.DatabaseAccess.Configuration
 {
     public class CarModelConfiguration : EntityConfiguration<CarModel>
     {
@@ -22,7 +21,7 @@ namespace Taxi.Domain.Configuration
                     .IsUnique();
 
             builder.HasOne(x => x.CarBrand)
-                    .WithMany()
+                    .WithMany(x => x.CarModels)
                     .HasForeignKey(x => x.CarBrandId)
                     .OnDelete(DeleteBehavior.Restrict);
         }

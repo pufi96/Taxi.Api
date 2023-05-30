@@ -9,5 +9,7 @@ namespace Taxi.Domain.Entities
     public class CarBrand : Entity
     {
         public string CarBrandName { get; set; }
+
+        public virtual ICollection<CarModel> CarModels { get; set; } = new HashSet<CarModel>();
     }
 }

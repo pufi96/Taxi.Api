@@ -30,7 +30,7 @@ namespace Taxi.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] BaseSearch search, [FromServices] IGetDebtor query)
+        public IActionResult Get([FromQuery] BaseSearch search, [FromServices] IGetDebtorsQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
         }

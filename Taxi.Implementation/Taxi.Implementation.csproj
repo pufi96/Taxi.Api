@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Taxi.Application\Taxi.Application.csproj" />
     <ProjectReference Include="..\Taxi.DatabaseAccess\Taxi.DatabaseAccess.csproj" />
+    <ProjectReference Include="..\Taxi.Domain\Taxi.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

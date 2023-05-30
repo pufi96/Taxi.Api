@@ -12,5 +12,6 @@ namespace Taxi.Domain.Entities
         public int CarBrandId { get; set; }
 
         public virtual CarBrand CarBrand { get; set; }
+        public virtual ICollection<Car> Cars { get; set; } = new HashSet<Car>();
     }
 }

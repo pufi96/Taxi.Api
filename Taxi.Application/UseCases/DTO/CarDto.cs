@@ -18,8 +18,7 @@ namespace Taxi.Application.UseCases.DTO
         public int HorsePower { get; set; }
         public string FuelType { get; set; }
         public int CarModelId { get; set; }
-        public IEnumerable<MaintenanceDto>? MaintenanceDtos { get; set; }
-        public int CarBrandId { get; set; }
+        public IEnumerable<MaintenanceDto> MaintenanceDtos { get; set; }
     }
     public class CreateCarDto 
     {

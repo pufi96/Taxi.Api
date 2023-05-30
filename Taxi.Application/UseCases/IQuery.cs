@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Taxi.Application.UseCases
 {
-    public interface IQuery<TSearch, TResult> : IUseCase
+    public interface EfUseCase<TSearch, TResult> : EfUseCase
     {
         TResult Execute(TSearch search);
     }

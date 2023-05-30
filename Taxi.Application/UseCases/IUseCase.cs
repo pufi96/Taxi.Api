@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Taxi.Application.UseCases
 {
-    public interface IUseCase
+    public interface EfUseCase
     {
         int Id { get; }
         string Name { get; }

@@ -9,6 +9,7 @@ namespace Taxi.Domain.Entities
     public class MaintenanceType : Entity
     {
         public string MaintenanceTypeName { get; set; }
-                      
+
+        public virtual ICollection<Maintenance> Maintenances { get; set; } = new HashSet<Maintenance>();
     }
 }

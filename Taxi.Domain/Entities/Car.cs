@@ -17,10 +17,12 @@ namespace Taxi.Domain.Entities
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
         public int FuelTypeId { get; set; }
-        public string ImageFileName{ get; set; }
+        public string ImageFilePath{ get; set; }
         public int CarModelId { get; set; }
 
         public virtual FuelType FuelType { get; set; }
         public virtual CarModel CarModel { get; set; }
+        public virtual ICollection<Maintenance> Maintenances { get; set; } = new HashSet<Maintenance>();
+        public virtual ICollection<Shift> Shifts { get; set; } = new HashSet<Shift>();
     }
 }

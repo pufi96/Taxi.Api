@@ -8,9 +8,9 @@ namespace Taxi.Application.UseCases.Queries.Searches
 {
     public class MaintenaceSearch
     {
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
-        public int Price { get; set; }
-        public int Mileage { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
+        public int? Price { get; set; }
+        public int? Mileage { get; set; }
     }
 }
