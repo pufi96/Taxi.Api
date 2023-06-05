@@ -5,16 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.Application;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.CarModel;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.DatabaseAccess;
+using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Queries.EfCarModel
 {
     public class EfGetCarModelsQuery : EfUseCase, IGetCarModelsQuery
     {
-        public EfGetCarModelsQuery(TaxiDbContext context) : base(context)
+        public EfGetCarModelsQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
         {
         }
 

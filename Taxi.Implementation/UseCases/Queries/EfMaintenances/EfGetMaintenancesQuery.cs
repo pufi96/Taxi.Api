@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.Application;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.FuelType;
 using Taxi.Application.UseCases.Queries.Maintenance;
@@ -14,7 +15,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfMaintenances
 {
     public class EfGetMaintenancesQuery : EfUseCase, IGetMaintenancesQuery
     {
-        public EfGetMaintenancesQuery(TaxiDbContext context) : base(context)
+        public EfGetMaintenancesQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
         {
         }
 

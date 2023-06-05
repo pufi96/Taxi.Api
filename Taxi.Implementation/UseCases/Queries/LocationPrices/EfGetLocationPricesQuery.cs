@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.Application;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Car;
 using Taxi.Application.UseCases.Queries.LocationPrice;
@@ -13,9 +14,9 @@ using Taxi.DatabaseAccess;
 
 namespace Taxi.Implementation.UseCases.Queries.LocationPrices
 {
-    public class EfGetLocationPricesQuery : EfUseCase, IGetLocationPriceQuery
+    public class EfGetLocationPricesQuery : EfUseCase, IGetLocationPricesQuery
     {
-        public EfGetLocationPricesQuery(TaxiDbContext context) : base(context)
+        public EfGetLocationPricesQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
         {
         }
 

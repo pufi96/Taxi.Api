@@ -11,19 +11,16 @@ namespace Taxi.Application.UseCases.DTO
         public string DebtorFirstName { get; set; }
         public string DebtorLastName { get; set; }
         public string Description { get; set; }
-        public IEnumerable<DebtCollectionsDto> DebtCollections { get; set; }
+        public IEnumerable<DebtCollectionDto> DebtCollections { get; set; }
         public IEnumerable<RideDto> Rides { get; set; }
     }
-    public class DebtCollectionsDto : DebtCollectionDto
-    {
-        public DateTime CreatedAt { get; set; }
-    }
-    
-
-    public class CreateDebtDto
+  
+    public class CreateDebtorDto
     {
         public string DebtorFirstName { get; set; }
         public string DebtorLastName { get; set; }
         public string Description { get; set; }
+        public IEnumerable<DebtCollectionDto> DebtCollections { get; set; }
+        public IEnumerable<RideDto> Rides { get; set; }
     }
 }

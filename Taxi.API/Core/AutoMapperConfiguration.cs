@@ -17,7 +17,7 @@ namespace Taxi.API.Core
 
                 config.CreateMap<InDebted, RideDto>()
                         .ForMember(dest => dest.IsLocal, opt => opt.MapFrom(src => src.Ride.IsLocal))
-                        .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Ride.RidePrice))
+                        .ForMember(dest => dest.RidePrice, opt => opt.MapFrom(src => src.Ride.RidePrice))
                         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Ride.Id))
                         .ForMember(dest => dest.LocationPrice, opt => opt.MapFrom(src => src.Ride.LocationPrice));
 

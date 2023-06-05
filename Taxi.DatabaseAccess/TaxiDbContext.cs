@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using Taxi.DatabaseAccess.Configuration;
-using Taxi.Domain;
 using Taxi.Domain.Entities;
 
 namespace Taxi.DatabaseAccess
@@ -15,11 +14,10 @@ namespace Taxi.DatabaseAccess
             Database.EnsureCreated();
         }
 
-        //public TaxiDbContext()
-        //{
-        //}
+        public TaxiDbContext()
+        {
+        }
 
-        public IApplicationUser User { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

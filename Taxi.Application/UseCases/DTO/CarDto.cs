@@ -13,10 +13,11 @@ namespace Taxi.Application.UseCases.DTO
         public int Mileage { get; set; }
         public string Description { get; set; }
         public string Color { get; set; }
-        public int ChassisNumber { get; set; }
+        public string ChassisNumber { get; set; }
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
-        public string FuelType { get; set; }
+        public string ImageFilePath { get; set; }
+        public int FuelTypeId { get; set; }
         public int CarModelId { get; set; }
         public IEnumerable<MaintenanceDto> MaintenanceDtos { get; set; }
     }
@@ -27,10 +28,12 @@ namespace Taxi.Application.UseCases.DTO
         public int Mileage { get; set; }
         public string Description { get; set; }
         public string Color { get; set; }
-        public int ChassisNumber { get; set; }
+        public string ChassisNumber { get; set; }
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
-        public string FuelType { get; set; }
+        public string ImageFilePath { get; set; }
+        public int FuelTypeId { get; set; }
         public int CarModelId { get; set; }
+        public IEnumerable<MaintenanceDto> MaintenanceDtos { get; set; }
     }
 }

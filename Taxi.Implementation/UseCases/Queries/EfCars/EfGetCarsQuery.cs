@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.Application;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Car;
 using Taxi.Application.UseCases.Queries.Searches;
@@ -14,7 +15,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfCars
 {
     public class EfGetCarsQuery : EfUseCase, IGetCarsQuery
     {
-        public EfGetCarsQuery(TaxiDbContext context) : base(context)
+        public EfGetCarsQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
         {
         }
 

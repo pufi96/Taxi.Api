@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.MaintenanceType
 {
-    public interface IFindMaintenanceTypesQuery : EfUseCase<int, MaintenanceTypeDto>
+    public interface IFindMaintenanceTypeQuery : EfUseCase<int, MaintenanceTypeDto>
     {
     }
 }

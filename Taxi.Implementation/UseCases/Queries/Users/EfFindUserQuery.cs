@@ -1,0 +1,42 @@
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Taxi.Application;
+using Taxi.Application.Exceptions;
+using Taxi.Application.UseCases.DTO;
+using Taxi.Application.UseCases.Queries.User;
+using Taxi.DatabaseAccess;
+using Taxi.Domain.Entities;
+
+namespace Taxi.Implementation.UseCases.Queries.Users
+{
+    public class EfFindUserQuery : EfUseCase, IFindUserQuery
+    {
+        public EfFindUserQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+        {
+        }
+
+        public int Id => 26;
+
+        public string Name => "Find User";
+
+        public string Description => "Find User";
+
+        public UserDto Execute(int id)
+        {
+            var query = Context.Users.FirstOrDefault(x => x.Id == id & x.IsActive);
+
+            if (query == null)
+            {
+                throw new EntityNotFoundException(nameof(User), id);
+            }
+
+            UserDto result = Mapper.Map<UserDto>(query);
+
+            return result;
+        }
+    }
+}

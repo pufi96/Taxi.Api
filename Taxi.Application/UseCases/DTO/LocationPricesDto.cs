@@ -8,14 +8,14 @@ namespace Taxi.Application.UseCases.DTO
 {
     public class LocationPricesDto : BaseDto
     {
-        public string LocationStart { get; set; }
-        public string LocationEnd { get; set; }
+        public int LocationStartId { get; set; }
+        public int LocationEndId { get; set; }
         public double Price { get; set; }
     }
     public class CreateLocationPricesDto
     {
-        public string LocationStart { get; set; }
-        public string LocationEnd { get; set; }
+        public int LocationStartId { get; set; }
+        public int LocationEndId { get; set; }
         public double Price { get; set; }
     }
 }

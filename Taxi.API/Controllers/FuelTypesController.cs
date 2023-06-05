@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Taxi.Application.UseCases.Queries.CarModel;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Taxi.Application.UseCases.Queries.FuelType;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Implementation;
@@ -10,10 +10,10 @@ namespace Taxi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FuelTypesController : ControllerBase
     {
         private UseCaseHandler _handler;
-
         public FuelTypesController(UseCaseHandler handler)
         {
             _handler = handler;
@@ -27,27 +27,9 @@ namespace Taxi.API.Controllers
 
         // GET api/<FuelTypesController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id, [FromServices] IFindFuelTypesQuery query)
+        public IActionResult Get(int id, [FromServices] IFindFuelTypeQuery query)
         {
             return Ok(_handler.HandleQuery(query, id));
-        }
-
-        // POST api/<FuelTypesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<FuelTypesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<FuelTypesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

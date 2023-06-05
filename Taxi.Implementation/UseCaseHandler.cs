@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Taxi.Application;
 using Taxi.Application.Exceptions;
 using Taxi.Application.Logging;
 using Taxi.Application.UseCases;

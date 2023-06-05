@@ -5,11 +5,11 @@ namespace Taxi.Application.UseCases.DTO
     public class CarModelDto : BaseDto
     {
         public string CarModelName { get; set; }
-        public int CarBrandId { get; set; }
+        public int? CarBrandId { get; set; }
     }
     public class CreateCarModelDto
     {
         public string CarModelName { get; set; }
-        public int CarBrandId { get; set; }
+        public int? CarBrandId { get; set; }
     }
 }

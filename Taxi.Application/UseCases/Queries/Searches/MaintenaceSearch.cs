@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Taxi.Application.UseCases.Queries.Searches
 {
-    public class MaintenaceSearch
+    public class MaintenaceSearch : PagedSearch
     {
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }

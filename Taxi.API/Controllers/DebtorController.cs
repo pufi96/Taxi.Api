@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc; 
+using Taxi.Application.UseCases.Commands.Debtor;
+using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Debtor;
-using Taxi.Application.UseCases.Queries.ICarBrand;
-using Taxi.Application.UseCases.Queries.ICarBrandQuery;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Implementation;
 
@@ -12,6 +12,7 @@ namespace Taxi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DebtorController : ControllerBase
     {
         private UseCaseHandler _handler;
@@ -29,27 +30,27 @@ namespace Taxi.API.Controllers
 
         // GET api/<DebtorController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id, [FromServices] IFindDebtorsQuery query)
+        public IActionResult Get(int id, [FromServices] IFindDebtorQuery query)
         {
             return Ok(_handler.HandleQuery(query, id));
         }
 
         // POST api/<DebtorController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] CreateDebtorDto request, [FromServices] ICreateDebtorCommand command)
         {
+            _handler.HandleCommand(command, request);
+            return StatusCode(201);
         }
 
         // PUT api/<DebtorController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] DebtorDto request, [FromServices] IEditDebtorCommand command)
         {
+            request.Id = id;
+            _handler.HandleCommand(command, request);
+            return StatusCode(204);
         }
 
-        // DELETE api/<DebtorController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

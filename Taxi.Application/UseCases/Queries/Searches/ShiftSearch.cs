@@ -2,7 +2,7 @@
 
 namespace Taxi.Application.UseCases.Queries.Searches
 {
-    public class ShiftSearch
+    public class ShiftSearch : PagedSearch
     {
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }

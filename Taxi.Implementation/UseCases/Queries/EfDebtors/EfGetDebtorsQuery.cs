@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.Application;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Debtor;
 using Taxi.Application.UseCases.Queries.ICarBrandQuery;
@@ -15,7 +16,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfDebtors
 {
     public class EfGetDebtorsQuery : EfUseCase, IGetDebtorsQuery
     {
-        public EfGetDebtorsQuery(TaxiDbContext context) : base(context)
+        public EfGetDebtorsQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
         {
         }
 
@@ -30,6 +31,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfDebtors
             var query = Context.Debtors.Include(x => x.DebtCollections)
                                         .Include(x => x.InDebteds).ThenInclude(x => x.Ride)
                                         .AsQueryable();
+
             //if (search.Keyword != null)
             //{
             //    query = query.Where(x => x.CarBrandName.Contains(search.Keyword));

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +24,20 @@ namespace Taxi.API.Controllers
                 new Role { RoleName = "Driver" }
             };
 
-            var roleUseCase = new List<RoleUseCase>
+            var masterRole = new List<RoleUseCase>();
+            for (int i = 0; i < 50; i++)
             {
-                new RoleUseCase { Role = role.ElementAt(0), UseCaseId = 1 },
-                new RoleUseCase { Role = role.ElementAt(0), UseCaseId = 2 },
-            };
+                masterRole[i] = new RoleUseCase { Role = role.ElementAt(0), UseCaseId = i };
+            }
+            int[] driverUseCases = { 7, 8, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 34, 44};
+            var driverRole = new List<RoleUseCase>();
+            for (int i = 0;i < driverUseCases.Length; i++)
+            {
+                driverRole[i] = new RoleUseCase { Role = role.ElementAt(0), UseCaseId = driverUseCases[i] };
+            }
+            var roleUseCase = new List<RoleUseCase>();
+            roleUseCase.AddRange(masterRole);
+            roleUseCase.AddRange(driverRole);
 
             var user = new List<User>
             {
@@ -62,8 +70,8 @@ namespace Taxi.API.Controllers
 
             var car = new List<Car>
             {
-                new Car { CarModel = carModel.ElementAt(0), ChassisNumber = 1, Color = "Blue", Description = "NOV NOV NOV", EngineVolume = 1200, HorsePower = 80, FuelType = fuelType.ElementAt(0), Mileage = 0, ImageFilePath = "img1.png", Registration = "BC 0001 BC", ValidityOfRegistration = DateTime.UtcNow},
-                new Car { CarModel = carModel.ElementAt(1), ChassisNumber = 2, Color = "Black", Description = "Ne radi", EngineVolume = 1200, HorsePower = 180, FuelType = fuelType.ElementAt(1), Mileage = 100000, ImageFilePath = "img2.png", Registration = "BC 0002 BC", ValidityOfRegistration = DateTime.UtcNow}
+                new Car { CarModel = carModel.ElementAt(0), ChassisNumber = "1", Color = "Blue", Description = "NOV NOV NOV", EngineVolume = 1200, HorsePower = 80, FuelType = fuelType.ElementAt(0), Mileage = 0, ImageFilePath = "img1.png", Registration = "BC 0001 BC", ValidityOfRegistration = DateTime.UtcNow},
+                new Car { CarModel = carModel.ElementAt(1), ChassisNumber = "2", Color = "Black", Description = "Ne radi", EngineVolume = 1200, HorsePower = 180, FuelType = fuelType.ElementAt(1), Mileage = 100000, ImageFilePath = "img2.png", Registration = "BC 0002 BC", ValidityOfRegistration = DateTime.UtcNow}
             };
 
             var maintenanceType = new List<MaintenanceType>
@@ -130,8 +138,8 @@ namespace Taxi.API.Controllers
             context.CarModels.AddRange(carModel);
             context.FuelTypes.AddRange(fuelType);
             context.Cars.AddRange(car);
-            context.MaintenaceTypes.AddRange(maintenanceType);
-            context.Maintenaces.AddRange(maintenance);
+            context.MaintenanceTypes.AddRange(maintenanceType);
+            context.Maintenances.AddRange(maintenance);
             context.Shifts.AddRange(shift);
             context.Locations.AddRange(location);
             context.LocationPrices.AddRange(locationPrice);

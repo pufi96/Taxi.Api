@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Taxi.DatabaseAccess\Taxi.DatabaseAccess.csproj" />
     <ProjectReference Include="..\Taxi.Domain\Taxi.Domain.csproj" />
   </ItemGroup>

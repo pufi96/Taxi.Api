@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Taxi.Application.UseCases.Commands.Car;
+using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Car;
-using Taxi.Application.UseCases.Queries.ICarBrand;
-using Taxi.Application.UseCases.Queries.ICarBrandQuery;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Implementation;
 
@@ -12,6 +12,7 @@ namespace Taxi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CarController : ControllerBase
     {
         private UseCaseHandler _handler;
@@ -29,27 +30,34 @@ namespace Taxi.API.Controllers
 
         // GET api/<CarController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id, [FromServices] IFindCarsQuery query)
+        public IActionResult Get(int id, [FromServices] IFindCarQuery query)
         {
             return Ok(_handler.HandleQuery(query, id));
         }
 
         // POST api/<CarController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] CreateCarDto request, [FromServices] ICreateCarCommand command)
         {
+            _handler.HandleCommand(command, request);
+            return StatusCode(201);
         }
 
         // PUT api/<CarController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] CarDto request, [FromServices] IEditCarCommand command)
         {
+            request.Id = id;
+            _handler.HandleCommand(command, request);
+            return StatusCode(204);
         }
 
         // DELETE api/<CarController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id, [FromServices] IDeleteCarCommand command)
         {
+            _handler.HandleCommand(command, id);
+            return StatusCode(204);
         }
     }
 }

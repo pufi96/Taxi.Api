@@ -17,9 +17,6 @@ namespace Taxi.DatabaseAccess.Configuration
                     .IsRequired()
                     .HasMaxLength(50);
 
-            builder.HasIndex(x => x.CarModelName)
-                    .IsUnique();
-
             builder.HasOne(x => x.CarBrand)
                     .WithMany(x => x.CarModels)
                     .HasForeignKey(x => x.CarBrandId)
