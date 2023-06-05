@@ -21,8 +21,8 @@ namespace Taxi.Implementation.Validators
 
             RuleFor(x => x.CarModelName).NotEmpty().WithMessage("Car model name is required.");
 
-            RuleFor(x => x.CarBrandId).NotEmpty().WithMessage("Car brand id is required.")
-                                      .Must(CarBrandNotFound).WithMessage("Car model for edit is not found.");
+            RuleFor(x => x.CarBrand).NotEmpty().WithMessage("Car brand id is required.")
+                                      .Must(CarBrandNotFound).WithMessage("Car brand is not found.");
             _context = context;
         }
         private bool CarModelNotFound(int Id)
@@ -31,9 +31,9 @@ namespace Taxi.Implementation.Validators
             return exists;
         }
 
-        private bool CarBrandNotFound(int? CarBrandId)
+        private bool CarBrandNotFound(CarBrandDto carBrand)
         {
-            var exists = _context.CarBrands.Any(x => x.Id == CarBrandId && x.IsActive);
+            var exists = _context.CarBrands.Any(x => x.Id == carBrand.Id);
             return exists;
         }
     }

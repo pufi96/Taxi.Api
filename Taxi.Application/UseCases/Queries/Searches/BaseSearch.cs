@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Taxi.Application.UseCases.Queries.Searches
 {
-    public class BaseSearch
+    public class BaseSearch : PagedSearch
     {
         public string Keyword { get; set; }
     }

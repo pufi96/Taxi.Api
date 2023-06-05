@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Commands.Maintenance
 {
-    public interface IEditMaintenanceCommand : ICommand<MaintenanceDto>
+    public interface IEditMaintenanceCommand : ICommand<MaintenanceDtoCar>
     {
     }
 }

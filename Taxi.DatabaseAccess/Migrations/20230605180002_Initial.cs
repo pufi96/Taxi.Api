@@ -78,7 +78,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MaintenaceTypes",
+                name: "MaintenanceTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -91,7 +91,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MaintenaceTypes", x => x.Id);
+                    table.PrimaryKey("PK_MaintenanceTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -248,7 +248,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     Mileage = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Color = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ChassisNumber = table.Column<int>(type: "int", nullable: false),
+                    ChassisNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EngineVolume = table.Column<double>(type: "float", nullable: false),
                     HorsePower = table.Column<int>(type: "int", nullable: false),
                     FuelTypeId = table.Column<int>(type: "int", nullable: false),
@@ -277,7 +277,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Maintenaces",
+                name: "Maintenances",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -296,19 +296,19 @@ namespace Taxi.DatabaseAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Maintenaces", x => x.Id);
+                    table.PrimaryKey("PK_Maintenances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Maintenaces_Cars_CarId",
+                        name: "FK_Maintenances_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Maintenaces_MaintenaceTypes_MaintenaceTypeId",
+                        name: "FK_Maintenances_MaintenanceTypes_MaintenaceTypeId",
                         column: x => x.MaintenaceTypeId,
-                        principalTable: "MaintenaceTypes",
+                        principalTable: "MaintenanceTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -359,7 +359,6 @@ namespace Taxi.DatabaseAccess.Migrations
                     RidePrice = table.Column<double>(type: "float", nullable: false),
                     LocationPriceId = table.Column<int>(type: "int", nullable: true),
                     ShiftId = table.Column<int>(type: "int", nullable: false),
-                    ShiftId1 = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -377,12 +376,6 @@ namespace Taxi.DatabaseAccess.Migrations
                     table.ForeignKey(
                         name: "FK_Rides_Shifts_ShiftId",
                         column: x => x.ShiftId,
-                        principalTable: "Shifts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Rides_Shifts_ShiftId1",
-                        column: x => x.ShiftId1,
                         principalTable: "Shifts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -424,12 +417,6 @@ namespace Taxi.DatabaseAccess.Migrations
                 column: "CarBrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarModels_CarModelName",
-                table: "CarModels",
-                column: "CarModelName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Cars_CarModelId",
                 table: "Cars",
                 column: "CarModelId");
@@ -460,18 +447,18 @@ namespace Taxi.DatabaseAccess.Migrations
                 column: "LocationStartId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Maintenaces_CarId",
-                table: "Maintenaces",
+                name: "IX_Maintenances_CarId",
+                table: "Maintenances",
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Maintenaces_MaintenaceTypeId",
-                table: "Maintenaces",
+                name: "IX_Maintenances_MaintenaceTypeId",
+                table: "Maintenances",
                 column: "MaintenaceTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MaintenaceTypes_MaintenanceTypeName",
-                table: "MaintenaceTypes",
+                name: "IX_MaintenanceTypes_MaintenanceTypeName",
+                table: "MaintenanceTypes",
                 column: "MaintenanceTypeName",
                 unique: true);
 
@@ -484,11 +471,6 @@ namespace Taxi.DatabaseAccess.Migrations
                 name: "IX_Rides_ShiftId",
                 table: "Rides",
                 column: "ShiftId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rides_ShiftId1",
-                table: "Rides",
-                column: "ShiftId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_RoleName",
@@ -534,7 +516,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 name: "InDebteds");
 
             migrationBuilder.DropTable(
-                name: "Maintenaces");
+                name: "Maintenances");
 
             migrationBuilder.DropTable(
                 name: "RoleUseCases");
@@ -546,7 +528,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 name: "Rides");
 
             migrationBuilder.DropTable(
-                name: "MaintenaceTypes");
+                name: "MaintenanceTypes");
 
             migrationBuilder.DropTable(
                 name: "LocationPrices");

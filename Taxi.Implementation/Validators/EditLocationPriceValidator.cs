@@ -24,10 +24,10 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.Price).NotEmpty().WithMessage("Price is required.")
                                         .Must(PositiveNumber).WithMessage("Price must be positive number.");
 
-            RuleFor(x => x.LocationStartId).NotEmpty().WithMessage("Start location is required.")
+            RuleFor(x => x.LocationStart).NotEmpty().WithMessage("Start location is required.")
                                       .Must(LocationNotExsist).WithMessage("Start location doesn't exsist.");
 
-            RuleFor(x => x.LocationEndId).NotEmpty().WithMessage("End location is required.")
+            RuleFor(x => x.LocationEnd).NotEmpty().WithMessage("End location is required.")
                                       .Must(LocationNotExsist).WithMessage("End location doesn't exsist.");
         }
         private bool LocationPriceNotFound(int Id)
@@ -35,9 +35,9 @@ namespace Taxi.Implementation.Validators
             var exists = _context.LocationPrices.Any(x => x.Id == Id && x.IsActive);
             return exists;
         }
-        private bool LocationNotExsist(int id)
+        private bool LocationNotExsist(string locationName)
         {
-            var exists = _context.Locations.Any(x => x.Id == id && x.IsActive);
+            var exists = _context.Locations.Any(x => x.LocationName == locationName && x.IsActive);
             return exists;
         }
         private bool PositiveNumber(double positive)

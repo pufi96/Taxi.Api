@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
@@ -16,7 +17,7 @@ namespace Taxi.Implementation.Validators
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
-            RuleFor(x => x.CarId).NotEmpty().WithMessage("Car is required.")
+            RuleFor(x => x.Car).NotEmpty().WithMessage("Car is required.")
                                     .Must(CarDoesntExsist).WithMessage("Car doesn't exsist.");
 
             RuleFor(x => x.MileageStart).NotEmpty().WithMessage("Mileage start is required.")
@@ -24,14 +25,14 @@ namespace Taxi.Implementation.Validators
 
             _context = context;
         }
-        private bool CarDoesntExsist(int id)
+        private bool CarDoesntExsist(CarDto car)
         {
-            var exists = _context.Cars.Any(x => x.Id == id);
+            var exists = _context.Cars.Any(x => x.Id == car.Id);
             return exists;
         }
         private bool MileageStartWithHigherNumberThenCarMileage(int mileageStart)
         {
-            var exists = _context.Shifts.Any(x => x.MileageStart >= _context.Cars.FirstOrDefault(y => y.Id == x.Id).Mileage);
+            var exists = _context.Shifts.Any(x => mileageStart >= x.Car.Mileage);
             return exists;
         }
     }

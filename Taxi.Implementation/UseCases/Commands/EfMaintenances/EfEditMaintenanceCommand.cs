@@ -29,7 +29,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfMaintenances
 
         public string Description => "Edit Maintenance";
 
-        public void Execute(MaintenanceDto request)
+        public void Execute(MaintenanceDtoCar request)
         {
             _validator.ValidateAndThrow(request);
 

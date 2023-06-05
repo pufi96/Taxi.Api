@@ -21,7 +21,7 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.Id).NotEmpty().WithMessage("Maintenance id is required.")
                                        .Must(MaintenanceNotFound).WithMessage("Maintenance for edit is not found.");
 
-            RuleFor(x => x.MaintenanceTypeId).NotEmpty().WithMessage("Maintenance type is required.")
+            RuleFor(x => x.MaintenanceType.Id).NotEmpty().WithMessage("Maintenance type is required.")
                                         .Must(MaintenanceTypeNotExsist).WithMessage("Maintenance type doesn't exsist.");
 
 

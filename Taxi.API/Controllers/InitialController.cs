@@ -25,15 +25,15 @@ namespace Taxi.API.Controllers
             };
 
             var masterRole = new List<RoleUseCase>();
-            for (int i = 0; i < 50; i++)
+            for (int i = 1; i < 49; i++)
             {
-                masterRole[i] = new RoleUseCase { Role = role.ElementAt(0), UseCaseId = i };
+                masterRole.Add(new RoleUseCase { Role = role.ElementAt(0), UseCaseId = i });
             }
             int[] driverUseCases = { 7, 8, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 34, 44};
             var driverRole = new List<RoleUseCase>();
             for (int i = 0;i < driverUseCases.Length; i++)
             {
-                driverRole[i] = new RoleUseCase { Role = role.ElementAt(0), UseCaseId = driverUseCases[i] };
+                driverRole.Add(new RoleUseCase { Role = role.ElementAt(1), UseCaseId = driverUseCases[i] });
             }
             var roleUseCase = new List<RoleUseCase>();
             roleUseCase.AddRange(masterRole);
@@ -83,8 +83,8 @@ namespace Taxi.API.Controllers
 
             var maintenance = new List<Maintenance>
             {
-                new Maintenance { Car = car.ElementAt(0), MaintenaceType = maintenanceType.ElementAt(0), Description = "Windscreen wipers change", Mileage = 0, DateStart = DateTime.UtcNow, DateEnd = DateTime.UtcNow+ TimeSpan.FromHours(24), Price = 200 },
-                new Maintenance { Car = car.ElementAt(1), MaintenaceType = maintenanceType.ElementAt(1), Description = "Oil filters change", Mileage = 10000, DateStart = DateTime.UtcNow, DateEnd = DateTime.UtcNow+ TimeSpan.FromHours(24), Price = 100 }
+                new Maintenance { Car = car.ElementAt(0), MaintenanceType = maintenanceType.ElementAt(0), Description = "Windscreen wipers change", Mileage = 0, DateStart = DateTime.UtcNow, DateEnd = DateTime.UtcNow+ TimeSpan.FromHours(24), Price = 200 },
+                new Maintenance { Car = car.ElementAt(1), MaintenanceType = maintenanceType.ElementAt(1), Description = "Oil filters change", Mileage = 10000, DateStart = DateTime.UtcNow, DateEnd = DateTime.UtcNow+ TimeSpan.FromHours(24), Price = 100 }
 
             };
 

@@ -23,7 +23,7 @@ namespace Taxi.API.Controllers
         }
         // GET: api/<CarController>
         [HttpGet]
-        public IActionResult Get([FromQuery] CarSearch search, [FromServices] IGetCarsQuery query)
+        public IActionResult Get([FromQuery] BaseSearch search, [FromServices] IGetCarsQuery query)
         {
             return Ok(_handler.HandleQuery(query, search));
         }

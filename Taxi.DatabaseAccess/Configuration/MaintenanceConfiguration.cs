@@ -16,7 +16,7 @@ namespace Taxi.DatabaseAccess.Configuration
             builder.Property(x => x.Mileage)
                    .IsRequired();
 
-            builder.HasOne(x => x.MaintenaceType)
+            builder.HasOne(x => x.MaintenanceType)
                     .WithMany(x => x.Maintenances)
                     .HasForeignKey(x => x.MaintenaceTypeId)
                     .OnDelete(DeleteBehavior.Restrict);

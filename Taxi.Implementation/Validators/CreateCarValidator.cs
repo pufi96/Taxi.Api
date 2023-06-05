@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
@@ -28,22 +29,22 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.ChassisNumber).NotEmpty().WithMessage("Chassis number is required.")
                                     .Must(ChassisNumber).WithMessage("Chassis number must have 17 characters.");
 
-            RuleFor(x => x.FuelTypeId).NotEmpty().WithMessage("Fuel type is required.")
+            RuleFor(x => x.FuelType).NotEmpty().WithMessage("Fuel type is required.")
                                     .Must(FuelTypeDoesntExsist).WithMessage("Fuel type doesn't exsist.");
 
-            RuleFor(x => x.CarModelId).NotEmpty().WithMessage("Car model is required.")
+            RuleFor(x => x.CarModel).NotEmpty().WithMessage("Car model is required.")
                                     .Must(CarModelDoesntExsist).WithMessage("Car model doesn't exsist.");
             _context = context;
         }
 
-        private bool CarModelDoesntExsist(int id)
+        private bool CarModelDoesntExsist(CarModelDto carModel)
         {
-            var exists = _context.CarModels.Any(x => x.Id == id);
+            var exists = _context.CarModels.Any(x => x.Id == carModel.Id);
             return exists;
         }
-        private bool FuelTypeDoesntExsist(int id)
+        private bool FuelTypeDoesntExsist(FuelTypeDto fuelType)
         {
-            var exists = _context.FuelTypes.Any(x => x.Id == id);
+            var exists = _context.FuelTypes.Any(x => x.Id == fuelType.Id);
             return exists;
         }
         private bool PositiveNumber(int positive)

@@ -10,8 +10,8 @@ using Taxi.DatabaseAccess;
 namespace Taxi.DatabaseAccess.Migrations
 {
     [DbContext(typeof(TaxiDbContext))]
-    [Migration("20230528134202_Initial1")]
-    partial class Initial1
+    [Migration("20230605180002_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,8 +31,8 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.Property<int>("CarModelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ChassisNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("ChassisNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -160,9 +160,6 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarBrandId");
-
-                    b.HasIndex("CarModelName")
-                        .IsUnique();
 
                     b.ToTable("CarModels");
                 });
@@ -410,7 +407,7 @@ namespace Taxi.DatabaseAccess.Migrations
 
                     b.HasIndex("MaintenaceTypeId");
 
-                    b.ToTable("Maintenaces");
+                    b.ToTable("Maintenances");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.MaintenanceType", b =>
@@ -446,7 +443,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.HasIndex("MaintenanceTypeName")
                         .IsUnique();
 
-                    b.ToTable("MaintenaceTypes");
+                    b.ToTable("MaintenanceTypes");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.Ride", b =>

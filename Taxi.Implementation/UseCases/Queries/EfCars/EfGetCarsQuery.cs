@@ -25,24 +25,35 @@ namespace Taxi.Implementation.UseCases.Queries.EfCars
 
         public string Description => "Get Cars";
 
-        public IEnumerable<CarDto> Execute(CarSearch search)
+        public IEnumerable<CarDtoMaintenances> Execute(BaseSearch search)
         {
             var query = Context.Cars.Include(x => x.CarModel).ThenInclude(x => x.CarBrand)
-                                    .Include(x => x.Maintenances).ThenInclude(x => x.MaintenaceType)
+                                    .Include(x => x.Maintenances).ThenInclude(x => x.MaintenanceType)
+                                    .Include(x => x.FuelType)
                                     .AsQueryable();
 
-            if (search.CarModelName != null)
+            if (search.Keyword != null)
             {
-                query = query.Where(x => x.CarModel.CarModelName.Contains(search.CarModelName));
-            }
-            if (search.CarBrandName != null)
-            {
-                query = query.Where(x => x.CarModel.CarBrand.CarBrandName.Contains(search.CarBrandName));
+                query = query.Where(x => x.CarModel.CarModelName.Contains(search.Keyword));
             }
 
-            IEnumerable<CarDto> result = Mapper.Map<IEnumerable<CarDto>>(query.ToList());
+            var queryResponse = query.ToList();
 
-            return result;
+            IEnumerable<CarDtoMaintenances> cars = queryResponse.Select(x =>
+            {
+                var car = Mapper.Map<CarDtoMaintenances>(x);
+                car.FuelType.FuelTypeName = x.FuelType.FuelTypeName;
+                car.CarModel.CarModelName = x.CarModel.CarModelName;
+                car.Maintenances = x.Maintenances.Select(m =>
+                {
+                    var maintenance = Mapper.Map<MaintenanceDto>(m);
+                    maintenance.MaintenanceType.MaintenanceTypeName = m.MaintenanceType.MaintenanceTypeName;
+                    return maintenance;
+                }).ToList();
+                return car;
+            }).ToList();
+
+            return cars;
         }
     }
 }

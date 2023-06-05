@@ -8,7 +8,6 @@ namespace Taxi.DatabaseAccess
     public class TaxiDbContext : DbContext
     {
 
-
         public TaxiDbContext(DbContextOptions options = null) : base(options)
         {
             Database.EnsureCreated();
@@ -17,7 +16,6 @@ namespace Taxi.DatabaseAccess
         public TaxiDbContext()
         {
         }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

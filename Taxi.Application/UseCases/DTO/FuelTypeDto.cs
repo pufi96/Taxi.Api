@@ -10,6 +10,5 @@ namespace Taxi.Application.UseCases.DTO
     public class FuelTypeDto : BaseDto
     {
         public string FuelTypeName { get; set; }
-        public IEnumerable<Car> Cars { get; set; }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Application;
-using Taxi.Application.Exceptions;
 using Taxi.Application.UseCases.Commands.DebtCollection;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
-using Taxi.Domain.Entities;
 using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.EfDebtCollection
@@ -29,7 +24,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfDebtCollection
 
         public string Description => "Edit DebtCollection";
 
-        public void Execute(DebtCollectionDto request)
+        public void Execute(DebtCollectionDtoDebtor request)
         {
             _validator.ValidateAndThrow(request);
 

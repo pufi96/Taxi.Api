@@ -11,10 +11,10 @@ namespace Taxi.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class FuelTypesController : ControllerBase
+    public class FuelTypeController : ControllerBase
     {
         private UseCaseHandler _handler;
-        public FuelTypesController(UseCaseHandler handler)
+        public FuelTypeController(UseCaseHandler handler)
         {
             _handler = handler;
         }

@@ -10,13 +10,15 @@ namespace Taxi.Application.UseCases.DTO
     public class UserDto : BaseDto
     {
         public string Username { get; set; }
-        public string Password { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public double Earnings { get; set; }
         public int UserRoleId { get; set; }
-        public IEnumerable<Shift> Shifts { get; set; }
+    }
+    public class UserDtoShift : UserDto
+    {
+        public IEnumerable<ShiftDtoRide> Shifts { get; set; }
     }
     public class CreateUserDto
     {
@@ -27,6 +29,5 @@ namespace Taxi.Application.UseCases.DTO
         public string LastName { get; set; }
         public double Earnings { get; set; }
         public int UserRoleId { get; set; }
-        public IEnumerable<Shift> Shifts { get; set; }
     }
 }

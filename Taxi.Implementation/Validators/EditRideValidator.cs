@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
@@ -22,14 +23,14 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.RidePrice).NotEmpty().WithMessage("Price is required.")
                                     .Must(PositiveNumber).WithMessage("Price must be positive number.");
 
-            RuleFor(x => x.LocationPriceId).Must(LocationPriceDoesntExsist)
+            RuleFor(x => x.LocationPrice).Must(LocationPriceDoesntExsist)
                                             .When(x => x.IsLocal == false)
                                             .WithMessage("Location is required when it's not local ride.");
             _context = context;
         }
-        private bool LocationPriceDoesntExsist(int id)
+        private bool LocationPriceDoesntExsist(LocationPricesDto locationPrice)
         {
-            var exists = _context.LocationPrices.Any(x => x.Id == id);
+            var exists = _context.LocationPrices.Any(x => x.Id == locationPrice.Id);
             return exists;
         }
         private bool RideNotFound(int Id)

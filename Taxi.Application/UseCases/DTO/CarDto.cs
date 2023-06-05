@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.Domain.Entities;
 
 namespace Taxi.Application.UseCases.DTO
 {
@@ -17,9 +18,12 @@ namespace Taxi.Application.UseCases.DTO
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
         public string ImageFilePath { get; set; }
-        public int FuelTypeId { get; set; }
-        public int CarModelId { get; set; }
-        public IEnumerable<MaintenanceDto> MaintenanceDtos { get; set; }
+        public FuelTypeDto FuelType { get; set; }
+        public CarModelDto CarModel { get; set; }
+    }
+    public class CarDtoMaintenances : CarDto
+    {
+        public IEnumerable<MaintenanceDto> Maintenances { get; set; }
     }
     public class CreateCarDto 
     {
@@ -32,8 +36,8 @@ namespace Taxi.Application.UseCases.DTO
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
         public string ImageFilePath { get; set; }
-        public int FuelTypeId { get; set; }
-        public int CarModelId { get; set; }
-        public IEnumerable<MaintenanceDto> MaintenanceDtos { get; set; }
+        public FuelTypeDto FuelType { get; set; }
+        public CarModelDto CarModel { get; set; }
+        public IEnumerable<MaintenanceDtoCar> Maintenances { get; set; }
     }
 }

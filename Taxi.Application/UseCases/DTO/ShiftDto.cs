@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Taxi.Domain.Entities;
 
 namespace Taxi.Application.UseCases.DTO
 {
+    
     public class ShiftDto : BaseDto
     {
         public DateTime ShiftStart { get; set; }
@@ -13,8 +15,19 @@ namespace Taxi.Application.UseCases.DTO
         public double Turnover { get; set; }
         public double Earnings { get; set; }
         public double Expenses { get; set; }
-        public int UserId { get; set; }
-        public int CarId { get; set; }
+        public CarDto Car { get; set; }
+    }
+    public class ShiftDtoUserRides : ShiftDto
+    {
+        public UserDto User { get; set; }
+        public IEnumerable<RideDto> Rides { get; set; }
+    }
+    public class ShiftDtoUser : ShiftDto
+    {
+        public UserDto User { get; set; }
+    }
+    public class ShiftDtoRide : ShiftDto
+    {
         public IEnumerable<RideDto> Rides { get; set; }
     }
     public class CreateShiftDto
@@ -27,9 +40,8 @@ namespace Taxi.Application.UseCases.DTO
         public double? Earnings { get; set; }
         public double? Expenses { get; set; }
         public string Description { get; set; }
-        public int UserId { get; set; }
-        public int CarId { get; set; }
-        public IEnumerable<RideDto> Rides { get; set; }
+        public UserDto User { get; set; }
+        public CarDto Car { get; set; }
     }
 
    

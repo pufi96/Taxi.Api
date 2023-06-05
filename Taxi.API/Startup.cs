@@ -1,34 +1,28 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Taxi.API.Core;
 using Taxi.API.DTO;
 using Taxi.API.ErrorLogging;
 using Taxi.API.Extensions;
 using Taxi.API.Jwt.TokenStorage;
 using Taxi.API.Jwt;
-using Taxi.API.Vaidators;
 using Taxi.Application.Logging;
-using Taxi.Application.UseCases;
-using Taxi.Application.UseCases.Queries.Debtor;
 using Taxi.DatabaseAccess;
-using Taxi.Implementation;
 using Taxi.Implementation.Logging;
-using Taxi.Implementation.UseCases.Queries.EfDebtors;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using Taxi.Application;
+using Taxi.API.Middleware;
+using System.Text.Json.Serialization;
+using AutoMapper;
 
 namespace Taxi.API
 {
@@ -62,7 +56,9 @@ namespace Taxi.API
                 return new JwtManager(context, appSettings.Jwt.Issuer, appSettings.Jwt.SecretKey, appSettings.Jwt.DurationSeconds, tokenStorage);
             });
 
-            services.AddHttpContextAccessor(); services.AddScoped<IApplicationUser>(x =>
+            services.AddHttpContextAccessor(); 
+
+            services.AddScoped<IApplicationUser>(x =>
             {
                 var accessor = x.GetService<IHttpContextAccessor>();
                 var header = accessor.HttpContext.Request.Headers["Authorization"];
@@ -107,7 +103,10 @@ namespace Taxi.API
             services.AddValidators();
             services.AddUseCases();
 
-            services.AddControllers();
+            services.AddJwt(appSettings);
+
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Taxi.API", Version = "v1" });
@@ -128,8 +127,11 @@ namespace Taxi.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

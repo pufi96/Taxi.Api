@@ -20,22 +20,22 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.RidePrice).NotEmpty().WithMessage("Price is required.")
                                     .Must(PositiveNumber).WithMessage("Price must be positive number.");
 
-            RuleFor(x => x.LocationPriceId).Must(LocationPriceDoesntExsist)
+            RuleFor(x => x.LocationPrice).Must(LocationPriceDoesntExsist)
                                             .When(x => x.IsLocal == false)
                                             .WithMessage("Location is required when it's not local ride.");
 
-            RuleFor(x => x.ShiftId).Must(ShiftDoesntExsistOrIsntActive).WithMessage("That shift doesn't exsist or isn't active.");
+            RuleFor(x => x.Shift).Must(ShiftDoesntExsistOrIsntActive).WithMessage("That shift doesn't exsist or isn't active.");
 
             _context = context;
         }
-        private bool LocationPriceDoesntExsist(int id)
+        private bool LocationPriceDoesntExsist(LocationPricesDto locationPrice)
         {
-            var exists = _context.LocationPrices.Any(x => x.Id == id);
+            var exists = _context.LocationPrices.Any(x => x.Id == locationPrice.Id);
             return exists;
         }
-        private bool ShiftDoesntExsistOrIsntActive(int id)
+        private bool ShiftDoesntExsistOrIsntActive(ShiftDto shift)
         {
-            var exists = _context.Shifts.Any(x => x.Id == id && x.ShiftEnd != null);
+            var exists = _context.Shifts.Any(x => x.Id == shift.Id && x.ShiftEnd != null);
             return exists;
         }
         private bool PositiveNumber(double positive)

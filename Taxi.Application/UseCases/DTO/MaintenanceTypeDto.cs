@@ -10,6 +10,5 @@ namespace Taxi.Application.UseCases.DTO
     public class MaintenanceTypeDto : BaseDto
     {
         public string MaintenanceTypeName { get; set; }
-        public IEnumerable<Maintenance> Maintenances { get; set; }
     }
 }

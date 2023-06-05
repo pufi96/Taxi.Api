@@ -29,7 +29,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfMaintenances
 
         public MaintenanceDto Execute(int id)
         {
-            var query = Context.Maintenances.Include(x => x.MaintenaceType)
+            var query = Context.Maintenances.Include(x => x.MaintenanceType)
                                     .FirstOrDefault(x => x.Id == id & x.IsActive);
 
             if (query == null)

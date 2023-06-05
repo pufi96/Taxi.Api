@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Application;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Debtor;
-using Taxi.Application.UseCases.Queries.ICarBrandQuery;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.DatabaseAccess;
 
@@ -26,21 +22,38 @@ namespace Taxi.Implementation.UseCases.Queries.EfDebtors
 
         public string Description => "Get All Debtors";
 
-        public IEnumerable<DebtorDto> Execute(BaseSearch search)
+        public IEnumerable<DebtorDtoDebt> Execute(BaseSearch search)
         {
             var query = Context.Debtors.Include(x => x.DebtCollections)
                                         .Include(x => x.InDebteds).ThenInclude(x => x.Ride)
                                         .AsQueryable();
 
-            //if (search.Keyword != null)
-            //{
-            //    query = query.Where(x => x.CarBrandName.Contains(search.Keyword));
-            //}
+            if (search.Keyword != null)
+            {
+                query = query.Where(x => x.DebtorFirstName.Contains(search.Keyword));
+            }
 
-            IEnumerable<DebtorDto> result = Mapper.Map<IEnumerable<DebtorDto>>(query.ToList());
+            var queryResponse = query.ToList();
 
 
-            return result;
+            IEnumerable<DebtorDtoDebt> debtors = queryResponse.Select(x =>
+            {
+                var debtor = Mapper.Map<DebtorDtoDebt>(x);
+                debtor.DebtCollections = x.DebtCollections.Select(d =>
+                {
+                    var debtCollection = Mapper.Map<DebtCollectionDto>(d);
+                    return debtCollection;
+                }).ToList();
+                debtor.Rides = x.InDebteds.Select(r =>
+                {
+                    var ride = Mapper.Map<RideDto>(r.Ride);
+                    return ride;
+                }).ToList();
+                return debtor;
+            }).ToList();
+
+
+            return debtors;
         }
     }
 }

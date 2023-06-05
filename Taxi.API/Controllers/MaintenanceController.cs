@@ -46,7 +46,7 @@ namespace Taxi.API.Controllers
 
         // PUT api/<MaintenanceController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] MaintenanceDto request, [FromServices] IEditMaintenanceCommand command)
+        public IActionResult Put(int id, [FromBody] MaintenanceDtoCar request, [FromServices] IEditMaintenanceCommand command)
         {
             request.Id = id;
             _handler.HandleCommand(command, request);

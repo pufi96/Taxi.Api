@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
@@ -18,7 +19,7 @@ namespace Taxi.Implementation.Validators
 
             _context = context;
 
-            RuleFor(x => x.MaintenanceTypeId).NotEmpty().WithMessage("Maintenance type is required.")
+            RuleFor(x => x.MaintenanceType).NotEmpty().WithMessage("Maintenance type is required.")
                                         .Must(MaintenanceTypeNotExsist).WithMessage("Maintenance type doesn't exsist.");
 
 
@@ -26,9 +27,9 @@ namespace Taxi.Implementation.Validators
                                       .Must(PositiveNumber).WithMessage("Mileage must be positive number.");
         }
 
-        private bool MaintenanceTypeNotExsist(int id)
+        private bool MaintenanceTypeNotExsist(MaintenanceTypeDto maintenanceType)
         {
-            var exists = _context.MaintenanceTypes.Any(x => x.Id == id && x.IsActive);
+            var exists = _context.MaintenanceTypes.Any(x => x.Id == maintenanceType.Id);
             return exists;
         }
         private bool PositiveNumber(int positive)

@@ -25,7 +25,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfMaintenances
 
         public string Description => "Get Maintenance";
 
-        public IEnumerable<MaintenanceDto> Execute(MaintenaceSearch search)
+        public IEnumerable<MaintenanceDtoCar> Execute(BaseSearch search)
         {
 
             var query = Context.Maintenances.AsQueryable();
@@ -34,9 +34,16 @@ namespace Taxi.Implementation.UseCases.Queries.EfMaintenances
             //    query = query.Where(x => x.FuelTypeName.Contains(search.Keyword));
             //}
 
-            IEnumerable<MaintenanceDto> result = Mapper.Map<IEnumerable<MaintenanceDto>>(query.ToList());
+            var queryResponse = query.ToList();
 
-            return result;
+            IEnumerable<MaintenanceDtoCar> maintenances = queryResponse.Select(x =>
+            {
+                var maintenance = Mapper.Map<MaintenanceDtoCar>(x);
+                maintenance.Car = Mapper.Map<CarDto>(x.Car);
+                return maintenance;
+            }).ToList();
+
+            return maintenances;
         }
     }
 }

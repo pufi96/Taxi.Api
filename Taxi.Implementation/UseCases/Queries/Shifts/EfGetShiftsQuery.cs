@@ -27,7 +27,7 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
 
         public string Description => "Get Shifts";
 
-        public PagedResponse<ShiftDto> Execute(ShiftSearch search)
+        public PagedResponse<ShiftDtoUserRides> Execute(ShiftSearch search)
         {
             var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor).ThenInclude(x => x.DebtCollections)
                                     .Include(x => x.Rides).ThenInclude(x => x.LocationPrice)
@@ -36,10 +36,10 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
                                     .Include(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
                                     .AsQueryable();
 
-            IEnumerable<ShiftDto> result = Mapper.Map<IEnumerable<ShiftDto>>(query.ToList());
+            IEnumerable<ShiftDtoUserRides> result = Mapper.Map<IEnumerable<ShiftDtoUserRides>>(query.ToList());
 
             
-            var response = query.ToPagedResponse<Shift, ShiftDto>(search,x => Mapper.Map<ShiftDto>(x));
+            var response = query.ToPagedResponse<Shift, ShiftDtoUserRides>(search,x => Mapper.Map<ShiftDtoUserRides>(x));
 
             return response;
         }

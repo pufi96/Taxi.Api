@@ -25,11 +25,11 @@ namespace Taxi.Implementation.UseCases.Queries.Users
 
         public string Description => "Find User";
 
-        public IEnumerable<UserDto> Execute(BaseSearch search)
+        public IEnumerable<UserDtoShift> Execute(BaseSearch search)
         {
             var query = Context.Users.AsQueryable();
 
-            IEnumerable<UserDto> result = Mapper.Map<IEnumerable<UserDto>>(query.ToList());
+            IEnumerable<UserDtoShift> result = Mapper.Map<IEnumerable<UserDtoShift>>(query.ToList());
 
             return result;
         }

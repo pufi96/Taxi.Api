@@ -29,7 +29,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfCars
         public CarDto Execute(int id)
         {
             var query = Context.Cars.Include(x => x.CarModel).ThenInclude(x => x.CarBrand)
-                                    .Include(x => x.Maintenances).ThenInclude(x => x.MaintenaceType)
+                                    .Include(x => x.Maintenances).ThenInclude(x => x.MaintenanceType)
                                     .FirstOrDefault(x => x.Id == id & x.IsActive);
 
             if (query == null)
