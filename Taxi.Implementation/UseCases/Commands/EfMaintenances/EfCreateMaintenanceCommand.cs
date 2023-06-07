@@ -31,6 +31,8 @@ namespace Taxi.Implementation.UseCases.Commands.EfMaintenances
         public void Execute(CreateMaintenanceDto request)
         {
             _validator.ValidateAndThrow(request);
+
+            request.StartDate = DateTime.UtcNow;
             
             Maintenance maintenance = Mapper.Map<Maintenance>(request);
 

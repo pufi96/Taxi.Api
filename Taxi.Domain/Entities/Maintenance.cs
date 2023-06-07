@@ -14,7 +14,7 @@ namespace Taxi.Domain.Entities
         public int? Price { get; set; }
         public int Mileage { get; set; }
         public string Description { get; set; }
-        public int MaintenaceTypeId { get; set; }
+        public int MaintenanceTypeId { get; set; }
         public int CarId { get; set; }
 
         public virtual MaintenanceType MaintenanceType { get; set; }

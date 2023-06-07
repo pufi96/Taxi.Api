@@ -25,7 +25,7 @@ namespace Taxi.Implementation.UseCases.Queries.Users
 
         public string Description => "Find User";
 
-        public UserDto Execute(int id)
+        public UserDtoShift Execute(int id)
         {
             var query = Context.Users.FirstOrDefault(x => x.Id == id & x.IsActive);
 
@@ -34,7 +34,7 @@ namespace Taxi.Implementation.UseCases.Queries.Users
                 throw new EntityNotFoundException(nameof(User), id);
             }
 
-            UserDto result = Mapper.Map<UserDto>(query);
+            UserDtoShift result = Mapper.Map<UserDtoShift>(query);
 
             return result;
         }

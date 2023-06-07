@@ -27,7 +27,7 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
 
         public string Description => "Find Shifts";
 
-        public ShiftDto Execute(int id)
+        public ShiftDtoUserRides Execute(int id)
         {
             var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor).ThenInclude(x => x.DebtCollections)
                                     .Include(x => x.Rides).ThenInclude(x => x.LocationPrice)
@@ -41,7 +41,7 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
                 throw new EntityNotFoundException(nameof(Shift), id);
             }
 
-            ShiftDto result = Mapper.Map<ShiftDto>(query);
+            ShiftDtoUserRides result = Mapper.Map<ShiftDtoUserRides>(query);
 
             return result;
         }

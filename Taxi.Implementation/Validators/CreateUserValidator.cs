@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
 
@@ -36,8 +32,10 @@ namespace Taxi.Implementation.Validators
         }
         private bool UsernameIsAlreadyInUse(string username)
         {
+            if(string.IsNullOrEmpty(username)) return true;
+
             var exists = _context.Users.Any(x => x.Username == username);
-            return exists;
+            return !exists;
         }
     }
 }

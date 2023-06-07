@@ -32,7 +32,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfDebtors
         public void Execute(DebtorDto request)
         {
             _validator.ValidateAndThrow(request);
-
+            
             request.EditedAt = DateTime.UtcNow;
 
             var debtor = Context.Debtors.FirstOrDefault(x => x.Id == request.Id);

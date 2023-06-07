@@ -27,7 +27,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfDebtors
 
         public string Description => "Find Debtors";
 
-        public DebtorDto Execute(int id)
+        public DebtorDtoDebt Execute(int id)
         {
             var query = Context.Debtors.Include(x => x.InDebteds).ThenInclude(x => x.Ride).ThenInclude(x => x.LocationPrice)
                                    .Include(x => x.DebtCollections)
@@ -38,7 +38,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfDebtors
                 throw new EntityNotFoundException(nameof(Debtor), id);
             }
 
-            DebtorDto result = Mapper.Map<DebtorDto>(query);
+            DebtorDtoDebt result = Mapper.Map<DebtorDtoDebt>(query);
 
             return result;
         }

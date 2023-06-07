@@ -45,11 +45,10 @@ namespace Taxi.API.Controllers
             return StatusCode(201);
         }
 
-        // PUT api/<ShiftController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] ShiftDto request, [FromServices] IEditShiftCommand command)
+        // PUT api/<ShiftController>/edit
+        [HttpPut("edit")]
+        public IActionResult Put( [FromBody] ShiftDto request, [FromServices] IEditShiftCommand command)
         {
-            request.Id = id;
             _handler.HandleCommand(command, request);
             return StatusCode(204);
         }

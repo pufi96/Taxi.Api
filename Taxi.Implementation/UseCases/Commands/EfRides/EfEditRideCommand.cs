@@ -27,7 +27,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfRides
 
         public string Description => "Edit Ride";
 
-        public void Execute(RideDto request)
+        public void Execute(EditRideDto request)
         {
             _validator.ValidateAndThrow(request);
 

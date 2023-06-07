@@ -28,8 +28,6 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.Earnings).NotEmpty().WithMessage("Earnings are required in %.")
                                      .Must(PositiveNumber).WithMessage("Earnings must be positive number.");
 
-            RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
-
             RuleFor(x => x.Username).NotEmpty().WithMessage("Username is required.")
                                      .Must(UsernameIsAlreadyInUse).WithMessage("Username is already in use.");
         }
@@ -44,13 +42,8 @@ namespace Taxi.Implementation.Validators
         }
         private bool UsernameIsAlreadyInUse(string username)
         {
-            var exists = false;
-            var idUser = _context.Users.FirstOrDefault(x => x.Username == username);
-            if (idUser != null)
-            {
-                 exists = _context.Users.Any(x => x.Username == username && x.Id == idUser.Id);
-            }
-            return exists;
+            var exists = _context.Users.Any(x => x.Username == username);
+            return !exists;
         }
     }
 }

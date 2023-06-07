@@ -45,11 +45,10 @@ namespace Taxi.API.Controllers
             return StatusCode(201);
         }
 
-        // PUT api/<LocationController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] LocationDto request, [FromServices] IEditLocationCommand command)
+        // PUT api/<LocationController>/edit
+        [HttpPut("edit")]
+        public IActionResult Put([FromBody] LocationDto request, [FromServices] IEditLocationCommand command)
         {
-            request.Id = id;
             _handler.HandleCommand(command, request);
             return StatusCode(204);
         }

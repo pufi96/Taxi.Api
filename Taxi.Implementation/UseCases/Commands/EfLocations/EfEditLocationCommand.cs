@@ -35,7 +35,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfLocations
 
             request.EditedAt = DateTime.UtcNow;
 
-            var locationPrice = Context.LocationPrices.FirstOrDefault(x => x.Id == request.Id);
+            var locationPrice = Context.Locations.FirstOrDefault(x => x.Id == request.Id);
 
             Mapper.Map(request, locationPrice);
 

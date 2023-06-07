@@ -106,7 +106,7 @@ namespace Taxi.API.Extensions
             services.AddTransient<IEditCarBrandCommand, EfEditCarBrandCommand>();
 
             services.AddTransient<ICreateCarModelCommand, EfCreateCarModelCommand>();
-            services.AddTransient<IEditCarBrandCommand, EfEditCarBrandCommand>();
+            services.AddTransient<IEditCarModelCommand, EfEditCarModelCommand>();
 
             services.AddTransient<ICreateCarCommand, EfCreateCarCommand>();
             services.AddTransient<IDeleteCarCommand, EfDeleteCarCommand>();

@@ -34,7 +34,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfCarModels
         {
             _validator.ValidateAndThrow(request);
 
-            CarModel carModel = Mapper.Map<CarModel>(request);
+            var carModel = Mapper.Map<CarModel>(request);
 
             Context.CarModels.Add(carModel);
             Context.SaveChanges();

@@ -10,6 +10,6 @@ namespace Taxi.Application.UseCases.DTO
     public class CreateCarModelDto
     {
         public string CarModelName { get; set; }
-        public CarBrandDto CarBrand { get; set; }
+        public int CarBrandId { get; set; }
     }
 }

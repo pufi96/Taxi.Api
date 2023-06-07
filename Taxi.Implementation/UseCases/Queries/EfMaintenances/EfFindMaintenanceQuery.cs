@@ -27,7 +27,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfMaintenances
 
         public string Description => "Find Maintenance";
 
-        public MaintenanceDto Execute(int id)
+        public MaintenanceDtoCar Execute(int id)
         {
             var query = Context.Maintenances.Include(x => x.MaintenanceType)
                                     .FirstOrDefault(x => x.Id == id & x.IsActive);
@@ -38,7 +38,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfMaintenances
             }
 
 
-            MaintenanceDto result = Mapper.Map<MaintenanceDto>(query);
+            MaintenanceDtoCar result = Mapper.Map<MaintenanceDtoCar>(query);
 
             return result;
         }

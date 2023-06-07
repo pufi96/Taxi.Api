@@ -30,18 +30,16 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
 
         public void Execute(CreateUserDto request)
         {
-            _validator.ValidateAndThrow(request);
-
-            var userActive = Context.Users.FirstOrDefault(x => x.Username == request.Username && !x.IsActive);
-
-            request.UserRoleId = Context.Roles.FirstOrDefault(x => x.RoleName == "Driver").Id;
-
-            if (userActive != null)
+            if(request.Username != null)
             {
+                var userActive = Context.Users.FirstOrDefault(x => x.Username == request.Username && !x.IsActive);
                 userActive.IsActive = true;
             }
             else
             {
+                _validator.ValidateAndThrow(request);
+                request.UserRoleId = Context.Roles.FirstOrDefault(x => x.RoleName == "Driver").Id;
+
                 User user = Mapper.Map<User>(request);
                 Context.Users.Add(user);
             }

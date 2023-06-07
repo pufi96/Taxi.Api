@@ -1,17 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Application;
-using Taxi.Application.Exceptions;
-using Taxi.Application.UseCases.Commands.CarBrand;
 using Taxi.Application.UseCases.Commands.CarModel;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
-using Taxi.Domain.Entities;
 using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.EfCarModels
@@ -33,6 +27,11 @@ namespace Taxi.Implementation.UseCases.Commands.EfCarModels
 
         public void Execute(CarModelDto request)
         {
+            //"carModelName": "TT",
+            //"carBrand" : {
+            //            "carBrandName" : "Audi",
+            //    "id" : 6
+            //}
             _validator.ValidateAndThrow(request);
 
             request.EditedAt = DateTime.UtcNow;

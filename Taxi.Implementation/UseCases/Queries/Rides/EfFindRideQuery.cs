@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,17 +27,19 @@ namespace Taxi.Implementation.UseCases.Queries.Rides
 
         public string Description => "Find Rides";
 
-        public RideDto Execute(int id)
+        public RideDtoDebtor Execute(int id)
         {
-            var query = Context.Rides.FirstOrDefault(x => x.Id == id & x.IsActive);
+            var query = Context.Rides.Include(x => x.InDebteds).ThenInclude(x => x.Debtor)
+                                    .Include(x => x.LocationPrice)
+                                    .FirstOrDefault(x => x.Id == id & x.IsActive);
 
             if (query == null)
             {
                 throw new EntityNotFoundException(nameof(Ride), id);
             }
 
-            RideDto result = Mapper.Map<RideDto>(query);
-
+            RideDtoDebtor result = Mapper.Map<RideDtoDebtor>(query);
+            
             return result;
         }
     }

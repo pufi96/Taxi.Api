@@ -26,15 +26,27 @@ namespace Taxi.Implementation.UseCases.Queries.Rides
 
         public string Description => "Get Rides";
 
-        public IEnumerable<RideDto> Execute(BaseSearch search)
+        public IEnumerable<RideDtoDebtor> Execute(BaseSearch search)
         {
             var query = Context.Rides.Include(x => x.LocationPrice)
                                     .Include(x => x.InDebteds).ThenInclude(x => x.Debtor)
                                     .AsQueryable();
 
-            IEnumerable<RideDto> result = Mapper.Map<IEnumerable<RideDto>>(query.ToList());
+            var queryResponse = query.ToList();
 
-            return result;
+            IEnumerable<RideDtoDebtor> rides = queryResponse.Select(x =>
+            {
+                //ovde je greska!!
+                var ride = Mapper.Map<RideDtoDebtor>(x);
+                ride.Debtor= x.InDebteds.Select(d =>
+                {
+                    DebtorDto debtor = Mapper.Map<DebtorDto>(d.Debtor);
+                    return debtor;
+                }).FirstOrDefault();
+                return ride;
+            }).ToList();
+
+            return rides;
         }
     }
 }

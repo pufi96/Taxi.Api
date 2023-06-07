@@ -24,7 +24,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfDebtCollection
 
         public string Description => "Edit DebtCollection";
 
-        public void Execute(DebtCollectionDtoDebtor request)
+        public void Execute(EditDebtCollectionDto request)
         {
             _validator.ValidateAndThrow(request);
 

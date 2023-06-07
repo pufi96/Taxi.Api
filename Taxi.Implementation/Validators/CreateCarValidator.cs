@@ -29,22 +29,22 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.ChassisNumber).NotEmpty().WithMessage("Chassis number is required.")
                                     .Must(ChassisNumber).WithMessage("Chassis number must have 17 characters.");
 
-            RuleFor(x => x.FuelType).NotEmpty().WithMessage("Fuel type is required.")
+            RuleFor(x => x.FuelTypeId).NotEmpty().WithMessage("Fuel type is required.")
                                     .Must(FuelTypeDoesntExsist).WithMessage("Fuel type doesn't exsist.");
 
-            RuleFor(x => x.CarModel).NotEmpty().WithMessage("Car model is required.")
+            RuleFor(x => x.CarModelId).NotEmpty().WithMessage("Car model is required.")
                                     .Must(CarModelDoesntExsist).WithMessage("Car model doesn't exsist.");
             _context = context;
         }
 
-        private bool CarModelDoesntExsist(CarModelDto carModel)
+        private bool CarModelDoesntExsist(int carModelId)
         {
-            var exists = _context.CarModels.Any(x => x.Id == carModel.Id);
+            var exists = _context.CarModels.Any(x => x.Id == carModelId);
             return exists;
         }
-        private bool FuelTypeDoesntExsist(FuelTypeDto fuelType)
+        private bool FuelTypeDoesntExsist(int fuelTypeId)
         {
-            var exists = _context.FuelTypes.Any(x => x.Id == fuelType.Id);
+            var exists = _context.FuelTypes.Any(x => x.Id == fuelTypeId);
             return exists;
         }
         private bool PositiveNumber(int positive)

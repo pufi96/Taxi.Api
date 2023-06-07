@@ -43,11 +43,10 @@ namespace Taxi.API.Controllers
             return StatusCode(201);
         }
 
-        // PUT api/<CarController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] CarDto request, [FromServices] IEditCarCommand command)
+        // PUT api/<CarController>/edit
+        [HttpPut("edit")]
+        public IActionResult Put([FromBody] EditCarDto request, [FromServices] IEditCarCommand command)
         {
-            request.Id = id;
             _handler.HandleCommand(command, request);
             return StatusCode(204);
         }

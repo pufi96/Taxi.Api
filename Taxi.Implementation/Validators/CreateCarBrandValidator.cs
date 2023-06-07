@@ -24,8 +24,8 @@ namespace Taxi.Implementation.Validators
 
         private bool CarBrandNotInUse( string name)
         {
-            var exists = _context.CarBrands.Any(x => x.CarBrandName == name);
-            return exists;
+            var exists = _context.CarBrands.Any(x => x.CarBrandName.ToLower() == name.ToLower());
+            return !exists;
         }
     }
 }

@@ -18,7 +18,6 @@ namespace Taxi.Application.UseCases.DTO
         public string DebtorLastName { get; set; }
         public string Description { get; set; }
     }
-
     public class CreateDebtorDto
     {
         public string DebtorFirstName { get; set; }

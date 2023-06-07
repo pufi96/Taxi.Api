@@ -15,9 +15,13 @@ namespace Taxi.Application.UseCases.DTO
     {
         public DebtorDto Debtor { get; set; }
     }
+    public class EditDebtCollectionDto : DebtCollectionDto
+    {
+        public int DebtorId { get; set; }
+    }
     public class CreateDebtCollectionDto
     {
         public double DebtCollectionPrice { get; set; }
-        public DebtorDto Debtor { get; set; }
+        public int DebtorId { get; set; }
     }
 }

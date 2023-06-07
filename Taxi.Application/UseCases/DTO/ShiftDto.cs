@@ -20,7 +20,7 @@ namespace Taxi.Application.UseCases.DTO
     public class ShiftDtoUserRides : ShiftDto
     {
         public UserDto User { get; set; }
-        public IEnumerable<RideDto> Rides { get; set; }
+        public IEnumerable<RideDtoDebtor> Rides { get; set; }
     }
     public class ShiftDtoUser : ShiftDto
     {

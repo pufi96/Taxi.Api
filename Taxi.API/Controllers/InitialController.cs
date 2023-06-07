@@ -25,7 +25,7 @@ namespace Taxi.API.Controllers
             };
 
             var masterRole = new List<RoleUseCase>();
-            for (int i = 1; i < 49; i++)
+            for (int i = 1; i < 50; i++)
             {
                 masterRole.Add(new RoleUseCase { Role = role.ElementAt(0), UseCaseId = i });
             }

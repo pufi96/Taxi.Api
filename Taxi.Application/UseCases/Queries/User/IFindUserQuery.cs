@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.User
 {
-    public interface IFindUserQuery : EfUseCase<int, UserDto>
+    public interface IFindUserQuery : EfUseCase<int, UserDtoShift>
     {
     }
 }

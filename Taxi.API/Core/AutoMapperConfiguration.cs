@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System;
+using Taxi.API.DTO;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Domain.Entities;
 
@@ -12,20 +13,29 @@ namespace Taxi.API.Core
         {
             Mapper.Initialize(config =>
             {
-                config.DisableConstructorMapping();
 
                 config.CreateMap<MaintenanceType, MaintenanceTypeDto>();
                 config.CreateMap<Maintenance, MaintenanceDtoCar>();
                 config.CreateMap<Car, CarDto>();
+                config.CreateMap<Car, CreateCarDto>();
+                config.CreateMap<CarModel, CreateCarModelDto>();
+                config.CreateMap<Maintenance, EditMaintenanceDto>();
 
                 config.CreateMap<Debtor, DebtorDtoDebt>()
                         .ForMember(dest => dest.Rides, opt => opt.MapFrom(src => src.InDebteds));
-
                 config.CreateMap<InDebted, RideDto>()
                         .ForMember(dest => dest.IsLocal, opt => opt.MapFrom(src => src.Ride.IsLocal))
                         .ForMember(dest => dest.RidePrice, opt => opt.MapFrom(src => src.Ride.RidePrice))
                         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Ride.Id))
                         .ForMember(dest => dest.LocationPrice, opt => opt.MapFrom(src => src.Ride.LocationPrice));
+
+                config.CreateMap<Ride, RideDtoDebtor>()
+                        .ForMember(dest => dest.Debtor, opt => opt.MapFrom(src => src.InDebteds));
+                config.CreateMap<InDebted, DebtorDto>()
+                        .ForMember(dest => dest.DebtorFirstName, opt => opt.MapFrom(src => src.Debtor.DebtorFirstName))
+                        .ForMember(dest => dest.DebtorLastName, opt => opt.MapFrom(src => src.Debtor.DebtorLastName))
+                        .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Debtor.Id))
+                        .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Debtor.Description));
 
                 config.CreateMap<LocationPrice, LocationPricesDto>()
                         .ForMember(dest => dest.LocationStart, opt => opt.MapFrom(src => src.LocationStart.LocationName))

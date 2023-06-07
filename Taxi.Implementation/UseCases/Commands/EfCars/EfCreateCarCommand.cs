@@ -40,7 +40,8 @@ namespace Taxi.Implementation.UseCases.Commands.EfCars
             }
             else
             {
-                Car car = Mapper.Map<Car>(request);
+                var car = Mapper.Map<Car>(request);
+
                 Context.Cars.Add(car);
             }
             Context.SaveChanges();

@@ -29,8 +29,21 @@ namespace Taxi.Implementation.UseCases.Commands.EfCars
 
         public string Description => "Edit Car";
 
-        public void Execute(CarDto request)
+        public void Execute(EditCarDto request)
         {
+            //{
+            //    "registration": "BC 0003 BC",
+            //    "validityOfRegistration": "2023-06-05T18:08:18.6946595",
+            //    "mileage": 20000,
+            //    "description": "Kao nov",
+            //    "color": "Green",
+            //    "chassisNumber": "12345678901234567",
+            //    "engineVolume": 2200,
+            //    "horsePower": 180,
+            //    "imageFilePath": "img1.png",
+            //    "fuelTypeId" : 1,
+            //    "carModelId" : 2
+            //}
             _validator.ValidateAndThrow(request);
 
             request.EditedAt = DateTime.UtcNow;

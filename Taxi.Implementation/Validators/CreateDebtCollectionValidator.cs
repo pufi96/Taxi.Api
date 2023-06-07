@@ -19,16 +19,16 @@ namespace Taxi.Implementation.Validators
 
             _context = context;
 
-            RuleFor(x => x.Debtor).NotEmpty().WithMessage("Debtor is required.")
+            RuleFor(x => x.DebtorId).NotEmpty().WithMessage("Debtor is required.")
                                      .Must(DebtorExsist).WithMessage("Debtor doesn't exsist.");
 
             RuleFor(x => x.DebtCollectionPrice).NotEmpty().WithMessage("Price ius required")
                                                 .Must(PriceCheck).WithMessage("Price must be higher than 0.");
         }
 
-        private bool DebtorExsist(DebtorDto debtor)
+        private bool DebtorExsist(int debtorId)
         {
-            var exists = _context.Debtors.Any(x => x.Id == debtor.Id);
+            var exists = _context.Debtors.Any(x => x.Id == debtorId);
             return exists;
         }
         private bool PriceCheck(double price)

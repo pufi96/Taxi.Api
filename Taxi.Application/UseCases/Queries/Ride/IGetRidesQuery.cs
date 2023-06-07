@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.Ride
 {
-    public interface IGetRidesQuery : EfUseCase<BaseSearch, IEnumerable<RideDto>>
+    public interface IGetRidesQuery : EfUseCase<BaseSearch, IEnumerable<RideDtoDebtor>>
     {
     }
 }

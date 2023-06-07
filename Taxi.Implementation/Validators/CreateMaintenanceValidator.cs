@@ -19,7 +19,7 @@ namespace Taxi.Implementation.Validators
 
             _context = context;
 
-            RuleFor(x => x.MaintenanceType).NotEmpty().WithMessage("Maintenance type is required.")
+            RuleFor(x => x.MaintenanceTypeId).NotEmpty().WithMessage("Maintenance type is required.")
                                         .Must(MaintenanceTypeNotExsist).WithMessage("Maintenance type doesn't exsist.");
 
 
@@ -27,9 +27,9 @@ namespace Taxi.Implementation.Validators
                                       .Must(PositiveNumber).WithMessage("Mileage must be positive number.");
         }
 
-        private bool MaintenanceTypeNotExsist(MaintenanceTypeDto maintenanceType)
+        private bool MaintenanceTypeNotExsist(int maintenanceTypeId)
         {
-            var exists = _context.MaintenanceTypes.Any(x => x.Id == maintenanceType.Id);
+            var exists = _context.MaintenanceTypes.Any(x => x.Id == maintenanceTypeId);
             return exists;
         }
         private bool PositiveNumber(int positive)

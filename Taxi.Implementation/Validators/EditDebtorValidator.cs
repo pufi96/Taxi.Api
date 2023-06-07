@@ -18,8 +18,8 @@ namespace Taxi.Implementation.Validators
 
             _context = context;
 
-            RuleFor(x => x.Id).NotEmpty().WithMessage("Car id is required.")
-                                       .Must(DebtorNotFound).WithMessage("Car for edit is not found.");
+            RuleFor(x => x.Id).NotEmpty().WithMessage("Debtor id is required.")
+                                       .Must(DebtorNotFound).WithMessage("Debtor for edit is not found.");
 
             RuleFor(x => x.DebtorFirstName).NotEmpty().WithMessage("First name is required.");
 

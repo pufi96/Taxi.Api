@@ -22,10 +22,25 @@ namespace Taxi.Implementation.Validators
                                         .Must(PositiveNumber).WithMessage("Price must be positive number.");
 
             RuleFor(x => x.LocationStartId).NotEmpty().WithMessage("Start location is required.")
-                                      .Must(LocationNotExsist).WithMessage("Start location doesn't exsist.");
+                                            .NotEqual(x => x.LocationEndId).WithMessage("Start location and end location can't be the same.")
+                                            .Must(LocationNotExsist).WithMessage("Start location doesn't exsist.");
 
             RuleFor(x => x.LocationEndId).NotEmpty().WithMessage("End location is required.")
-                                      .Must(LocationNotExsist).WithMessage("End location doesn't exsist.");
+                                            .NotEqual(x => x.LocationStartId).WithMessage("Start location and end location can't be the same.")
+                                            .Must(LocationNotExsist).WithMessage("End location doesn't exsist.");
+
+            RuleFor(x => x).Must(BeUniqueFirst).WithMessage("Combination location already exsist.")
+                           .Must(BeUniqueSecound).WithMessage("Combination location already exsist.");
+        }
+        private bool BeUniqueFirst(CreateLocationPricesDto model)
+        {
+            var first = _context.LocationPrices.Any(x => x.LocationEndId == model.LocationEndId && x.LocationStartId == model.LocationStartId);
+            return !first;
+        }
+        private bool BeUniqueSecound(CreateLocationPricesDto model)
+        {
+            var secound = _context.LocationPrices.Any(x => x.LocationEndId == model.LocationStartId && x.LocationStartId == model.LocationEndId);
+            return !secound;
         }
         private bool LocationNotExsist(int id)
         {

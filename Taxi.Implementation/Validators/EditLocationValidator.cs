@@ -32,8 +32,8 @@ namespace Taxi.Implementation.Validators
         }
         private bool LocationNotInUse(string name)
         {
-            var exists = _context.Locations.Any(x => x.LocationName == name);
-            return exists;
+            var exists = _context.Locations.Any(x => x.LocationName.ToLower() == name.ToLower());
+            return !exists;
         }
     }
 }

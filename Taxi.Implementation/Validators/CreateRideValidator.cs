@@ -20,22 +20,30 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.RidePrice).NotEmpty().WithMessage("Price is required.")
                                     .Must(PositiveNumber).WithMessage("Price must be positive number.");
 
-            RuleFor(x => x.LocationPrice).Must(LocationPriceDoesntExsist)
-                                            .When(x => x.IsLocal == false)
+            RuleFor(x => x.LocationPriceId).NotNull().WithMessage("LocationPriceId is required.")
+                                            .Must(LocationPriceDoesntExsist)
+                                            .When(x => !x.IsLocal)
                                             .WithMessage("Location is required when it's not local ride.");
 
-            RuleFor(x => x.Shift).Must(ShiftDoesntExsistOrIsntActive).WithMessage("That shift doesn't exsist or isn't active.");
+            RuleFor(x => x.ShiftId).Must(ShiftDoesntExsistOrIsntActive).WithMessage("That shift doesn't exsist or isn't active.");
+
+            RuleFor(x => x.DebtorId).GreaterThan(0).When(x => x.DebtorId.HasValue);
 
             _context = context;
         }
-        private bool LocationPriceDoesntExsist(LocationPricesDto locationPrice)
+        private bool LocationPriceDoesntExsist(int? locationPriceId)
         {
-            var exists = _context.LocationPrices.Any(x => x.Id == locationPrice.Id);
-            return exists;
+            if(locationPriceId.HasValue) 
+            {
+
+                var exists = _context.LocationPrices.Any(x => x.Id == locationPriceId);
+                return exists;
+            }
+            return true;
         }
-        private bool ShiftDoesntExsistOrIsntActive(ShiftDto shift)
+        private bool ShiftDoesntExsistOrIsntActive(int shiftId)
         {
-            var exists = _context.Shifts.Any(x => x.Id == shift.Id && x.ShiftEnd != null);
+            var exists = _context.Shifts.Any(x => x.Id == shiftId && x.ShiftEnd != null);
             return exists;
         }
         private bool PositiveNumber(double positive)

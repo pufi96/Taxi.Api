@@ -27,16 +27,16 @@ namespace Taxi.Implementation.UseCases.Queries.EfCarBrands
 
         public string Description => "Find car brand using EF";
 
-        public MaintenanceDto Execute(int id)
+        public CarBrandDto Execute(int id)
         {
             var query = Context.CarBrands.FirstOrDefault(x => x.Id == id & x.IsActive);
 
             if (query == null)
             {
-                throw new EntityNotFoundException(nameof(Maintenance), id);
+                throw new EntityNotFoundException(nameof(CarBrandDto), id);
             }
 
-            MaintenanceDto result = Mapper.Map<MaintenanceDto>(query);
+            CarBrandDto result = Mapper.Map<CarBrandDto>(query);
 
             return result;
         }

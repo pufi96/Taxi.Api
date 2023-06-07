@@ -18,7 +18,7 @@ namespace Taxi.DatabaseAccess.Configuration
 
             builder.HasOne(x => x.MaintenanceType)
                     .WithMany(x => x.Maintenances)
-                    .HasForeignKey(x => x.MaintenaceTypeId)
+                    .HasForeignKey(x => x.MaintenanceTypeId)
                     .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Car)

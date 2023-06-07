@@ -25,7 +25,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfLocationPrices
 
         public string Description => "Edit LocationPrice";
 
-        public void Execute(LocationPricesDto request)
+        public void Execute(EditLocationPricesDto request)
         {
             _validator.ValidateAndThrow(request);
 

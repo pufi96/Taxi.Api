@@ -33,6 +33,7 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
 
             request.EditedAt = DateTime.UtcNow;
 
+            request.UserRoleId = Context.Roles.FirstOrDefault(x => x.RoleName == "Driver").Id;
             var user = Context.Users.FirstOrDefault(x => x.Id == request.Id);
 
             Mapper.Map(request, user);

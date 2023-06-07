@@ -10,7 +10,7 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
-    public class EditDebtCollectionValidator : AbstractValidator<DebtCollectionDtoDebtor>
+    public class EditDebtCollectionValidator : AbstractValidator<EditDebtCollectionDto>
     {
         private TaxiDbContext _context;
         public EditDebtCollectionValidator(TaxiDbContext context)
@@ -22,16 +22,16 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.Id).NotEmpty().WithMessage("Car id is required.")
                                        .Must(DebtCollectionNotFound).WithMessage("Car for edit is not found.");
 
-            RuleFor(x => x.Debtor).NotEmpty().WithMessage("Debtor is required.")
+            RuleFor(x => x.DebtorId).NotEmpty().WithMessage("Debtor is required.")
                                      .Must(DebtorExsist).WithMessage("Debtor doesn't exsist.");
 
             RuleFor(x => x.DebtCollectionPrice).NotEmpty().WithMessage("Price ius required")
                                                 .Must(PriceCheck).WithMessage("Price must be higher than 0.");
         }
 
-        private bool DebtorExsist(DebtorDto debtor)
+        private bool DebtorExsist(int debtorId)
         {
-            var exists = _context.Debtors.Any(x => x.Id == debtor.Id && x.IsActive);
+            var exists = _context.Debtors.Any(x => x.Id == debtorId && x.IsActive);
             return exists;
         }
         private bool PriceCheck(double price)

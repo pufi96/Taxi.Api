@@ -27,7 +27,7 @@ namespace Taxi.Implementation.UseCases.Queries.Users
 
         public IEnumerable<UserDtoShift> Execute(BaseSearch search)
         {
-            var query = Context.Users.AsQueryable();
+            var query = Context.Users.Where(x => x.IsActive).AsQueryable();
 
             IEnumerable<UserDtoShift> result = Mapper.Map<IEnumerable<UserDtoShift>>(query.ToList());
 
