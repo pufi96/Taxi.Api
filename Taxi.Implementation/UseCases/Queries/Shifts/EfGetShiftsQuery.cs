@@ -29,19 +29,25 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
 
         public PagedResponse<ShiftDtoUserRides> Execute(ShiftSearch search)
         {
-            var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor).ThenInclude(x => x.DebtCollections)
+            var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor)
                                     .Include(x => x.Rides).ThenInclude(x => x.LocationPrice)
                                     .Include(x => x.User)
                                     .Include(x => x.Car).ThenInclude(x => x.FuelType)
                                     .Include(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
                                     .AsQueryable();
 
-            IEnumerable<ShiftDtoUserRides> result = Mapper.Map<IEnumerable<ShiftDtoUserRides>>(query.ToList());
+            var response = query.ToPagedResponse(search,x => x);
 
-            
-            var response = query.ToPagedResponse<Shift, ShiftDtoUserRides>(search,x => Mapper.Map<ShiftDtoUserRides>(x));
+            var result = new PagedResponse<ShiftDtoUserRides>();
 
-            return response;
+            result.ItemsPerPage = response.ItemsPerPage;
+            result.TotalCount = response.TotalCount;
+            result.CurrentPage = response.CurrentPage;
+
+            result.Items = response.Items.Select(x => Mapper.Map<ShiftDtoUserRides>(x));
+
+
+            return result;
         }
     }
 }

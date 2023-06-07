@@ -39,7 +39,9 @@ namespace Taxi.Implementation.UseCases.Queries.Rides
             }
 
             RideDtoDebtor result = Mapper.Map<RideDtoDebtor>(query);
-            
+            result.Debtor = Mapper.Map<DebtorDto>(query.InDebteds.FirstOrDefault());
+
+
             return result;
         }
     }

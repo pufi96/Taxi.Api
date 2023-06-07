@@ -29,7 +29,7 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
 
         public ShiftDtoUserRides Execute(int id)
         {
-            var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor).ThenInclude(x => x.DebtCollections)
+            var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor)
                                     .Include(x => x.Rides).ThenInclude(x => x.LocationPrice)
                                     .Include(x => x.User)
                                     .Include(x => x.Car).ThenInclude(x => x.FuelType)

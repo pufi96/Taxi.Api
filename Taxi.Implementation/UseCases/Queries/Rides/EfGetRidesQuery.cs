@@ -36,7 +36,6 @@ namespace Taxi.Implementation.UseCases.Queries.Rides
 
             IEnumerable<RideDtoDebtor> rides = queryResponse.Select(x =>
             {
-                //ovde je greska!!
                 var ride = Mapper.Map<RideDtoDebtor>(x);
                 ride.Debtor= x.InDebteds.Select(d =>
                 {
