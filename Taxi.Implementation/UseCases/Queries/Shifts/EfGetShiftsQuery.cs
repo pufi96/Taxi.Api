@@ -34,7 +34,16 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
                                     .Include(x => x.User)
                                     .Include(x => x.Car).ThenInclude(x => x.FuelType)
                                     .Include(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
+                                    .Where(x => x.ShiftEnd != null)
                                     .AsQueryable();
+            
+            if(search.Turnover > 0) {
+                query = query.Where(x => x.Turnover > search.Turnover);
+            }
+
+            if(search.Earnings > 0) {
+                query = query.Where(x => x.Earnings > search.Earnings);
+            }
 
             var response = query.ToPagedResponse(search,x => x);
 

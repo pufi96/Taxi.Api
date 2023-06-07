@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,11 @@ namespace Taxi.Implementation.UseCases.Commands.EfShifts
         {
             _validator.ValidateAndThrow(request);
 
-            request.EditedAt = DateTime.UtcNow;
+            var shift = Context.Shifts.Include(x => x.Rides).FirstOrDefault(x => x.Id == request.Id);
 
-            var shift = Context.Shifts.FirstOrDefault(x => x.Id == request.Id);
+            request.Earnings = shift.Rides.Sum(x => x.RidePrice);
+            request.Turnover = request.Earnings - request.Expenses;
+            request.EditedAt = DateTime.UtcNow;
 
             Mapper.Map(request, shift);
 
