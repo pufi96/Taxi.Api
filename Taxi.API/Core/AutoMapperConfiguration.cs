@@ -48,7 +48,8 @@ namespace Taxi.API.Core
                         .ForMember(dest => dest.Maintenances, opt => opt.MapFrom(src => src.Maintenances))
                         .ForMember(dest => dest.FuelType, opt => opt.MapFrom(src => src.FuelType));
 
-
+                config.CreateMap<User, UserDtoShift>()
+                        .ForMember(dest => dest.Shifts, opt => opt.MapFrom(src => src.Shifts));
 
                 config.ValidateInlineMaps = false;
                 config.CreateMissingTypeMaps = true;

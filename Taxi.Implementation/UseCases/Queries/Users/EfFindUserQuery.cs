@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,11 @@ namespace Taxi.Implementation.UseCases.Queries.Users
 
         public UserDtoShift Execute(int id)
         {
-            var query = Context.Users.FirstOrDefault(x => x.Id == id & x.IsActive);
+            var query = Context.Users.Include(x => x.Shifts).ThenInclude(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor)
+                                     .Include(x => x.Shifts).ThenInclude(x => x.Rides).ThenInclude(x => x.LocationPrice)
+                                     .Include(x => x.Shifts).ThenInclude(x => x.Car).ThenInclude(x => x.FuelType)
+                                     .Include(x => x.Shifts).ThenInclude(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
+                                     .FirstOrDefault(x => x.Id == id & x.IsActive);
 
             if (query == null)
             {
