@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Application;
 using Taxi.Application.UseCases.Commands.User;
 using Taxi.Application.UseCases.DTO;
@@ -27,14 +24,26 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
 
         public string Description => "Edit User";
 
-        public void Execute(UserDto request)
+        public void Execute(EditUserDto request)
         {
             _validator.ValidateAndThrow(request);
 
-            request.EditedAt = DateTime.UtcNow;
-
-            request.UserRoleId = Context.Roles.FirstOrDefault(x => x.RoleName == "Driver").Id;
             var user = Context.Users.FirstOrDefault(x => x.Id == request.Id);
+           
+            if(_user.Id == request.Id)
+            {
+                request.UserRoleId = Context.Roles.FirstOrDefault(x => x.RoleName == "Driver").Id;
+                request.Earnings = (double)user.Earnings;
+                request.Username = user.Username;
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+            request.EditedAt = DateTime.UtcNow;
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            request.Password = passwordHash;
 
             Mapper.Map(request, user);
 

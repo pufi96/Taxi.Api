@@ -10,7 +10,7 @@ using Taxi.DatabaseAccess;
 namespace Taxi.DatabaseAccess.Migrations
 {
     [DbContext(typeof(TaxiDbContext))]
-    [Migration("20230605180002_Initial")]
+    [Migration("20230609193532_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -357,6 +357,42 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.ToTable("LocationPrices");
                 });
 
+            modelBuilder.Entity("Taxi.Domain.Entities.LogEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EditedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UseCaseData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UseCaseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LogEntries");
+                });
+
             modelBuilder.Entity("Taxi.Domain.Entities.Maintenance", b =>
                 {
                     b.Property<int>("Id")
@@ -392,7 +428,7 @@ namespace Taxi.DatabaseAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<int>("MaintenaceTypeId")
+                    b.Property<int>("MaintenanceTypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("Mileage")
@@ -405,7 +441,7 @@ namespace Taxi.DatabaseAccess.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.HasIndex("MaintenaceTypeId");
+                    b.HasIndex("MaintenanceTypeId");
 
                     b.ToTable("Maintenances");
                 });
@@ -756,15 +792,15 @@ namespace Taxi.DatabaseAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Taxi.Domain.Entities.MaintenanceType", "MaintenaceType")
+                    b.HasOne("Taxi.Domain.Entities.MaintenanceType", "MaintenanceType")
                         .WithMany("Maintenances")
-                        .HasForeignKey("MaintenaceTypeId")
+                        .HasForeignKey("MaintenanceTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Car");
 
-                    b.Navigation("MaintenaceType");
+                    b.Navigation("MaintenanceType");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.Ride", b =>

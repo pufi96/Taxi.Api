@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.Application.Logging;
 using Taxi.Application.UseCases;
 using Taxi.DatabaseAccess;
 
@@ -10,25 +13,25 @@ namespace Taxi.Implementation.Logging
 {
     public class EfUseCaseLogger : IUseCaseLogger
     {
-        public TaxiDbContext dbContext { get; set; }
+        private TaxiDbContext _context { get; set; }
 
-        public EfUseCaseLogger(TaxiDbContext dbContext)
+        public EfUseCaseLogger(TaxiDbContext context)
         {
-            this.dbContext = dbContext;
+            _context = context;
         }
 
-        public IEnumerable<UseCaseLog> GetLogs(UseCaseLogSearch search)
+        public void Add(UseCaseLogEntry entry)
         {
-            throw new NotImplementedException();
-        }
+            _context.LogEntries.Add(new Domain.Entities.LogEntry
+            {
+                User = entry.User,
+                UserId = entry.UserId,
+                UseCaseData = JsonConvert.SerializeObject(entry.Data),
+                UseCaseName = entry.UseCaseName,
+                CreatedAt = DateTime.UtcNow
+            });
 
-        public void Log(UseCaseLog log)
-        {
-            //this.dbContext.AuditLogs.Add(log.Adapt<AuditLog>());
-            //this.dbContext.SaveChanges();
-
-            //Console.WriteLine($"User: {log.Username} - UseCase: {log.UseCaseName}");
-
+            _context.SaveChanges();
         }
     }
 }

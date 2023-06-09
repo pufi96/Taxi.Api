@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.Ride
 {
-    public interface IFindRideQuery : EfUseCase<int, RideDtoDebtor>
+    public interface IFindRideQuery : IQuery<int, RideDtoDebtor>
     {
     }
 }

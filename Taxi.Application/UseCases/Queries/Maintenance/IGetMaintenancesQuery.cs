@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.Maintenance
 {
-    public interface IGetMaintenancesQuery : EfUseCase<BaseSearch, IEnumerable<MaintenanceDtoCar>>
+    public interface IGetMaintenancesQuery : IQuery<BaseSearch, IEnumerable<MaintenanceDtoCar>>
     {
     }
 }

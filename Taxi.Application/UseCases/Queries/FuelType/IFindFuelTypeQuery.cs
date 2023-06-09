@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.FuelType
 {
-    public interface IFindFuelTypeQuery : EfUseCase<int, FuelTypeDto>
+    public interface IFindFuelTypeQuery : IQuery<int, FuelTypeDto>
     {
     }
 }

@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.LocationPrice
 {
-    public interface IGetLocationPricesQuery : EfUseCase<BaseSearch, IEnumerable<LocationPricesDto>>
+    public interface IGetLocationPricesQuery : IQuery<BaseSearch, IEnumerable<LocationPricesDto>>
     {
     }
 }

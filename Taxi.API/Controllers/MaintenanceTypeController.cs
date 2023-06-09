@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Queries.MaintenacesType;
 using Taxi.Application.UseCases.Queries.MaintenanceType;
 using Taxi.Application.UseCases.Queries.Searches;
@@ -14,25 +15,25 @@ namespace Taxi.API.Controllers
     [Authorize]
     public class MaintenanceTypeController : ControllerBase
     {
-        private UseCaseHandler _handler;
+        private IQueryHandler _queryHandler;
 
-        public MaintenanceTypeController(UseCaseHandler handler)
+        public MaintenanceTypeController(IQueryHandler queryHandler)
         {
-            _handler = handler;
+            _queryHandler = queryHandler;
         }
 
         // GET: api/<MaintenanceTypeController>
         [HttpGet]
         public IActionResult Get([FromQuery] BaseSearch search, [FromServices] IGetMaintenanceTypesQuery query)
         {
-            return Ok(_handler.HandleQuery(query, search));
+            return Ok(_queryHandler.HandleQuery(query, search));
         }
 
         // GET api/<MaintenanceTypeController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id, [FromServices] IFindMaintenanceTypeQuery query)
         {
-            return Ok(_handler.HandleQuery(query, id));
+            return Ok(_queryHandler.HandleQuery(query, id));
         }
     }
 }

@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.CarModel
 {
-    public interface IFindCarModelQuery : EfUseCase<int, CarModelDto>
+    public interface IFindCarModelQuery : IQuery<int, CarModelDto>
     {
     }
 }

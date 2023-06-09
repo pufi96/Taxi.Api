@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.User
 {
-    public interface IGetUsersQuery : EfUseCase<BaseSearch, IEnumerable<UserDtoShift>>
+    public interface IGetUsersQuery : IQuery<BaseSearch, IEnumerable<UserDtoShift>>
     {
     }
 }

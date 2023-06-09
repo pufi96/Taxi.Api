@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.Location
 {
-    public interface IFindLocationQuery : EfUseCase<int, LocationDto>
+    public interface IFindLocationQuery : IQuery<int, LocationDto>
     {
     }
 }

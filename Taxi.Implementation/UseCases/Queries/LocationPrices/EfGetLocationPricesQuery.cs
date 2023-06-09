@@ -33,6 +33,15 @@ namespace Taxi.Implementation.UseCases.Queries.LocationPrices
                                     .Include(x => x.LocationEnd)
                                     .AsQueryable();
 
+            if (search.Keyword != null)
+            {
+                query = query.Where(x => x.LocationStart.LocationName == search.Keyword);
+            }
+            if (search.Keyword != null)
+            {
+                query = query.Where(x => x.LocationEnd.LocationName == search.Keyword);
+            }
+
             IEnumerable<LocationPricesDto> result = Mapper.Map<IEnumerable<LocationPricesDto>>(query.ToList());
 
             return result;

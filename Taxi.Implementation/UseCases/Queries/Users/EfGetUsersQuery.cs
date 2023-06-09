@@ -34,6 +34,13 @@ namespace Taxi.Implementation.UseCases.Queries.Users
                                      .Include(x => x.Shifts).ThenInclude(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
                                      .Where(x => x.IsActive).AsQueryable();
 
+            if(search.Keyword != null)
+            {
+                query = query.Where(x => x.Username == search.Keyword);
+            }
+
+            
+
             IEnumerable<UserDtoShift> result = Mapper.Map<IEnumerable<UserDtoShift>>(query.ToList());
 
             return result;

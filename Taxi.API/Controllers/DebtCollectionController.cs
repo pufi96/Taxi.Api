@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Commands.DebtCollection;
 using Taxi.Application.UseCases.Commands.Location;
 using Taxi.Application.UseCases.DTO;
@@ -13,18 +14,18 @@ namespace Taxi.API.Controllers
     public class DebtCollectionController : ControllerBase
     {
 
-        private UseCaseHandler _handler;
+        private ICommandHandler _commandHandler;
 
-        public DebtCollectionController(UseCaseHandler handler)
+        public DebtCollectionController(ICommandHandler commandHandler)
         {
-            _handler = handler;
+            _commandHandler = commandHandler;
         }
 
         // POST api/<DebtCollectionController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateDebtCollectionDto request, [FromServices] ICreateDebtCollectionCommand  command)
         {
-            _handler.HandleCommand(command, request);
+            _commandHandler.HandleCommand(command, request);
             return StatusCode(201);
         }
 
@@ -32,7 +33,7 @@ namespace Taxi.API.Controllers
         [HttpPut("edit")]
         public IActionResult Put([FromBody] EditDebtCollectionDto request, [FromServices] IEditDebtCollectionCommand command)
         {
-            _handler.HandleCommand(command, request);
+            _commandHandler.HandleCommand(command, request);
             return StatusCode(204);
         }
     }

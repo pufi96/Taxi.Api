@@ -38,11 +38,13 @@ namespace Taxi.API.Controllers
             var roleUseCase = new List<RoleUseCase>();
             roleUseCase.AddRange(masterRole);
             roleUseCase.AddRange(driverRole);
+            
 
+            var password = BCrypt.Net.BCrypt.HashPassword("Admin12345.");
             var user = new List<User>
             {
-                new User { Username = "master", FirstName = "Taxi", LastName ="Master", Earnings = 100, Email = "master@gmail.com", Password = "Admin12345.", UserRole = role.ElementAt(0) },
-                new User { Username = "zika", FirstName = "Zika", LastName ="Zikic", Earnings = 20, Email = "zika@gmail.com", Password = "Admin12345.", UserRole = role.ElementAt(1) }
+                new User { Username = "master", FirstName = "Taxi", LastName ="Master", Earnings = 100, Email = "master@gmail.com", Password = password, UserRole = role.ElementAt(0) },
+                new User { Username = "zika", FirstName = "Zika", LastName ="Zikic", Earnings = 20, Email = "zika@gmail.com", Password = password, UserRole = role.ElementAt(1) }
             };
 
             var carBrand = new List<CarBrand>

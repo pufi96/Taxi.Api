@@ -44,6 +44,9 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
                 Context.Users.Add(user);
             }
 
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            request.Password = passwordHash;
+
             Context.SaveChanges();
         }
     }

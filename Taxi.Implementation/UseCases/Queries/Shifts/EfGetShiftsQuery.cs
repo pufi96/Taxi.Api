@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Application;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Application.UseCases.Queries.Shift;
 using Taxi.DatabaseAccess;
-using Taxi.Domain.Entities;
 using Taxi.Implementation.Extensions;
 
 namespace Taxi.Implementation.UseCases.Queries.Shifts
@@ -43,6 +38,18 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
 
             if(search.Earnings > 0) {
                 query = query.Where(x => x.Earnings > search.Earnings);
+            }
+
+            if(search.Expenses > 0) {
+                query = query.Where(x => x.Expenses > search.Expenses);
+            }
+
+            if(search.DateFrom != null) {
+                query = query.Where(x => x.CreatedAt > search.DateFrom);
+            }
+
+            if(search.DateTo != null) {
+                query = query.Where(x => x.CreatedAt < search.DateTo);
             }
 
             var response = query.ToPagedResponse(search,x => x);

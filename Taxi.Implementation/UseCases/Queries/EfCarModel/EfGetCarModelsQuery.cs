@@ -29,6 +29,7 @@ namespace Taxi.Implementation.UseCases.Queries.EfCarModel
         public IEnumerable<CarModelDto> Execute(BaseSearch search)
         {
             var query = Context.CarModels.Include(x => x.CarBrand).AsQueryable();
+
             if (search.Keyword != null)
             {
                 query = query.Where(x => x.CarModelName.Contains(search.Keyword));

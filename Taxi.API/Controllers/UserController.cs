@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Commands.User;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Searches;
@@ -15,40 +16,42 @@ namespace Taxi.API.Controllers
     [Authorize]
     public class UserController : ControllerBase
     {
-        private UseCaseHandler _handler;
+        private IQueryHandler _queryHandler;
+        private ICommandHandler _commandHandler;
 
-        public UserController(UseCaseHandler handler)
+        public UserController(IQueryHandler queryHandler, ICommandHandler commandHandler)
         {
-            _handler = handler;
+            _queryHandler = queryHandler;
+            _commandHandler = commandHandler;
         }
 
         // GET: api/<UserController>
         [HttpGet]
         public IActionResult Get([FromQuery] BaseSearch search, [FromServices] IGetUsersQuery query)
         {
-            return Ok(_handler.HandleQuery(query, search));
+            return Ok(_queryHandler.HandleQuery(query, search));
         }
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id, [FromServices] IFindUserQuery query)
         {
-            return Ok(_handler.HandleQuery(query, id));
+            return Ok(_queryHandler.HandleQuery(query, id));
         }
 
         // POST api/<UserController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateUserDto request, [FromServices] ICreateUserCommand command)
         {
-            _handler.HandleCommand(command, request);
+            _commandHandler.HandleCommand(command, request);
             return StatusCode(201);
         }
 
         // PUT api/<UserController>/edit
         [HttpPut("edit")]
-        public IActionResult Put([FromBody] UserDto request, [FromServices] IEditUserCommand command)
+        public IActionResult Put([FromBody] EditUserDto request, [FromServices] IEditUserCommand command)
         {
-            _handler.HandleCommand(command, request);
+            _commandHandler.HandleCommand(command, request);
             return StatusCode(204);
         }
 
@@ -56,7 +59,7 @@ namespace Taxi.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id, [FromServices] IDeleteUserCommand command)
         {
-            _handler.HandleCommand(command, id);
+            _commandHandler.HandleCommand(command, id);
             return StatusCode(204);
         }
     }

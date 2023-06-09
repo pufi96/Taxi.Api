@@ -78,6 +78,26 @@ namespace Taxi.DatabaseAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LogEntries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    User = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UseCaseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UseCaseData = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LogEntries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MaintenanceTypes",
                 columns: table => new
                 {
@@ -287,7 +307,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     Price = table.Column<int>(type: "int", nullable: true),
                     Mileage = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MaintenaceTypeId = table.Column<int>(type: "int", nullable: false),
+                    MaintenanceTypeId = table.Column<int>(type: "int", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -304,8 +324,8 @@ namespace Taxi.DatabaseAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Maintenances_MaintenanceTypes_MaintenaceTypeId",
-                        column: x => x.MaintenaceTypeId,
+                        name: "FK_Maintenances_MaintenanceTypes_MaintenanceTypeId",
+                        column: x => x.MaintenanceTypeId,
                         principalTable: "MaintenanceTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -452,9 +472,9 @@ namespace Taxi.DatabaseAccess.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Maintenances_MaintenaceTypeId",
+                name: "IX_Maintenances_MaintenanceTypeId",
                 table: "Maintenances",
-                column: "MaintenaceTypeId");
+                column: "MaintenanceTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MaintenanceTypes_MaintenanceTypeName",
@@ -514,6 +534,9 @@ namespace Taxi.DatabaseAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "InDebteds");
+
+            migrationBuilder.DropTable(
+                name: "LogEntries");
 
             migrationBuilder.DropTable(
                 name: "Maintenances");

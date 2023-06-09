@@ -22,7 +22,9 @@ using System.IdentityModel.Tokens.Jwt;
 using Taxi.Application;
 using Taxi.API.Middleware;
 using System.Text.Json.Serialization;
-using AutoMapper;
+using Taxi.Application.UseCaseHandling;
+using Taxi.Application.Email;
+using Taxi.Implementation.Email;
 
 namespace Taxi.API
 {
@@ -56,8 +58,9 @@ namespace Taxi.API
                 return new JwtManager(context, appSettings.Jwt.Issuer, appSettings.Jwt.SecretKey, appSettings.Jwt.DurationSeconds, tokenStorage);
             });
 
-            services.AddHttpContextAccessor(); 
+            services.AddTransient<QueryHandler>();
 
+            services.AddHttpContextAccessor(); 
             services.AddScoped<IApplicationUser>(x =>
             {
                 var accessor = x.GetService<IHttpContextAccessor>();
@@ -94,22 +97,41 @@ namespace Taxi.API
             //{
             //    DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
             //    builder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
-            //    return new TaxiDbContext(builder.Options);
+            //    return new TaxiDbContext();
             //});
 
             services.AddTransient<IErrorLogger, ConsoleErrorLogger>();
             services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
+            services.AddTransient<IUseCaseLogger, EfUseCaseLogger>();
+            services.AddTransient<ICommandHandler, CommandHandler>();
 
             services.AddValidators();
             services.AddUseCases();
 
             services.AddJwt(appSettings);
 
+            services.AddTransient<IEmailSender>(x =>
+            new SmtpEmailSender(appSettings.EmailOptions.FromEmail,
+                                appSettings.EmailOptions.Password,
+                                appSettings.EmailOptions.Port,
+                                appSettings.EmailOptions.Host));
+
             services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Taxi.API", Version = "v1" });
+            });
+            services.AddTransient<IQueryHandler>(x =>
+            {
+                var user = x.GetService<IApplicationUser>();
+                var logger = x.GetService<IUseCaseLogger>();
+                var queryHandler = new QueryHandler();
+                var timeTrackingHandler = new TimeTrackingQueryHandler(queryHandler);
+                var loggingHandler = new LoggingQueryHandler(timeTrackingHandler, user, logger);
+                var decoration = new AuthorizationQueryHandler(user, loggingHandler);
+
+                return decoration;
             });
         }
 

@@ -20,15 +20,15 @@ namespace Taxi.DatabaseAccess.Configuration
 
             builder.Property(x => x.Password)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(255);
 
             builder.Property(x => x.FirstName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(255);
             
             builder.Property(x => x.LastName)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(255);
 
             builder.HasOne(x => x.UserRole)
                     .WithMany(x => x.Users)

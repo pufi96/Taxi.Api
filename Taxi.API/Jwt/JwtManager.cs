@@ -35,16 +35,23 @@ namespace Taxi.API.Jwt
 
         public string MakeToken(string username, string password)
         {
+            
             var user = _context.Users
                                 .Include(x => x.UserRole)
                                 .ThenInclude(x => x.RoleUseCases)
                                 .FirstOrDefault(x => x.Username == username && 
-                                                     x.Password == password && 
                                                      x.IsActive);
+
+            var valid = BCrypt.Net.BCrypt.Verify(password, user.Password);
+
+            if (!valid)
+            {
+                throw new UnauthorizedAccessException("User with those credentials doesn't exist.");
+            }
 
             if (user == null || user.UserRole == null || !user.UserRole.IsActive)
             {
-                throw new UnauthorizedAccessException("Invalid credentials.");
+                throw new UnauthorizedAccessException("User not found.");
             }
 
             int id = user.Id;

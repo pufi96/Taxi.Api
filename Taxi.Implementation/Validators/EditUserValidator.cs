@@ -1,15 +1,11 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
 
 namespace Taxi.Implementation.Validators
 {
-    public class EditUserValidator : AbstractValidator<UserDto>
+    public class EditUserValidator : AbstractValidator<EditUserDto>
     {
         private TaxiDbContext _context;
         public EditUserValidator(TaxiDbContext context)

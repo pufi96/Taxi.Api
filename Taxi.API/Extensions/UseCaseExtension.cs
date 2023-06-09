@@ -13,7 +13,6 @@ using Taxi.Application.UseCases.Queries.Maintenance;
 using Taxi.Application.UseCases.Queries.MaintenanceType;
 using Taxi.Application.UseCases.Queries.Ride;
 using Taxi.Application.UseCases.Queries.User;
-using Taxi.Application.UseCases;
 using Taxi.Implementation.Logging;
 using Taxi.Implementation.UseCases.Commands.EfCarModels;
 using Taxi.Implementation.UseCases.Queries.EfCarBrands;
@@ -50,6 +49,8 @@ using Taxi.Application.UseCases.Commands.Shift;
 using Taxi.Implementation.UseCases.Commands.EfShifts;
 using Taxi.Application.UseCases.Commands.User;
 using Taxi.Implementation.UseCases.Commands.EfUsers;
+using Taxi.Application.Logging;
+using Taxi.Application.UseCaseHandling;
 
 namespace Taxi.API.Extensions
 {
@@ -57,7 +58,6 @@ namespace Taxi.API.Extensions
     {
         public static void AddUseCases(this IServiceCollection services)
         {
-            services.AddTransient<UseCaseHandler>();
             services.AddTransient<IUseCaseLogger, EfUseCaseLogger>();
 
 

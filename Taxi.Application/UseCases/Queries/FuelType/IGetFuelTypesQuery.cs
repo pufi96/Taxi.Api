@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.FuelType
 {
-    public interface IGetFuelTypesQuery : EfUseCase<BaseSearch, IEnumerable<FuelTypeDto>>
+    public interface IGetFuelTypesQuery : IQuery<BaseSearch, IEnumerable<FuelTypeDto>>
     {
     }
 }

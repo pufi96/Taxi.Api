@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Queries.FuelType;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Implementation;
@@ -13,23 +14,23 @@ namespace Taxi.API.Controllers
     [Authorize]
     public class FuelTypeController : ControllerBase
     {
-        private UseCaseHandler _handler;
-        public FuelTypeController(UseCaseHandler handler)
+        private IQueryHandler _queryHandler;
+        public FuelTypeController(IQueryHandler queryHandler)
         {
-            _handler = handler;
+            _queryHandler = queryHandler;
         }
         // GET: api/<FuelTypesController>
         [HttpGet]
         public IActionResult Get([FromQuery] BaseSearch search, [FromServices] IGetFuelTypesQuery query)
         {
-            return Ok(_handler.HandleQuery(query, search));
+            return Ok(_queryHandler.HandleQuery(query, search));
         }
 
         // GET api/<FuelTypesController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id, [FromServices] IFindFuelTypeQuery query)
         {
-            return Ok(_handler.HandleQuery(query, id));
+            return Ok(_queryHandler.HandleQuery(query, id));
         }
     }
 }

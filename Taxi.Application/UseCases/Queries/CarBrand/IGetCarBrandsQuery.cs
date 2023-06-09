@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.ICarBrandQuery
 {
-    public interface IGetCarBrandsQuery : EfUseCase<BaseSearch, IEnumerable<CarBrandDto>>
+    public interface IGetCarBrandsQuery : IQuery<BaseSearch, IEnumerable<CarBrandDto>>
     {
     }
 }

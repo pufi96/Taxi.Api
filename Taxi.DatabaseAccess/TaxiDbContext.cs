@@ -72,5 +72,6 @@ namespace Taxi.DatabaseAccess
         public DbSet<LocationPrice> LocationPrices { get; set; }
         public DbSet<Ride> Rides { get; set; }
         public DbSet<RoleUseCase> RoleUseCases { get; set; }
+        public DbSet<LogEntry> LogEntries { get; set; }
     }
 }

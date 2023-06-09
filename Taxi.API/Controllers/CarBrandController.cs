@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Commands.CarBrand;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.ICarBrand;
@@ -16,32 +17,33 @@ namespace Taxi.API.Controllers
     [Authorize]
     public class CarBrandController : ControllerBase
     {
-        private UseCaseHandler _handler;
-
-        public CarBrandController(UseCaseHandler handler)
+        private IQueryHandler _queryHandler;
+        private ICommandHandler _commandHandler;
+        public CarBrandController(IQueryHandler queryHandler, ICommandHandler commandHandler)
         {
-            _handler = handler;
+            _queryHandler = queryHandler;
+            _commandHandler = commandHandler;
         }
 
         // GET: api/<CarBrandController>
         [HttpGet]
         public IActionResult Get([FromQuery]BaseSearch search, [FromServices] IGetCarBrandsQuery query)
         {
-            return Ok(_handler.HandleQuery(query, search));
+            return Ok(_queryHandler.HandleQuery(query, search));
         }
 
         // get api/<carbrandcontroller>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id, [FromServices] IFindCarBrandQuery query)
         {
-            return Ok(_handler.HandleQuery(query, id));
+            return Ok(_queryHandler.HandleQuery(query, id));
         }
 
         // POST api/<CarBrandController>
         [HttpPost]
         public IActionResult Post([FromBody] CreateCarBrandDto request, [FromServices] ICreateCarBrandCommand command)
         {
-            _handler.HandleCommand(command, request);
+            _commandHandler.HandleCommand(command, request);
             return StatusCode(201);
         }
 
@@ -49,7 +51,7 @@ namespace Taxi.API.Controllers
         [HttpPut("edit")]
         public IActionResult Put([FromBody] CarBrandDto request, [FromServices] IEditCarBrandCommand command)
         {
-            _handler.HandleCommand(command, request);
+            _commandHandler.HandleCommand(command, request);
             return StatusCode(204);
         }
     }
