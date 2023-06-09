@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application;
+using Taxi.Application.Email;
 using Taxi.Application.UseCases.Commands.User;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
@@ -17,9 +18,11 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
     public class EfCreateUserCommand : EfUseCase, ICreateUserCommand
     {
         private CreateUserValidator _validator;
-        public EfCreateUserCommand(TaxiDbContext context, IApplicationUser user, CreateUserValidator validator) : base(context, user)
+        private IEmailSender _sender;
+        public EfCreateUserCommand(TaxiDbContext context, IApplicationUser user, CreateUserValidator validator, IEmailSender sender) : base(context, user)
         {
             _validator = validator;
+            _sender = sender;
         }
 
         public int Id => 46;
@@ -30,24 +33,32 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
 
         public void Execute(CreateUserDto request)
         {
-            if(request.Username != null)
+            _validator.ValidateAndThrow(request);
+
+            var userActive = Context.Users.FirstOrDefault(x => x.Username == request.Username && !x.IsActive);
+
+            if (userActive != null)
             {
-                var userActive = Context.Users.FirstOrDefault(x => x.Username == request.Username && !x.IsActive);
                 userActive.IsActive = true;
             }
             else
             {
-                _validator.ValidateAndThrow(request);
                 request.UserRoleId = Context.Roles.FirstOrDefault(x => x.RoleName == "Driver").Id;
 
                 User user = Mapper.Map<User>(request);
                 Context.Users.Add(user);
             }
 
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword("Admin12345.");
             request.Password = passwordHash;
 
             Context.SaveChanges();
+            //_sender.SendEmail(new MailDto
+            //{
+            //    To = "mastertaxi96@gmail.com",
+            //    Subject = "Welcome to firm!",
+            //    Body = $"Your initial password is Admin1235. you can change it after login."
+            //});
         }
     }
 }

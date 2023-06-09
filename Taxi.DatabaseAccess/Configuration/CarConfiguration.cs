@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taxi.Domain.Entities;
 
 namespace Taxi.DatabaseAccess.Configuration
@@ -15,11 +10,11 @@ namespace Taxi.DatabaseAccess.Configuration
         {
             builder.Property(x => x.Registration)
                     .IsRequired()
-                    .HasMaxLength(10);
+                    .HasMaxLength(20);
 
             builder.Property(x => x.Color)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
 
             builder.HasOne(x => x.CarModel)
                     .WithMany(x => x.Cars)

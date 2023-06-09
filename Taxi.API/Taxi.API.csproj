@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Taxi.Implementation\Taxi.Implementation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

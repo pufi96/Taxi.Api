@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Taxi.API.DTO;
 using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Commands.Car;
 using Taxi.Application.UseCases.DTO;
@@ -16,6 +21,8 @@ namespace Taxi.API.Controllers
     [Authorize]
     public class CarController : ControllerBase
     {
+        public static IEnumerable<string> AllowedExtensions => new List<string> { ".jpg", ".png", ".jpeg", ".gif", ".JPG", ".JPEG", ".PNG", ".GIF" };
+
         private IQueryHandler _queryHandler;
         private ICommandHandler _commandHandler;
 
@@ -40,8 +47,30 @@ namespace Taxi.API.Controllers
 
         // POST api/<CarController>
         [HttpPost]
-        public IActionResult Post([FromBody] CreateCarDto request, [FromServices] ICreateCarCommand command)
+        public IActionResult Post([FromForm] RegisterImageApiDto request, [FromServices] ICreateCarCommand command)
         {
+            if (request.Image != null)
+            {
+                var guid = Guid.NewGuid();
+                var extension = Path.GetExtension(request.Image.FileName);
+
+                if (!AllowedExtensions.Contains(extension))
+                {
+                    throw new InvalidOperationException("Unsupported file type.");
+                }
+
+                var fileName = guid + extension;
+
+                var filePath = Path.Combine("wwwroot", "images", fileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    request.Image.CopyTo(fileStream);
+                };
+
+                request.ImageFilePath = fileName;
+
+            }
             _commandHandler.HandleCommand(command, request);
             return StatusCode(201);
         }

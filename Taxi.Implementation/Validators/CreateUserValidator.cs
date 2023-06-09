@@ -21,8 +21,6 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.Earnings).NotEmpty().WithMessage("Earnings are required in %.")
                                      .Must(PositiveNumber).WithMessage("Earnings must be positive number.");
 
-            RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
-
             RuleFor(x => x.Username).NotEmpty().WithMessage("Username is required.")
                                      .Must(UsernameIsAlreadyInUse).WithMessage("Username is already in use.");
         }

@@ -32,11 +32,24 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.FuelTypeId).NotEmpty().WithMessage("Fuel type is required.")
                                     .Must(FuelTypeDoesntExsist).WithMessage("Fuel type doesn't exsist.");
 
+            RuleFor(x => x.Color).NotEmpty().WithMessage("Color is required.");
+
             RuleFor(x => x.CarModelId).NotEmpty().WithMessage("Car model is required.")
                                     .Must(CarModelDoesntExsist).WithMessage("Car model doesn't exsist.");
+
+            RuleFor(x => x.Registration).NotEmpty().WithMessage("Car model is required.")
+                                    .Must(BeValidRegistrationNumber).WithMessage("Invalid registration number.");
+
+
             _context = context;
         }
-
+        private bool BeValidRegistrationNumber(string registration)
+        {
+            var groups = registration.Split('-');
+            if (groups.Length != 3)
+                return false;
+            return true;
+        }
         private bool CarModelDoesntExsist(int carModelId)
         {
             var exists = _context.CarModels.Any(x => x.Id == carModelId);
