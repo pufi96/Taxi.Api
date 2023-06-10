@@ -51,6 +51,8 @@ using Taxi.Application.UseCases.Commands.User;
 using Taxi.Implementation.UseCases.Commands.EfUsers;
 using Taxi.Application.Logging;
 using Taxi.Application.UseCaseHandling;
+using Taxi.Application.UseCases.Queries;
+using Taxi.Implementation.UseCases.Queries;
 
 namespace Taxi.API.Extensions
 {
@@ -99,6 +101,7 @@ namespace Taxi.API.Extensions
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
             services.AddTransient<IFindUserQuery, EfFindUserQuery>();
 
+            services.AddTransient<IGetLogEntries, EfGetLogEntriesQuery>();
 
             //command
 

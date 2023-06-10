@@ -14,14 +14,14 @@ namespace Taxi.Application.UseCaseHandling
         private IApplicationUser _user;
         private IUseCaseLogger _logger;
 
-        public LoggingQueryHandler(IQueryHandler next, IApplicationUser actor, IUseCaseLogger logger)
+        public LoggingQueryHandler(IQueryHandler next, IApplicationUser user, IUseCaseLogger logger)
         {
             _next = next;
             if (next == null)
             {
                 throw new ArgumentException();
             }
-            _user = actor;
+            _user = user;
             _logger = logger;
         }
 

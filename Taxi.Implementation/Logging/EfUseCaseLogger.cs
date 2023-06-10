@@ -24,7 +24,7 @@ namespace Taxi.Implementation.Logging
         {
             _context.LogEntries.Add(new Domain.Entities.LogEntry
             {
-                User = entry.User,
+                Username = entry.User,
                 UserId = entry.UserId,
                 UseCaseData = JsonConvert.SerializeObject(entry.Data),
                 UseCaseName = entry.UseCaseName,

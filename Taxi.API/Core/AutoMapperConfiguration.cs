@@ -22,6 +22,8 @@ namespace Taxi.API.Core
                 config.CreateMap<CarModel, CreateCarModelDto>();
                 config.CreateMap<Maintenance, EditMaintenanceDto>();
 
+                config.CreateMap<LogEntry, LogDto>();
+
                 config.CreateMap<Debtor, DebtorDtoDebt>()
                         .ForMember(dest => dest.Rides, opt => opt.MapFrom(src => src.InDebteds));
                 config.CreateMap<InDebted, RideDto>()

@@ -25,6 +25,7 @@ using System.Text.Json.Serialization;
 using Taxi.Application.UseCaseHandling;
 using Taxi.Application.Email;
 using Taxi.Implementation.Email;
+using Microsoft.EntityFrameworkCore;
 
 namespace Taxi.API
 {
@@ -116,7 +117,7 @@ namespace Taxi.API
                                 appSettings.EmailOptions.Port,
                                 appSettings.EmailOptions.Host));
 
-            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {

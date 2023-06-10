@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,13 +29,13 @@ namespace Taxi.Implementation.UseCases.Queries.EfCarBrands
         public IEnumerable<CarBrandDto> Execute(BaseSearch search)
         {
 
-            var query = Context.CarBrands.AsQueryable();
+            var query = Context.CarBrands.ProjectTo<CarBrandDto>();
             if (search.Keyword != null)
             {
                 query = query.Where(x => x.CarBrandName.Contains(search.Keyword));
             }
 
-            IEnumerable<CarBrandDto> result = Mapper.Map<IEnumerable<CarBrandDto>>(query.ToList());
+            IEnumerable<CarBrandDto> result = query.ToList();
 
             return result;
         }
