@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Queries;
 using Taxi.Application.UseCases.Queries.Searches;
@@ -9,6 +10,7 @@ namespace Taxi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LogEntriesController : ControllerBase
     {
         private IQueryHandler _queryHandler;
