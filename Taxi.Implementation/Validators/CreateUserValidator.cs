@@ -23,6 +23,9 @@ namespace Taxi.Implementation.Validators
 
             RuleFor(x => x.Username).NotEmpty().WithMessage("Username is required.")
                                      .Must(UsernameIsAlreadyInUse).WithMessage("Username is already in use.");
+
+            RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required.")
+                                     .Must(EmaileIsAlreadyInUse).WithMessage("Email is already in use.");
         }
         private bool PositiveNumber(double positive)
         {
@@ -33,6 +36,13 @@ namespace Taxi.Implementation.Validators
             if(string.IsNullOrEmpty(username)) return true;
 
             var exists = _context.Users.Any(x => x.Username == username);
+            return !exists;
+        }
+        private bool EmaileIsAlreadyInUse(string email)
+        {
+            if(string.IsNullOrEmpty(email)) return true;
+
+            var exists = _context.Users.Any(x => x.Email == email);
             return !exists;
         }
     }

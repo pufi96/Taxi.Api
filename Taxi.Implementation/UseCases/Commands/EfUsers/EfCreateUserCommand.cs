@@ -37,6 +37,8 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
 
             var userActive = Context.Users.FirstOrDefault(x => x.Username == request.Username && !x.IsActive);
 
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword("Admin12345.");
+            request.Password = passwordHash;
             if (userActive != null)
             {
                 userActive.IsActive = true;
@@ -49,16 +51,14 @@ namespace Taxi.Implementation.UseCases.Commands.EfUsers
                 Context.Users.Add(user);
             }
 
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword("Admin12345.");
-            request.Password = passwordHash;
 
             Context.SaveChanges();
-            //_sender.SendEmail(new MailDto
-            //{
-            //    To = "mastertaxi96@gmail.com",
-            //    Subject = "Welcome to firm!",
-            //    Body = $"Your initial password is Admin1235. you can change it after login."
-            //});
+            _sender.SendEmail(new MailDto
+            {
+                To = userActive.Email,
+                Subject = "Welcome to firm!",
+                Body = $"Your initial password is Admin1235. you can change it after login."
+            });
         }
     }
 }
