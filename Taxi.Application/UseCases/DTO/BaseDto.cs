@@ -12,6 +12,5 @@ namespace Taxi.Application.UseCases.DTO
         public DateTime? CreatedAt { get; set; }
         public DateTime? EditedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
-
     }
 }

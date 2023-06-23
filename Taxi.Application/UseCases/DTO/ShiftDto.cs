@@ -8,6 +8,7 @@ namespace Taxi.Application.UseCases.DTO
     
     public class ShiftDto : BaseDto
     {
+        public bool IsActive { get; set; }
         public DateTime ShiftStart { get; set; }
         public DateTime ShiftEnd { get; set; }
         public int MileageStart { get; set; }

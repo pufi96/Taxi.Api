@@ -29,7 +29,6 @@ namespace Taxi.API.Controllers
 
             return Ok(new { token });
         }
-      
 
         // DELETE api/<AuthController>/5
         [HttpDelete]
