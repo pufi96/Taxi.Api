@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application.Exceptions;
 using Taxi.Application.UseCases;
+using Taxi.Domain;
 
 namespace Taxi.Application.UseCaseHandling
 {

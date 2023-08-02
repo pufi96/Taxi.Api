@@ -11,6 +11,7 @@ using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Car;
 using Taxi.Application.UseCases.Queries.Debtor;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.EfDebtors

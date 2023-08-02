@@ -38,7 +38,7 @@ namespace Taxi.Implementation.Validators
         }
         private bool ShiftDoesntExsistOrIsntActive(int shiftId)
         {
-            var exists = _context.Shifts.Any(x => x.Id == shiftId && x.ShiftEnd != null);
+            var exists = _context.Shifts.Any(x => x.Id == shiftId && x.ShiftEnd == null);
             return exists;
         }
         private bool PositiveNumber(double positive)

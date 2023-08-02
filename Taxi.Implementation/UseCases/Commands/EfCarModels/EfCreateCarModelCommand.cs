@@ -10,6 +10,7 @@ using Taxi.Application.UseCases.Commands.CarBrand;
 using Taxi.Application.UseCases.Commands.CarModel;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 using Taxi.Implementation.Validators;
 

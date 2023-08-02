@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using Taxi.DatabaseAccess.Configuration;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 
 namespace Taxi.DatabaseAccess
 {
     public class TaxiDbContext : DbContext
     {
-
         public TaxiDbContext(DbContextOptions options = null) : base(options)
         {
             Database.EnsureCreated();
@@ -19,7 +19,8 @@ namespace Taxi.DatabaseAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
+            //optionsBuilder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-AAV6E36\\SQLEXPRESS;Initial Catalog=Taxi;Integrated Security=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -6,6 +6,7 @@ using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Application.UseCases.Queries.Shift;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Implementation.Extensions;
 
 namespace Taxi.Implementation.UseCases.Queries.Shifts
@@ -29,7 +30,6 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
                                     .Include(x => x.User)
                                     .Include(x => x.Car).ThenInclude(x => x.FuelType)
                                     .Include(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
-                                    .Where(x => x.ShiftEnd != null)
                                     .AsQueryable();
             
             if(search.Turnover > 0) {

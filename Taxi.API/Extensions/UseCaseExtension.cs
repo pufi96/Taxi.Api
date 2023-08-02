@@ -84,7 +84,8 @@ namespace Taxi.API.Extensions
             services.AddTransient<IFindMaintenanceQuery, EfFindMaintenanceQuery>();
 
             services.AddTransient<IGetLocationPricesQuery, EfGetLocationPricesQuery>();
-            services.AddTransient<IFindLocationPriceQuery, EfFindLocationPriceQuery>();
+            services.AddTransient<IFindLocationPriceQuery, EfFindLocationPriceQuery>(); 
+            services.AddTransient<IFindFinishLocationPriceQuery, EfFindFinishLocationPriceQuery>(); 
 
             services.AddTransient<IGetLocationsQuery, EfGetLocationsQuery>();
             services.AddTransient<IFindLocationQuery, EfFindLocationsQuery>();
@@ -97,6 +98,8 @@ namespace Taxi.API.Extensions
 
             services.AddTransient<IGetShiftsQuery, EfGetShiftsQuery>();
             services.AddTransient<IFindShiftQuery, EfFindShiftsQuery>();
+            services.AddTransient<IFindUnfinishedShiftQuery, EfFindUnfinishedShiftQuery>();
+            services.AddTransient<IFindUserShiftsQuery, EfFindUserShiftsQuery>();
 
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
             services.AddTransient<IFindUserQuery, EfFindUserQuery>();

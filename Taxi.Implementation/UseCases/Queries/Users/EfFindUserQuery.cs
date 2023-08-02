@@ -6,6 +6,7 @@ using Taxi.Application.Exceptions;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.User;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.Users
@@ -26,8 +27,7 @@ namespace Taxi.Implementation.UseCases.Queries.Users
         {
             var query = Context.Users.Include(x => x.Shifts).ThenInclude(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor)
                                      .Include(x => x.Shifts).ThenInclude(x => x.Rides).ThenInclude(x => x.LocationPrice)
-                                     .Include(x => x.Shifts).ThenInclude(x => x.Car).ThenInclude(x => x.FuelType)
-                                     .Include(x => x.Shifts).ThenInclude(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
+                                     .Include(x => x.Shifts).ThenInclude(x => x.Car)
                                      .FirstOrDefault(x => x.Id == id & x.IsActive);
 
             if (query == null)

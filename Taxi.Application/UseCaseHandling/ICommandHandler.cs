@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using Taxi.Application.Exceptions;
 using Taxi.Application.Logging;
 using Taxi.Application.UseCases;
+using Taxi.Domain;
 
 namespace Taxi.Application.UseCaseHandling
 {
-    public interface ICommandHandler
+    public interface ICommandHandler    
     {
         void HandleCommand<TRequest>(ICommand<TRequest> command, TRequest data);
     }
@@ -28,7 +29,7 @@ namespace Taxi.Application.UseCaseHandling
 
         public void HandleCommand<TRequest>(ICommand<TRequest> command, TRequest data)
         {
-            if (!_user.AllowedUseCases.Contains(command.Id))
+            if (!_user.AllowedUseCases.Contains(command.Id)) 
             {
                 throw new UnauthorizedUseCaseExecutionException(_user.Username, command.Name);
             }

@@ -26,6 +26,7 @@ using Taxi.Application.UseCaseHandling;
 using Taxi.Application.Email;
 using Taxi.Implementation.Email;
 using Microsoft.EntityFrameworkCore;
+using Taxi.Domain;
 
 namespace Taxi.API
 {
@@ -47,9 +48,14 @@ namespace Taxi.API
             Configuration.Bind(appSettings);
             services.AddSingleton(appSettings);
 
+            services.AddHttpContextAccessor();
+
+            services.AddJwt(appSettings);
+
             AutoMapperConfiguration.InitAutoMapper();
 
             services.AddTaxiDbContext();
+
 
             services.AddTransient<ITokenStorage, InMemoryTokenStorage>();
             services.AddTransient<JwtManager>(x =>
@@ -61,7 +67,8 @@ namespace Taxi.API
 
             services.AddTransient<QueryHandler>();
 
-            services.AddHttpContextAccessor(); 
+           
+
             services.AddScoped<IApplicationUser>(x =>
             {
                 var accessor = x.GetService<IHttpContextAccessor>();
@@ -94,12 +101,13 @@ namespace Taxi.API
                 };
             });
 
-            //services.AddTransient<TaxiDbContext>(x =>
-            //{
-            //    DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
-            //    builder.UseSqlServer("Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
-            //    return new TaxiDbContext();
-            //});
+            services.AddTransient<TaxiDbContext>(x =>
+            {
+                DbContextOptionsBuilder builder = new DbContextOptionsBuilder();
+                //builder.UseSqlServer(@"Data Source=localhost; Initial Catalog = Taxi; Integrated Security = true");
+                builder.UseSqlServer(@"Data Source=DESKTOP-AAV6E36\SQLEXPRESS;Initial Catalog=Taxi;Integrated Security=True");
+                return new TaxiDbContext();
+            });
 
             services.AddTransient<IErrorLogger, ConsoleErrorLogger>();
             services.AddTransient<IExceptionLogger, ConsoleExceptionLogger>();
@@ -109,13 +117,18 @@ namespace Taxi.API
             services.AddValidators();
             services.AddUseCases();
 
-            services.AddJwt(appSettings);
 
             services.AddTransient<IEmailSender>(x =>
             new SmtpEmailSender(appSettings.EmailOptions.FromEmail,
                                 appSettings.EmailOptions.Password,
                                 appSettings.EmailOptions.Port,
                                 appSettings.EmailOptions.Host));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin", builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+            });
+
 
             services.AddControllers();
 
@@ -134,6 +147,8 @@ namespace Taxi.API
 
                 return decoration;
             });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -152,7 +167,8 @@ namespace Taxi.API
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
+            app.UseCors("AllowOrigin");
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseEndpoints(endpoints =>

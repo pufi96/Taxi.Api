@@ -10,6 +10,7 @@ using Taxi.Application.UseCases;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.FuelType;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.EfFuelTypes

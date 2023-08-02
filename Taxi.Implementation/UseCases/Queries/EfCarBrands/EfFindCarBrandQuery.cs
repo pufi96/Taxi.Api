@@ -10,6 +10,7 @@ using Taxi.Application.Exceptions;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.ICarBrand;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 using static System.Collections.Specialized.BitVector32;
 

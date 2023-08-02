@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Taxi.Application;
+using Taxi.Domain;
 
 namespace Taxi.API.Jwt
 {

@@ -11,6 +11,7 @@ using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Application.UseCases.Queries.User;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 
 namespace Taxi.Implementation.UseCases.Queries.Users
 {
@@ -38,8 +39,6 @@ namespace Taxi.Implementation.UseCases.Queries.Users
             {
                 query = query.Where(x => x.Username == search.Keyword);
             }
-
-            
 
             IEnumerable<UserDtoShift> result = Mapper.Map<IEnumerable<UserDtoShift>>(query.ToList());
 

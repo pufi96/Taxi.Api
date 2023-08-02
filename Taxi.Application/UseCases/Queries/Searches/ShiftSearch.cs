@@ -6,8 +6,8 @@ namespace Taxi.Application.UseCases.Queries.Searches
     {
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
-        public double Turnover { get; set; }
-        public double Earnings { get; set; }
-        public double Expenses { get; set; }
+        public double? Turnover { get; set; }
+        public double? Earnings { get; set; }
+        public double? Expenses { get; set; }
     }
 }

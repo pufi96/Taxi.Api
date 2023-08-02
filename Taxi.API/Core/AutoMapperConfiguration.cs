@@ -34,13 +34,19 @@ namespace Taxi.API.Core
 
                 config.CreateMap<Shift, ShiftDtoUserRides>()
                         .ForMember(dest => dest.Rides, opt => opt.MapFrom(src => src.Rides));
+
                 config.CreateMap<Ride, RideDtoDebtor>()
                         .ForMember(dest => dest.Debtor, opt => opt.MapFrom(src => src.InDebteds.FirstOrDefault()));
+
                 config.CreateMap<InDebted, DebtorDto>()
                         .ForMember(dest => dest.DebtorFirstName, opt => opt.MapFrom(src => src.Debtor.DebtorFirstName))
                         .ForMember(dest => dest.DebtorLastName, opt => opt.MapFrom(src => src.Debtor.DebtorLastName))
                         .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Debtor.Id))
                         .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Debtor.Description));
+
+                config.CreateMap<LocationPrice, LocationPricesDto>()
+                        .ForMember(dest => dest.LocationStart, opt => opt.MapFrom(src => src.LocationStart.LocationName))
+                        .ForMember(dest => dest.LocationEnd, opt => opt.MapFrom(src => src.LocationEnd.LocationName));
 
                 config.CreateMap<LocationPrice, LocationPricesDto>()
                         .ForMember(dest => dest.LocationStart, opt => opt.MapFrom(src => src.LocationStart.LocationName))

@@ -28,7 +28,13 @@ namespace Taxi.Application.UseCases.DTO
     }
     public class ShiftDtoRide : ShiftDto
     {
-        public IEnumerable<RideDto> Rides { get; set; }
+        public RideDto Rides { get; set; }
+    }
+
+    public class UpdateShiftDto: CreateShiftDto
+    {
+        public int Id { get; set; }
+        public DateTime? EditedAt { get; set; }
     }
     public class CreateShiftDto
     {
@@ -40,8 +46,8 @@ namespace Taxi.Application.UseCases.DTO
         public double? Earnings { get; set; }
         public double? Expenses { get; set; }
         public string Description { get; set; }
-        public UserDto User { get; set; }
-        public CarDto Car { get; set; }
+        public int UserId { get; set; }
+        public int CarId { get; set; }
     }
 
    

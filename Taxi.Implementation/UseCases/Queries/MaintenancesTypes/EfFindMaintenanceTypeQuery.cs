@@ -10,6 +10,7 @@ using Taxi.Application.Exceptions;
 using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.MaintenanceType;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.MaintenancesTypes

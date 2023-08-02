@@ -9,6 +9,7 @@ using Taxi.Application;
 using Taxi.Application.UseCases.Commands.Maintenance;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 using Taxi.Implementation.Validators;
 

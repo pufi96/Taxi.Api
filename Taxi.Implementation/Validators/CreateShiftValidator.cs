@@ -16,24 +16,30 @@ namespace Taxi.Implementation.Validators
         public CreateShiftValidator(TaxiDbContext context)
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
-
-            RuleFor(x => x.Car).NotEmpty().WithMessage("Car is required.")
+            RuleFor(x => x.CarId).NotEmpty().WithMessage("Car is required.")
                                     .Must(CarDoesntExsist).WithMessage("Car doesn't exsist.");
 
             RuleFor(x => x.MileageStart).NotEmpty().WithMessage("Mileage start is required.")
                                         .Must(MileageStartWithHigherNumberThenCarMileage).WithMessage("Mileage must be positive number and can't be lower than car mileage.");
 
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("User is required")
+                                    .Must(IsShiftActive).WithMessage("Shift is already active.");
             _context = context;
         }
-        private bool CarDoesntExsist(CarDto car)
+        private bool CarDoesntExsist(int car)
         {
-            var exists = _context.Cars.Any(x => x.Id == car.Id);
+            var exists = _context.Cars.Any(x => x.Id == car);
             return exists;
         }
         private bool MileageStartWithHigherNumberThenCarMileage(int mileageStart)
         {
             var exists = _context.Shifts.Any(x => mileageStart >= x.Car.Mileage);
             return exists;
+        }
+        private bool IsShiftActive(int user)
+        {
+            var active = _context.Shifts.Any(x => x.UserId == user && x.ShiftEnd == null);
+            return !active;
         }
     }
 }

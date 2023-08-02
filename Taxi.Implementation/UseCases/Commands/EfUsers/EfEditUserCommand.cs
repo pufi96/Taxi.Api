@@ -6,6 +6,7 @@ using Taxi.Application;
 using Taxi.Application.UseCases.Commands.User;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.EfUsers

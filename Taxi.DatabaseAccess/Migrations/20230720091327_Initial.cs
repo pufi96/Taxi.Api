@@ -83,7 +83,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     UseCaseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UseCaseData = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -235,10 +235,10 @@ namespace Taxi.DatabaseAccess.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Earnings = table.Column<double>(type: "float", nullable: true),
                     UserRoleId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -263,11 +263,11 @@ namespace Taxi.DatabaseAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Registration = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Registration = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ValidityOfRegistration = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Mileage = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Color = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ChassisNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EngineVolume = table.Column<double>(type: "float", nullable: false),
                     HorsePower = table.Column<int>(type: "int", nullable: false),

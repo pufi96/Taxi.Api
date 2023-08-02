@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Taxi.Application;
 using Taxi.Application.UseCases.Commands.Shift;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Domain.Entities;
 using Taxi.Implementation.Validators;
 
@@ -30,9 +26,15 @@ namespace Taxi.Implementation.UseCases.Commands.EfShifts
 
         public void Execute(CreateShiftDto request)
         {
-            _validator.ValidateAndThrow(request);
-
+            
             request.ShiftStart = DateTime.UtcNow;
+            if(request.Description == null)
+            {
+                request.Description = "";
+            }
+
+            request.UserId = _user.Id;
+            _validator.ValidateAndThrow(request);
 
             Shift shift = Mapper.Map<Shift>(request);
 

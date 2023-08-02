@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases

@@ -10,6 +10,7 @@ using Taxi.Application.UseCases.DTO;
 using Taxi.Application.UseCases.Queries.Car;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 
 namespace Taxi.Implementation.UseCases.Queries.EfCars
 {

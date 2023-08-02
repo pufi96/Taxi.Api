@@ -33,6 +33,12 @@ namespace Taxi.API.Controllers
             return Ok(_queryHandler.HandleQuery(query, search));
         }
 
+        [HttpGet("find-unfinished/{id}")]
+        public IActionResult FindUnfinished(int id, [FromServices] IFindUnfinishedShiftQuery query)
+        {
+            return Ok(_queryHandler.HandleQuery(query, id));
+        }
+
         // GET api/<ShiftController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id, [FromServices] IFindShiftQuery query)
@@ -50,7 +56,7 @@ namespace Taxi.API.Controllers
 
         // PUT api/<ShiftController>/edit
         [HttpPut("edit")]
-        public IActionResult Put( [FromBody] ShiftDto request, [FromServices] IEditShiftCommand command)
+        public IActionResult Put( [FromBody] UpdateShiftDto request, [FromServices] IEditShiftCommand command)
         {
             _commandHandler.HandleCommand(command, request);
             return StatusCode(204);

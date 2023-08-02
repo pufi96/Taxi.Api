@@ -32,6 +32,12 @@ namespace Taxi.API.Controllers
             return Ok(_queryHandler.HandleQuery(query, search));
         }
 
+        [HttpGet("find-finish/{id}")]
+        public IActionResult Get(int id, [FromServices] IFindFinishLocationPriceQuery query)
+        {
+            return Ok(_queryHandler.HandleQuery(query, id));
+        }
+
         // GET api/<LocationPriceController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id, [FromServices] IFindLocationPriceQuery query)

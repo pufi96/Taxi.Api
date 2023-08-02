@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Taxi.Application;
 using Taxi.Application.Exceptions;
 using Taxi.Application.UseCases.DTO;
-using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Application.UseCases.Queries.Shift;
 using Taxi.DatabaseAccess;
 using Taxi.Domain;
@@ -16,17 +14,17 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.Shifts
 {
-    public class EfFindShiftsQuery : EfUseCase, IFindShiftQuery
+    public class EfFindUnfinishedShiftQuery : EfUseCase, IFindUnfinishedShiftQuery
     {
-        public EfFindShiftsQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+        public EfFindUnfinishedShiftQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
         {
         }
 
-        public int Id => 24;
+        public int Id => 50;
 
-        public string Name => "Find Shifts";
+        public string Name => "Find unfinished shift";
 
-        public string Description => "Find Shifts";
+        public string Description => "Find unfinished shift";
 
         public ShiftDtoUserRides Execute(int id)
         {
@@ -36,12 +34,8 @@ namespace Taxi.Implementation.UseCases.Queries.Shifts
                                     .Include(x => x.User)
                                     .Include(x => x.Car).ThenInclude(x => x.FuelType)
                                     .Include(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
-                                    .FirstOrDefault(x => x.Id == id & x.IsActive);
-
-            if (query == null)
-            {
-                throw new EntityNotFoundException(nameof(Shift), id);
-            }
+                                    .Where(x => x.UserId == id & x.ShiftEnd == null)
+                                    .FirstOrDefault(x => x.IsActive);
 
             ShiftDtoUserRides result = Mapper.Map<ShiftDtoUserRides>(query);
 

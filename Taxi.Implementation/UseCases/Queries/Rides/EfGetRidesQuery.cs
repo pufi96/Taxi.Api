@@ -11,6 +11,7 @@ using Taxi.Application.UseCases.Queries.MaintenacesType;
 using Taxi.Application.UseCases.Queries.Ride;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.DatabaseAccess;
+using Taxi.Domain;
 
 namespace Taxi.Implementation.UseCases.Queries.Rides
 {

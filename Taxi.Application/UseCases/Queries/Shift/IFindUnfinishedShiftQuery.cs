@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Taxi.Application.UseCases.DTO;
 
-namespace Taxi.Application.UseCases.Commands.Shift
+namespace Taxi.Application.UseCases.Queries.Shift
 {
-    public interface IEditShiftCommand : ICommand<UpdateShiftDto>
+    public interface IFindUnfinishedShiftQuery : IQuery<int, ShiftDtoUserRides>
     {
     }
 }

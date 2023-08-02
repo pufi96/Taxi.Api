@@ -25,7 +25,7 @@ namespace Taxi.API.Controllers
             };
 
             var masterRole = new List<RoleUseCase>();
-            for (int i = 1; i < 50; i++)
+            for (int i = 1; i < 70; i++)
             {
                 masterRole.Add(new RoleUseCase { Role = role.ElementAt(0), UseCaseId = i });
             }
@@ -72,8 +72,8 @@ namespace Taxi.API.Controllers
 
             var car = new List<Car>
             {
-                new Car { CarModel = carModel.ElementAt(0), ChassisNumber = "1", Color = "Blue", Description = "NOV NOV NOV", EngineVolume = 1200, HorsePower = 80, FuelType = fuelType.ElementAt(0), Mileage = 0, ImageFilePath = "img1.png", Registration = "BC 0001 BC", ValidityOfRegistration = DateTime.UtcNow},
-                new Car { CarModel = carModel.ElementAt(1), ChassisNumber = "2", Color = "Black", Description = "Ne radi", EngineVolume = 1200, HorsePower = 180, FuelType = fuelType.ElementAt(1), Mileage = 100000, ImageFilePath = "img2.png", Registration = "BC 0002 BC", ValidityOfRegistration = DateTime.UtcNow}
+                new Car { CarModel = carModel.ElementAt(0), ChassisNumber = "12345678901234567", Color = "Blue", Description = "NOV NOV NOV", EngineVolume = 1200, HorsePower = 80, FuelType = fuelType.ElementAt(0), Mileage = 1, ImageFilePath = "img1.png", Registration = "BC 0001 BC", ValidityOfRegistration = DateTime.UtcNow},
+                new Car { CarModel = carModel.ElementAt(1), ChassisNumber = "12345678901234567", Color = "Black", Description = "Ne radi", EngineVolume = 1200, HorsePower = 180, FuelType = fuelType.ElementAt(1), Mileage = 100000, ImageFilePath = "img2.png", Registration = "BC 0002 BC", ValidityOfRegistration = DateTime.UtcNow}
             };
 
             var maintenanceType = new List<MaintenanceType>
