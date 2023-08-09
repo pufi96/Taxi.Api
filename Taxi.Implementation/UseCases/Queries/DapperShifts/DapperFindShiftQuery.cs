@@ -26,7 +26,10 @@ namespace Taxi.Implementation.UseCases.Queries.DapperShifts
 
         public ShiftDto Execute(int id)
         {
-            var query = "SELECT * FROM Shifts WHERE Id = @id";
+            var query = @"SELECT * 
+                        FROM Shifts 
+                        WHERE Id = @id
+                        ORDER BY ShiftEnd DESC";
             using (var connection = Context.CreateConnection())
             {
                 var shift = connection.QueryFirstOrDefault<ShiftDto>(query, new { id });

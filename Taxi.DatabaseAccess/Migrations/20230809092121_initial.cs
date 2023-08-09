@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Taxi.DatabaseAccess.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -379,6 +379,7 @@ namespace Taxi.DatabaseAccess.Migrations
                     RidePrice = table.Column<double>(type: "float", nullable: false),
                     LocationPriceId = table.Column<int>(type: "int", nullable: true),
                     ShiftId = table.Column<int>(type: "int", nullable: false),
+                    DebtorId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     EditedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -387,6 +388,12 @@ namespace Taxi.DatabaseAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rides", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rides_Debtors_DebtorId",
+                        column: x => x.DebtorId,
+                        principalTable: "Debtors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Rides_LocationPrices_LocationPriceId",
                         column: x => x.LocationPriceId,
@@ -399,30 +406,6 @@ namespace Taxi.DatabaseAccess.Migrations
                         principalTable: "Shifts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "InDebteds",
-                columns: table => new
-                {
-                    DebtorId = table.Column<int>(type: "int", nullable: false),
-                    RideId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_InDebteds", x => new { x.RideId, x.DebtorId });
-                    table.ForeignKey(
-                        name: "FK_InDebteds_Debtors_DebtorId",
-                        column: x => x.DebtorId,
-                        principalTable: "Debtors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InDebteds_Rides_RideId",
-                        column: x => x.RideId,
-                        principalTable: "Rides",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -452,11 +435,6 @@ namespace Taxi.DatabaseAccess.Migrations
                 column: "DebtorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InDebteds_DebtorId",
-                table: "InDebteds",
-                column: "DebtorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LocationPrices_LocationEndId",
                 table: "LocationPrices",
                 column: "LocationEndId");
@@ -481,6 +459,11 @@ namespace Taxi.DatabaseAccess.Migrations
                 table: "MaintenanceTypes",
                 column: "MaintenanceTypeName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rides_DebtorId",
+                table: "Rides",
+                column: "DebtorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rides_LocationPriceId",
@@ -533,25 +516,22 @@ namespace Taxi.DatabaseAccess.Migrations
                 name: "DebtCollections");
 
             migrationBuilder.DropTable(
-                name: "InDebteds");
-
-            migrationBuilder.DropTable(
                 name: "LogEntries");
 
             migrationBuilder.DropTable(
                 name: "Maintenances");
 
             migrationBuilder.DropTable(
-                name: "RoleUseCases");
-
-            migrationBuilder.DropTable(
-                name: "Debtors");
-
-            migrationBuilder.DropTable(
                 name: "Rides");
 
             migrationBuilder.DropTable(
+                name: "RoleUseCases");
+
+            migrationBuilder.DropTable(
                 name: "MaintenanceTypes");
+
+            migrationBuilder.DropTable(
+                name: "Debtors");
 
             migrationBuilder.DropTable(
                 name: "LocationPrices");

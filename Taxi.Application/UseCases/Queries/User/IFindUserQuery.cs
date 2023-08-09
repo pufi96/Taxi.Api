@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.User
 {
-    public interface IFindUserQuery : IQuery<int, UserDtoShift>
+    public interface IFindUserQuery : IQuery<int, UserDto>
     {
     }
 }

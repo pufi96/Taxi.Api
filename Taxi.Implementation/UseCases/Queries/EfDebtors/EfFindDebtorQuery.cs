@@ -16,32 +16,32 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.EfDebtors
 {
-    public class EfFindDebtorQuery : EfUseCase, IFindDebtorQuery
-    {
-        public EfFindDebtorQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
-        {
-        }
+    //public class EfFindDebtorQuery : EfUseCase, IFindDebtorQuery
+    //{
+    //    public EfFindDebtorQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+    //    {
+    //    }
 
-        public int Id => 10;
+    //    public int Id => 10;
 
-        public string Name => "Find Debtor";
+    //    public string Name => "Find Debtor";
 
-        public string Description => "Find Debtors";
+    //    public string Description => "Find Debtors";
 
-        public DebtorDtoDebt Execute(int id)
-        {
-            var query = Context.Debtors.Include(x => x.InDebteds).ThenInclude(x => x.Ride).ThenInclude(x => x.LocationPrice)
-                                   .Include(x => x.DebtCollections)
-                                   .FirstOrDefault(x => x.Id == id & x.IsActive);
+    //    public DebtorDtoDebt Execute(int id)
+    //    {
+    //        var query = Context.Debtors.Include(x => x.InDebteds).ThenInclude(x => x.Ride).ThenInclude(x => x.LocationPrice)
+    //                               .Include(x => x.DebtCollections)
+    //                               .FirstOrDefault(x => x.Id == id & x.IsActive);
 
-            if (query == null)
-            {
-                throw new EntityNotFoundException(nameof(Debtor), id);
-            }
+    //        if (query == null)
+    //        {
+    //            throw new EntityNotFoundException(nameof(Debtor), id);
+    //        }
 
-            DebtorDtoDebt result = Mapper.Map<DebtorDtoDebt>(query);
+    //        DebtorDtoDebt result = Mapper.Map<DebtorDtoDebt>(query);
 
-            return result;
-        }
-    }
+    //        return result;
+    //    }
+    //}
 }

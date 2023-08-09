@@ -26,9 +26,11 @@ namespace Taxi.Implementation.UseCases.Queries.DapperShifts
 
         public string Description => "Get Shifts";
 
-        public IEnumerable<ShiftDto> Execute(BaseSearch search)
+        public IEnumerable<ShiftDto> Execute(ShiftSearch search)
         {
-            var query = "SELECT * FROM Shifts";
+            var query = @"SELECT * 
+                        FROM Shifts 
+                        ORDER BY s.ShiftEnd DESC";
             using (var connection = Context.CreateConnection())
             {
                 var shifts = connection.Query<ShiftDto>(query);

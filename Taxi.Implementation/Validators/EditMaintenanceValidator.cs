@@ -9,7 +9,7 @@ using Taxi.DatabaseAccess;
 
 namespace Taxi.Implementation.Validators
 {
-    public class EditMaintenanceValidator : AbstractValidator<EditMaintenanceDto>
+    public class EditMaintenanceValidator : AbstractValidator<MaintenanceDto>
     {
         private TaxiDbContext _context;
         public EditMaintenanceValidator(TaxiDbContext context)
@@ -20,12 +20,6 @@ namespace Taxi.Implementation.Validators
 
             RuleFor(x => x.Id).NotEmpty().WithMessage("Maintenance id is required.")
                                        .Must(MaintenanceNotFound).WithMessage("Maintenance for edit is not found.");
-
-            RuleFor(x => x.MaintenanceTypeId).NotEmpty().WithMessage("Maintenance type is required.")
-                                        .Must(MaintenanceTypeNotExsist).WithMessage("Maintenance type doesn't exsist.");
-
-            RuleFor(x => x.CarId).NotEmpty().WithMessage("Car is required.")
-                                        .Must(CarNotFound).WithMessage("Car doesn't exsist.");
 
             RuleFor(x => x.Mileage).NotEmpty().WithMessage("Mileage is required.")
                                       .Must(PositiveNumber).WithMessage("Mileage must be positive number.");

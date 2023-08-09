@@ -74,18 +74,18 @@ namespace Taxi.API.Extensions
 
         public static void AddTaxiDbContext(this IServiceCollection services)
         {
-            services.AddTransient(x =>
-            {
-                DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+            //services.AddTransient(x =>
+            //{
+            //    DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
 
-                var connectionString = x.GetService<AppSettings>().ConnectionString;
+            //    var connectionString = x.GetService<AppSettings>().ConnectionString;
 
-                optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
+            //    optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
 
-                var options = optionsBuilder.Options;
+            //    var options = optionsBuilder.Options;
 
-                return new TaxiDbContext(options);
-            });
+            //    return new TaxiDbContext(options);
+            //});
         }
     }
 }

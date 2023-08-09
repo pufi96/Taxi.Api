@@ -12,44 +12,44 @@ using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.EfShifts
 {
-    public class EfEditShiftCommand : EfUseCase, IEditShiftCommand
-    {
-        private EditShiftValidator _validator;
-        public EfEditShiftCommand(TaxiDbContext context, IApplicationUser user, EditShiftValidator validator) : base(context, user)
-        {
-            _validator = validator;
-        }
+    //public class EfEditShiftCommand : EfUseCase, IEditShiftCommand
+    //{
+    //    private EditShiftValidator _validator;
+    //    public EfEditShiftCommand(TaxiDbContext context, IApplicationUser user, EditShiftValidator validator) : base(context, user)
+    //    {
+    //        _validator = validator;
+    //    }
 
-        public int Id => 22;
+    //    public int Id => 22;
 
-        public string Name => "Edit Shift";
+    //    public string Name => "Edit Shift";
 
-        public string Description => "Edit Shift";
+    //    public string Description => "Edit Shift";
 
-        public void Execute(UpdateShiftDto request)
-        {
+    //    public void Execute(ShiftDto request)
+    //    {
 
-            var shift = Context.Shifts.Include(x => x.Rides).FirstOrDefault(x => x.Id == request.Id);
+    //        var shift = Context.Shifts.Include(x => x.Rides).FirstOrDefault(x => x.Id == request.Id);
 
-            if (request.ShiftEnd == null)
-            {
-                request.ShiftEnd = DateTime.UtcNow;
-            }
-            else
-            {
-                request.ShiftEnd = (DateTime)shift.ShiftEnd;
-            }
+    //        if (request.ShiftEnd == null)
+    //        {
+    //            request.ShiftEnd = DateTime.UtcNow;
+    //        }
+    //        else
+    //        {
+    //            request.ShiftEnd = (DateTime)shift.ShiftEnd;
+    //        }
 
-            request.ShiftStart = shift.ShiftStart;
-            request.Earnings = shift.Rides.Sum(x => x.RidePrice);
-            request.Turnover = request.Earnings - request.Expenses;
-            request.EditedAt = DateTime.UtcNow;
+    //        request.ShiftStart = shift.ShiftStart;
+    //        request.Earnings = shift.Rides.Sum(x => x.RidePrice);
+    //        request.Turnover = request.Earnings - request.Expenses;
+    //        request.EditedAt = DateTime.UtcNow;
 
-            _validator.ValidateAndThrow(request);
+    //        _validator.ValidateAndThrow(request);
 
-            Mapper.Map(request, shift);
+    //        Mapper.Map(request, shift);
 
-            Context.SaveChanges();
-        }
-    }
+    //        Context.SaveChanges();
+    //    }
+    //}
 }

@@ -29,7 +29,7 @@ namespace Taxi.API.Controllers
             {
                 masterRole.Add(new RoleUseCase { Role = role.ElementAt(0), UseCaseId = i });
             }
-            int[] driverUseCases = { 7, 8, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 34, 44};
+            int[] driverUseCases = { 7, 8, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 34, 44, 50, 51, 52, 53, 54, 55, 56};
             var driverRole = new List<RoleUseCase>();
             for (int i = 0;i < driverUseCases.Length; i++)
             {
@@ -72,7 +72,7 @@ namespace Taxi.API.Controllers
 
             var car = new List<Car>
             {
-                new Car { CarModel = carModel.ElementAt(0), ChassisNumber = "12345678901234567", Color = "Blue", Description = "NOV NOV NOV", EngineVolume = 1200, HorsePower = 80, FuelType = fuelType.ElementAt(0), Mileage = 1, ImageFilePath = "img1.png", Registration = "BC 0001 BC", ValidityOfRegistration = DateTime.UtcNow},
+                new Car { CarModel = carModel.ElementAt(0), ChassisNumber = "12345678901234568", Color = "Blue", Description = "NOV NOV NOV", EngineVolume = 1200, HorsePower = 80, FuelType = fuelType.ElementAt(0), Mileage = 1, ImageFilePath = "img1.png", Registration = "BC 0001 BC", ValidityOfRegistration = DateTime.UtcNow},
                 new Car { CarModel = carModel.ElementAt(1), ChassisNumber = "12345678901234567", Color = "Black", Description = "Ne radi", EngineVolume = 1200, HorsePower = 180, FuelType = fuelType.ElementAt(1), Mileage = 100000, ImageFilePath = "img2.png", Registration = "BC 0002 BC", ValidityOfRegistration = DateTime.UtcNow}
             };
 
@@ -128,11 +128,6 @@ namespace Taxi.API.Controllers
                 new DebtCollection { DebtCollectionPrice = 700, Debtor = debtor.ElementAt(1)}
             };
 
-            var inDebted = new List<InDebted>
-            {
-                new InDebted { Debtor = debtor.ElementAt(0), Ride = ride.ElementAt(1)},
-                new InDebted { Debtor = debtor.ElementAt(1), Ride = ride.ElementAt(1)}
-            };
            
             context.Roles.AddRange(role);
             context.RoleUseCases.AddRange(roleUseCase);
@@ -148,7 +143,6 @@ namespace Taxi.API.Controllers
             context.Rides.AddRange(ride);
             context.Debtors.AddRange(debtor);
             context.DebtCollections.AddRange(debtCollection);
-            context.InDebteds.AddRange(inDebted);
 
             context.SaveChanges();
 

@@ -18,27 +18,10 @@ namespace Taxi.Application.UseCases.DTO
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
         public string ImageFilePath { get; set; }
-        public FuelTypeDto FuelType { get; set; }
-        public CarModelDto CarModel { get; set; }
-    }
-    public class CarDtoMaintenances : CarDto
-    {
-        public IEnumerable<MaintenanceDto> Maintenances { get; set; }
-    }
-    public class EditCarDto : BaseDto
-    {
-        public string Registration { get; set; }
-        public DateTime ValidityOfRegistration { get; set; }
-        public int Mileage { get; set; }
-        public string Description { get; set; }
-        public string Color { get; set; }
-        public string ChassisNumber { get; set; }
-        public double EngineVolume { get; set; }
-        public int HorsePower { get; set; }
-        public string ImageFilePath { get; set; }
         public int FuelTypeId { get; set; }
         public int CarModelId { get; set; }
     }
+
     public class CreateCarDto 
     {
         public string Registration { get; set; }

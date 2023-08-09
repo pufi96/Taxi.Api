@@ -14,31 +14,31 @@ using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.EfRides
 {
-    public class EfEditRideCommand : EfUseCase, IEditRideCommand
-    {
-        private EditRideValidator _validator;
-        public EfEditRideCommand(TaxiDbContext context, IApplicationUser user, EditRideValidator validator) : base(context, user)
-        {
-            _validator = validator;
-        }
+    //public class EfEditRideCommand : EfUseCase, IEditRideCommand
+    //{
+    //    private EditRideValidator _validator;
+    //    public EfEditRideCommand(TaxiDbContext context, IApplicationUser user, EditRideValidator validator) : base(context, user)
+    //    {
+    //        _validator = validator;
+    //    }
 
-        public int Id => 45;
+    //    public int Id => 45;
 
-        public string Name => "Edit Ride";
+    //    public string Name => "Edit Ride";
 
-        public string Description => "Edit Ride";
+    //    public string Description => "Edit Ride";
 
-        public void Execute(EditRideDto request)
-        {
-            _validator.ValidateAndThrow(request);
+    //    public void Execute(EditRideDto request)
+    //    {
+    //        _validator.ValidateAndThrow(request);
 
-            request.EditedAt = DateTime.UtcNow;
+    //        request.EditedAt = DateTime.UtcNow;
 
-            var ride = Context.Rides.FirstOrDefault(x => x.Id == request.Id);
+    //        var ride = Context.Rides.FirstOrDefault(x => x.Id == request.Id);
 
-            Mapper.Map(request, ride);
+    //        Mapper.Map(request, ride);
 
-            Context.SaveChanges();
-        }
-    }
+    //        Context.SaveChanges();
+    //    }
+    //}
 }

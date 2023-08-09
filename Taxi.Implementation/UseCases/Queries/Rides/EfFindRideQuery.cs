@@ -15,35 +15,35 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.Rides
 {
-    public class EfFindRideQuery : EfUseCase, IFindRideQuery
-    {
+    //public class EfFindRideQuery : EfUseCase, IFindRideQuery
+    //{
 
-        public EfFindRideQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
-        {
-        }
+    //    public EfFindRideQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+    //    {
+    //    }
 
-        public int Id => 20;
+    //    public int Id => 20;
 
-        public string Name => "Find Rides";
+    //    public string Name => "Find Rides";
 
-        public string Description => "Find Rides";
+    //    public string Description => "Find Rides";
 
-        public RideDtoDebtor Execute(int id)
-        {
-            var query = Context.Rides.Include(x => x.InDebteds).ThenInclude(x => x.Debtor)
-                                    .Include(x => x.LocationPrice)
-                                    .FirstOrDefault(x => x.Id == id & x.IsActive);
+    //    public RideDto Execute(int id)
+    //    {
+    //        var query = Context.Rides.Include(x => x.InDebteds).ThenInclude(x => x.Debtor)
+    //                                .Include(x => x.LocationPrice)
+    //                                .FirstOrDefault(x => x.Id == id & x.IsActive);
 
-            if (query == null)
-            {
-                throw new EntityNotFoundException(nameof(Ride), id);
-            }
+    //        if (query == null)
+    //        {
+    //            throw new EntityNotFoundException(nameof(Ride), id);
+    //        }
 
-            RideDtoDebtor result = Mapper.Map<RideDtoDebtor>(query);
-            result.Debtor = Mapper.Map<DebtorDto>(query.InDebteds.FirstOrDefault());
+    //        RideDto result = Mapper.Map<RideDto>(query);
+    //        result.Debtor = Mapper.Map<DebtorDto>(query.InDebteds.FirstOrDefault());
 
 
-            return result;
-        }
-    }
+    //        return result;
+    //    }
+    //}
 }

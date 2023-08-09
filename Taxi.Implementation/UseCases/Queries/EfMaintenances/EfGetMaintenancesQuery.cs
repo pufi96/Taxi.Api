@@ -14,37 +14,37 @@ using Taxi.Domain;
 
 namespace Taxi.Implementation.UseCases.Queries.EfMaintenances
 {
-    public class EfGetMaintenancesQuery : EfUseCase, IGetMaintenancesQuery
-    {
-        public EfGetMaintenancesQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
-        {
-        }
+    //public class EfGetMaintenancesQuery : EfUseCase, IGetMaintenancesQuery
+    //{
+    //    public EfGetMaintenancesQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+    //    {
+    //    }
 
-        public int Id => 11;
+    //    public int Id => 11;
 
-        public string Name => "Get Maintenance";
+    //    public string Name => "Get Maintenance";
 
-        public string Description => "Get Maintenance";
+    //    public string Description => "Get Maintenance";
 
-        public IEnumerable<MaintenanceDtoCar> Execute(BaseSearch search)
-        {
+    //    public IEnumerable<MaintenanceDtoCar> Execute(BaseSearch search)
+    //    {
 
-            var query = Context.Maintenances.AsQueryable();
-            //if (search.Keyword != null)
-            //{
-            //    query = query.Where(x => x.FuelTypeName.Contains(search.Keyword));
-            //}
+    //        var query = Context.Maintenances.AsQueryable();
+    //        //if (search.Keyword != null)
+    //        //{
+    //        //    query = query.Where(x => x.FuelTypeName.Contains(search.Keyword));
+    //        //}
 
-            var queryResponse = query.ToList();
+    //        var queryResponse = query.ToList();
 
-            IEnumerable<MaintenanceDtoCar> maintenances = queryResponse.Select(x =>
-            {
-                var maintenance = Mapper.Map<MaintenanceDtoCar>(x);
-                maintenance.Car = Mapper.Map<CarDto>(x.Car);
-                return maintenance;
-            }).ToList();
+    //        IEnumerable<MaintenanceDtoCar> maintenances = queryResponse.Select(x =>
+    //        {
+    //            var maintenance = Mapper.Map<MaintenanceDtoCar>(x);
+    //            maintenance.Car = Mapper.Map<CarDto>(x.Car);
+    //            return maintenance;
+    //        }).ToList();
 
-            return maintenances;
-        }
-    }
+    //        return maintenances;
+    //    }
+    //}
 }

@@ -266,21 +266,6 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.ToTable("FuelTypes");
                 });
 
-            modelBuilder.Entity("Taxi.Domain.Entities.InDebted", b =>
-                {
-                    b.Property<int>("RideId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DebtorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RideId", "DebtorId");
-
-                    b.HasIndex("DebtorId");
-
-                    b.ToTable("InDebteds");
-                });
-
             modelBuilder.Entity("Taxi.Domain.Entities.Location", b =>
                 {
                     b.Property<int>("Id")
@@ -492,6 +477,9 @@ namespace Taxi.DatabaseAccess.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
+                    b.Property<int?>("DebtorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
@@ -516,6 +504,8 @@ namespace Taxi.DatabaseAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DebtorId");
 
                     b.HasIndex("LocationPriceId");
 
@@ -744,25 +734,6 @@ namespace Taxi.DatabaseAccess.Migrations
                     b.Navigation("Debtor");
                 });
 
-            modelBuilder.Entity("Taxi.Domain.Entities.InDebted", b =>
-                {
-                    b.HasOne("Taxi.Domain.Entities.Debtor", "Debtor")
-                        .WithMany("InDebteds")
-                        .HasForeignKey("DebtorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Taxi.Domain.Entities.Ride", "Ride")
-                        .WithMany("InDebteds")
-                        .HasForeignKey("RideId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Debtor");
-
-                    b.Navigation("Ride");
-                });
-
             modelBuilder.Entity("Taxi.Domain.Entities.LocationPrice", b =>
                 {
                     b.HasOne("Taxi.Domain.Entities.Location", "LocationEnd")
@@ -803,6 +774,11 @@ namespace Taxi.DatabaseAccess.Migrations
 
             modelBuilder.Entity("Taxi.Domain.Entities.Ride", b =>
                 {
+                    b.HasOne("Taxi.Domain.Entities.Debtor", "Debtor")
+                        .WithMany("Rides")
+                        .HasForeignKey("DebtorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Taxi.Domain.Entities.LocationPrice", "LocationPrice")
                         .WithMany("Rides")
                         .HasForeignKey("LocationPriceId")
@@ -813,6 +789,8 @@ namespace Taxi.DatabaseAccess.Migrations
                         .HasForeignKey("ShiftId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Debtor");
 
                     b.Navigation("LocationPrice");
 
@@ -881,7 +859,7 @@ namespace Taxi.DatabaseAccess.Migrations
                 {
                     b.Navigation("DebtCollections");
 
-                    b.Navigation("InDebteds");
+                    b.Navigation("Rides");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.FuelType", b =>
@@ -904,11 +882,6 @@ namespace Taxi.DatabaseAccess.Migrations
             modelBuilder.Entity("Taxi.Domain.Entities.MaintenanceType", b =>
                 {
                     b.Navigation("Maintenances");
-                });
-
-            modelBuilder.Entity("Taxi.Domain.Entities.Ride", b =>
-                {
-                    b.Navigation("InDebteds");
                 });
 
             modelBuilder.Entity("Taxi.Domain.Entities.Role", b =>

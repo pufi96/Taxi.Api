@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.Ride
 {
-    public interface IGetShiftRidesQuery : IQuery<int, IEnumerable<RideDto>>
+    public interface IFindShiftRidesQuery : IQuery<int, IEnumerable<RideDto>>
     {
     }
 }

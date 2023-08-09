@@ -49,21 +49,19 @@ namespace Taxi.Implementation.UseCases.Commands.DapperShifts
                 }
 
                 DynamicParameters paramGetRides = new DynamicParameters();
+                paramGetRides.Add("@Id", request.Id);
                 var queryRide = @"SELECT * FROM Rides WHERE ShiftId = @id";
                 var rides = connection.Query<RideDto>(queryRide, paramGetRides).AsList();
 
                 var updateQuery = @"
                     UPDATE  Shifts 
                     SET 
-                    ShiftStart = @ShiftStart,
                     ShiftEnd = @ShiftEnd,
-                    MileageStart = @MileageStart,
                     MileageEnd = @MileageEnd,
-                    UserId = @UserId,
-                    CarId = @CarId,
                     Earnings = @Earnings,
                     Turnover = @Turnover,
                     Expenses = @Expenses,
+                    Description = @Description,
                     EditedAt = @EditedAt
                     WHERE Id = @Id"
                 ;
@@ -79,16 +77,18 @@ namespace Taxi.Implementation.UseCases.Commands.DapperShifts
                 }
                 request.Turnover = request.Earnings - request.Expenses;
 
+                if(request.ShiftEnd == null || request.ShiftEnd == DateTime.MinValue)
+                {
+                    request.ShiftEnd = DateTime.UtcNow;
+                }
+
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@ShiftStart", request.ShiftStart);
                 param.Add("@ShiftEnd", request.ShiftEnd);
-                param.Add("@MileageStart", request.MileageStart);
                 param.Add("@MileageEnd", request.MileageEnd);
-                param.Add("@UserId", request.UserId);
-                param.Add("@CarId", request.CarId);
                 param.Add("@Earnings", request.Earnings);
                 param.Add("@Turnover", request.Turnover);
                 param.Add("@Expenses", request.Expenses);
+                param.Add("@Description", request.Description);
                 param.Add("@EditedAt", DateTime.UtcNow);
                 param.Add("@Id", request.Id);
 

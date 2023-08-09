@@ -31,7 +31,7 @@ namespace Taxi.API.Controllers
 
         // PUT api/<DebtCollectionController>/edit
         [HttpPut("edit")]
-        public IActionResult Put([FromBody] EditDebtCollectionDto request, [FromServices] IEditDebtCollectionCommand command)
+        public IActionResult Put([FromBody] DebtCollectionDto request, [FromServices] IEditDebtCollectionCommand command)
         {
             _commandHandler.HandleCommand(command, request);
             return StatusCode(204);

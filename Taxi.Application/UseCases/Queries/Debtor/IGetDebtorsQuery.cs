@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.Debtor
 {
-    public interface IGetDebtorsQuery : IQuery<BaseSearch, IEnumerable<DebtorDtoDebt>>
+    public interface IGetDebtorsQuery : IQuery<BaseSearch, IEnumerable<DebtorDto>>
     {
     }
 }

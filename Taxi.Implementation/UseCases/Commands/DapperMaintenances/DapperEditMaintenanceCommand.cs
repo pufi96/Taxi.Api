@@ -1,16 +1,10 @@
 ﻿using Dapper;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Taxi.Application;
 using Taxi.Application.UseCases.Commands.Maintenance;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;
 using Taxi.Domain;
-using Taxi.Domain.Entities;
 using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.DapperMaintenances
@@ -50,8 +44,8 @@ namespace Taxi.Implementation.UseCases.Commands.DapperMaintenances
                 ;
 
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@LocationName", request.DateStart);
-                param.Add("@DateEnd", request.DateEnd);
+                param.Add("@LocationName", request.StartDate);
+                param.Add("@DateEnd", request.EndDate);
                 param.Add("@Price", request.Price);
                 param.Add("@Mileage", request.Mileage);
                 param.Add("@Description", request.Description);

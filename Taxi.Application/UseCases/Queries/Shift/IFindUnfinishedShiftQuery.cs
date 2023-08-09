@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Queries.Shift
 {
-    public interface IFindUnfinishedShiftQuery : IQuery<int, ShiftDtoUserRides>
+    public interface IFindUnfinishedShiftQuery : IQuery<int, ShiftDto>
     {
     }
 }

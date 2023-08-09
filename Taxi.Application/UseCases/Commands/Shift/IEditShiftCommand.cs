@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Commands.Shift
 {
-    public interface IEditShiftCommand : ICommand<UpdateShiftDto>
+    public interface IEditShiftCommand : ICommand<ShiftDto>
     {
     }
 }

@@ -49,7 +49,7 @@ namespace Taxi.API.Controllers
 
         // PUT api/<MaintenanceController>/edit
         [HttpPut("edit")]
-        public IActionResult Put([FromBody] EditMaintenanceDto request, [FromServices] IEditMaintenanceCommand command)
+        public IActionResult Put([FromBody] MaintenanceDto request, [FromServices] IEditMaintenanceCommand command)
         {
             _commandHandler.HandleCommand(command, request);
             return StatusCode(204);

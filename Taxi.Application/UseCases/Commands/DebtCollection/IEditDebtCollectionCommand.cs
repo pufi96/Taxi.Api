@@ -7,7 +7,7 @@ using Taxi.Application.UseCases.DTO;
 
 namespace Taxi.Application.UseCases.Commands.DebtCollection
 {
-    public interface IEditDebtCollectionCommand : ICommand<EditDebtCollectionDto>
+    public interface IEditDebtCollectionCommand : ICommand<DebtCollectionDto>
     {
     }
 }

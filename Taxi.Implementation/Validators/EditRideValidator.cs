@@ -10,7 +10,7 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
-    public class EditRideValidator : AbstractValidator<EditRideDto>
+    public class EditRideValidator : AbstractValidator<RideDto>
     {
         private TaxiDbContext _context;
         public EditRideValidator(TaxiDbContext context)
@@ -23,10 +23,10 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.RidePrice).NotEmpty().WithMessage("Price is required.")
                                     .Must(PositiveNumber).WithMessage("Price must be positive number.");
 
-            RuleFor(x => x.LocationPriceId).NotNull().WithMessage("LocationPriceId is required.")
-                                            .Must(LocationPriceDoesntExsist)
-                                            .When(x => !x.IsLocal)
-                                            .WithMessage("Location is required when it's not local ride.");
+            //RuleFor(x => x.LocationPriceId).NotNull().WithMessage("LocationPriceId is required.")
+            //                                .Must(LocationPriceDoesntExsist)
+            //                                .When(x => !x.IsLocal)
+            //                                .WithMessage("Location is required when it's not local ride.");
 
             RuleFor(x => x.ShiftId).Must(ShiftDoesntExsistOrIsntActive).WithMessage("That shift doesn't exsist or isn't active.");
 

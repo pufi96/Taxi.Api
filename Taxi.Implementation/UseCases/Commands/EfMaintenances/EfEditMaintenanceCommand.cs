@@ -16,31 +16,31 @@ using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.EfMaintenances
 {
-    public class EfEditMaintenanceCommand : EfUseCase, IEditMaintenanceCommand
-    {
-        private EditMaintenanceValidator _validator;
-        public EfEditMaintenanceCommand(TaxiDbContext context, IApplicationUser user, EditMaintenanceValidator validator) : base(context, user)
-        {
-            _validator = validator;
-        }
+    //public class EfEditMaintenanceCommand : EfUseCase, IEditMaintenanceCommand
+    //{
+    //    private EditMaintenanceValidator _validator;
+    //    public EfEditMaintenanceCommand(TaxiDbContext context, IApplicationUser user, EditMaintenanceValidator validator) : base(context, user)
+    //    {
+    //        _validator = validator;
+    //    }
 
-        public int Id => 43;
+    //    public int Id => 43;
 
-        public string Name => "Edit Maintenance";
+    //    public string Name => "Edit Maintenance";
 
-        public string Description => "Edit Maintenance";
+    //    public string Description => "Edit Maintenance";
 
-        public void Execute(EditMaintenanceDto request)
-        {
-            _validator.ValidateAndThrow(request);
+    //    public void Execute(EditMaintenanceDto request)
+    //    {
+    //        _validator.ValidateAndThrow(request);
 
-            request.EditedAt = DateTime.UtcNow;
+    //        request.EditedAt = DateTime.UtcNow;
 
-            var maintenance = Context.Maintenances.FirstOrDefault(x => x.Id == request.Id);
+    //        var maintenance = Context.Maintenances.FirstOrDefault(x => x.Id == request.Id);
 
-            Mapper.Map(request, maintenance);
+    //        Mapper.Map(request, maintenance);
 
-            Context.SaveChanges();
-        }
-    }
+    //        Context.SaveChanges();
+    //    }
+    //}
 }

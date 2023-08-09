@@ -9,7 +9,7 @@ using Taxi.DatabaseAccess;
 
 namespace Taxi.Implementation.Validators
 {
-    public class EditLocationPriceValidator : AbstractValidator<EditLocationPricesDto>
+    public class EditLocationPriceValidator : AbstractValidator<LocationPricesDto>
     {
         private TaxiDbContext _context;
         public EditLocationPriceValidator(TaxiDbContext context)
@@ -24,16 +24,16 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.Price).NotEmpty().WithMessage("Price is required.")
                                         .Must(PositiveNumber).WithMessage("Price must be positive number.");
 
-            RuleFor(x => x.LocationStartId).NotEmpty().WithMessage("Start location is required.")
-                                            .NotEqual(x => x.LocationEndId).WithMessage("Start location and end location can't be the same.")
-                                            .Must(LocationNotExsist).WithMessage("Start location doesn't exsist.");
+            //RuleFor(x => x.LocationStartId).NotEmpty().WithMessage("Start location is required.")
+            //                                .NotEqual(x => x.LocationEndId).WithMessage("Start location and end location can't be the same.")
+            //                                .Must(LocationNotExsist).WithMessage("Start location doesn't exsist.");
 
-            RuleFor(x => x.LocationEndId).NotEmpty().WithMessage("End location is required.")
-                                            .NotEqual(x => x.LocationStartId).WithMessage("Start location and end location can't be the same.")
-                                            .Must(LocationNotExsist).WithMessage("End location doesn't exsist.");
+            //RuleFor(x => x.LocationEndId).NotEmpty().WithMessage("End location is required.")
+            //                                .NotEqual(x => x.LocationStartId).WithMessage("Start location and end location can't be the same.")
+            //                                .Must(LocationNotExsist).WithMessage("End location doesn't exsist.");
 
-            RuleFor(x => x).Must(BeUniqueFirst).WithMessage("Combination location already exsist.")
-                           .Must(BeUniqueSecound).WithMessage("Combination location already exsist.");
+            //RuleFor(x => x).Must(BeUniqueFirst).WithMessage("Combination location already exsist.")
+            //               .Must(BeUniqueSecound).WithMessage("Combination location already exsist.");
         }
         private bool BeUniqueFirst(EditLocationPricesDto model)
         {

@@ -8,10 +8,10 @@ namespace Taxi.DatabaseAccess
 {
     public class TaxiDbContext : DbContext
     {
-        public TaxiDbContext(DbContextOptions options = null) : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        //public TaxiDbContext(DbContextOptions options = null) : base(options)
+        //{
+        //    Database.EnsureCreated();
+        //}
 
         public TaxiDbContext()
         {
@@ -26,7 +26,6 @@ namespace Taxi.DatabaseAccess
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityConfiguration<>).Assembly);
             modelBuilder.Entity<RoleUseCase>().HasKey(x => new { x.RoleId, x.UseCaseId });
-            modelBuilder.Entity<InDebted>().HasKey(x => new { x.RideId, x.DebtorId });
 
             base.OnModelCreating(modelBuilder);
         }
@@ -68,7 +67,6 @@ namespace Taxi.DatabaseAccess
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<DebtCollection> DebtCollections { get; set; }
         public DbSet<Debtor> Debtors { get; set;}
-        public DbSet<InDebted> InDebteds { get; set;}
         public DbSet<Location> Locations { get; set; }
         public DbSet<LocationPrice> LocationPrices { get; set; }
         public DbSet<Ride> Rides { get; set; }

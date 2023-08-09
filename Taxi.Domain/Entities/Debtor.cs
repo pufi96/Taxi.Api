@@ -8,7 +8,7 @@ namespace Taxi.Domain.Entities
         public string DebtorLastName { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<InDebted> InDebteds { get; set; } = new HashSet<InDebted>();
+        public virtual ICollection<Ride> Rides { get; set; } = new HashSet<Ride>();
         public virtual ICollection<DebtCollection> DebtCollections { get; set; } = new HashSet<DebtCollection>();
     }
 }

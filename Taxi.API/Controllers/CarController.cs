@@ -77,7 +77,7 @@ namespace Taxi.API.Controllers
 
         // PUT api/<CarController>/edit
         [HttpPut("edit")]
-        public IActionResult Put([FromBody] EditCarDto request, [FromServices] IEditCarCommand command)
+        public IActionResult Put([FromBody] CarDto request, [FromServices] IEditCarCommand command)
         {
             _commandHandler.HandleCommand(command, request);
             return StatusCode(204);

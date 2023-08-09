@@ -14,32 +14,32 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.Shifts
 {
-    public class EfFindUnfinishedShiftQuery : EfUseCase, IFindUnfinishedShiftQuery
-    {
-        public EfFindUnfinishedShiftQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
-        {
-        }
+    //public class EfFindUnfinishedShiftQuery : EfUseCase, IFindUnfinishedShiftQuery
+    //{
+    //    public EfFindUnfinishedShiftQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+    //    {
+    //    }
 
-        public int Id => 50;
+    //    public int Id => 50;
 
-        public string Name => "Find unfinished shift";
+    //    public string Name => "Find unfinished shift";
 
-        public string Description => "Find unfinished shift";
+    //    public string Description => "Find unfinished shift";
 
-        public ShiftDtoUserRides Execute(int id)
-        {
-            var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor)
-                                    .Include(x => x.Rides).ThenInclude(x => x.LocationPrice).ThenInclude(x => x.LocationStart)
-                                    .Include(x => x.Rides).ThenInclude(x => x.LocationPrice).ThenInclude(x => x.LocationEnd)
-                                    .Include(x => x.User)
-                                    .Include(x => x.Car).ThenInclude(x => x.FuelType)
-                                    .Include(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
-                                    .Where(x => x.UserId == id & x.ShiftEnd == null)
-                                    .FirstOrDefault(x => x.IsActive);
+    //    public ShiftDto Execute(int id)
+    //    {
+    //        var query = Context.Shifts.Include(x => x.Rides).ThenInclude(x => x.InDebteds).ThenInclude(x => x.Debtor)
+    //                                .Include(x => x.Rides).ThenInclude(x => x.LocationPrice).ThenInclude(x => x.LocationStart)
+    //                                .Include(x => x.Rides).ThenInclude(x => x.LocationPrice).ThenInclude(x => x.LocationEnd)
+    //                                .Include(x => x.User)
+    //                                .Include(x => x.Car).ThenInclude(x => x.FuelType)
+    //                                .Include(x => x.Car).ThenInclude(x => x.CarModel).ThenInclude(x => x.CarBrand)
+    //                                .Where(x => x.UserId == id & x.ShiftEnd == null)
+    //                                .FirstOrDefault(x => x.IsActive);
 
-            ShiftDtoUserRides result = Mapper.Map<ShiftDtoUserRides>(query);
+    //        ShiftDto result = Mapper.Map<ShiftDto>(query);
 
-            return result;
-        }
-    }
+    //        return result;
+    //    }
+    //}
 }

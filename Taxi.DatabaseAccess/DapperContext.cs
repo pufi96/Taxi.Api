@@ -18,4 +18,4 @@ namespace Taxi.DatabaseAccess
         public IDbConnection CreateConnection()
             => new SqlConnection(_connectionString);
     }
-    }
+}

@@ -11,31 +11,31 @@ using Taxi.Implementation.Validators;
 
 namespace Taxi.Implementation.UseCases.Commands.EfDebtCollection
 {
-    public class EfEditDebtCollectionCommand : EfUseCase, IEditDebtCollectionCommand
-    {
-        private EditDebtCollectionValidator _validator;
-        public EfEditDebtCollectionCommand(TaxiDbContext context, IApplicationUser user, EditDebtCollectionValidator validator) : base(context, user)
-        {
-            _validator = validator;
-        }
+    //public class EfEditDebtCollectionCommand : EfUseCase, IEditDebtCollectionCommand
+    //{
+    //    private EditDebtCollectionValidator _validator;
+    //    public EfEditDebtCollectionCommand(TaxiDbContext context, IApplicationUser user, EditDebtCollectionValidator validator) : base(context, user)
+    //    {
+    //        _validator = validator;
+    //    }
 
-        public int Id => 35;
+    //    public int Id => 35;
 
-        public string Name => "Edit DebtCollection";
+    //    public string Name => "Edit DebtCollection";
 
-        public string Description => "Edit DebtCollection";
+    //    public string Description => "Edit DebtCollection";
 
-        public void Execute(EditDebtCollectionDto request)
-        {
-            _validator.ValidateAndThrow(request);
+    //    public void Execute(DebtCollectionDto request)
+    //    {
+    //        _validator.ValidateAndThrow(request);
 
-            request.EditedAt = DateTime.UtcNow;
+    //        request.EditedAt = DateTime.UtcNow;
 
-            var debtCollection = Context.DebtCollections.FirstOrDefault(x => x.Id == request.Id);
+    //        var debtCollection = Context.DebtCollections.FirstOrDefault(x => x.Id == request.Id);
 
-            Mapper.Map(request, debtCollection);
+    //        Mapper.Map(request, debtCollection);
 
-            Context.SaveChanges();
-        }
-    }
+    //        Context.SaveChanges();
+    //    }
+    //}
 }

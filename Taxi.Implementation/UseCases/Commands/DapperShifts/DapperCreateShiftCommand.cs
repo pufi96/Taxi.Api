@@ -36,14 +36,12 @@ namespace Taxi.Implementation.UseCases.Commands.DapperShifts
             {
                 var insertQuery = @"
                     INSERT INTO Shifts 
-                    (ShiftStart, ShiftEnd, MileageStart, MileageEnd, UserId, CarId)
-                    VALUES (@ShiftStart, @ShiftEnd, @MileageStart, @MileageEnd, @UserId, @CarId)";
+                    (ShiftStart, MileageStart, UserId, CarId)
+                    VALUES (@ShiftStart, @MileageStart, @UserId, @CarId)";
 
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@ShiftStart", request.ShiftStart);
-                param.Add("@ShiftEnd", request.ShiftEnd);
+                param.Add("@ShiftStart", DateTime.UtcNow);
                 param.Add("@MileageStart", request.MileageStart);
-                param.Add("@MileageEnd", request.MileageEnd);
                 param.Add("@UserId", request.UserId);
                 param.Add("@CarId", request.CarId);
 

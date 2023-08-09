@@ -55,7 +55,7 @@ namespace Taxi.API.Controllers
 
         // PUT api/<LocationPriceController>/edit
         [HttpPut("edit")]
-        public IActionResult Put([FromBody] EditLocationPricesDto request, [FromServices] IEditLocationPriceCommand command)
+        public IActionResult Put([FromBody] LocationPricesDto request, [FromServices] IEditLocationPriceCommand command)
         {
             _commandHandler.HandleCommand(command, request);
             return StatusCode(204);

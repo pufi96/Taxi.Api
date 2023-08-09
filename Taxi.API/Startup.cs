@@ -53,8 +53,9 @@ namespace Taxi.API
             services.AddJwt(appSettings);
 
             AutoMapperConfiguration.InitAutoMapper();
+            services.AddScoped<DapperContext>();
 
-            services.AddTaxiDbContext();
+            //services.AddTaxiDbContext();
 
 
             services.AddTransient<ITokenStorage, InMemoryTokenStorage>();

@@ -21,10 +21,14 @@ namespace Taxi.Implementation.UseCases.Queries.DapperShifts
 
         public ShiftDto Execute(int id)
         {
-            var query = "SELECT s.* FROM Shifts AS s JOIN Users AS u ON s.UserId = u.Id WHERE s.UserId = @id and ShiftEnd = null";
+            var query = @"SELECT s.* 
+                        FROM Shifts AS s 
+                        LEFT JOIN Users AS u ON s.UserId = u.Id 
+                        WHERE s.UserId = @id AND s.ShiftEnd IS NULL";
             using (var connection = Context.CreateConnection())
             {
                 var shift = connection.QueryFirstOrDefault<ShiftDto>(query, new { id });
+
                 return shift;
             }
         }

@@ -15,30 +15,30 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.MaintenancesTypes
 {
-    public class EfFindMaintenanceTypeQuery : EfUseCase, IFindMaintenanceTypeQuery
-    {
-        public EfFindMaintenanceTypeQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
-        {
-        }
+    //public class EfFindMaintenanceTypeQuery : EfUseCase, IFindMaintenanceTypeQuery
+    //{
+    //    public EfFindMaintenanceTypeQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+    //    {
+    //    }
 
-        public int Id => 18;
+    //    public int Id => 18;
 
-        public string Name => "Find MaintenanceTypes";
+    //    public string Name => "Find MaintenanceTypes";
 
-        public string Description => "Find MaintenanceTypes";
+    //    public string Description => "Find MaintenanceTypes";
 
-        public MaintenanceTypeDto Execute(int id)
-        {
-            var query = Context.MaintenanceTypes.FirstOrDefault(x => x.Id == id & x.IsActive);
+    //    public MaintenanceTypeDto Execute(int id)
+    //    {
+    //        var query = Context.MaintenanceTypes.FirstOrDefault(x => x.Id == id & x.IsActive);
 
-            if (query == null)
-            {
-                throw new EntityNotFoundException(nameof(MaintenanceType), id);
-            }
+    //        if (query == null)
+    //        {
+    //            throw new EntityNotFoundException(nameof(MaintenanceType), id);
+    //        }
 
-            MaintenanceTypeDto result = Mapper.Map<MaintenanceTypeDto>(query);
+    //        MaintenanceTypeDto result = Mapper.Map<MaintenanceTypeDto>(query);
 
-            return result;
-        }
-    }
+    //        return result;
+    //    }
+    //}
 }

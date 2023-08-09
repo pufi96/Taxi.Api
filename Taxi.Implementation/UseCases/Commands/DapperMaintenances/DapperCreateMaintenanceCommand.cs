@@ -40,8 +40,8 @@ namespace Taxi.Implementation.UseCases.Commands.DapperMaintenances
                     VALUES (@DateStart, @DateEnd, @Price, @Mileage, @Description, @MaintenanceTypeId, @CarId)";
 
                 DynamicParameters param = new DynamicParameters();
-                param.Add("@DateStart", request.DateStart);
-                param.Add("@DateEnd", request.DateEnd);
+                param.Add("@DateStart", request.StartDate);
+                param.Add("@DateEnd", request.EndDate);
                 param.Add("@Price", request.Price);
                 param.Add("@Mileage", request.Mileage);
                 param.Add("@Description", request.Description);

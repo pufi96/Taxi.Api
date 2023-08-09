@@ -14,45 +14,43 @@ using Taxi.Application.UseCases.Queries.MaintenanceType;
 using Taxi.Application.UseCases.Queries.Ride;
 using Taxi.Application.UseCases.Queries.User;
 using Taxi.Implementation.Logging;
-using Taxi.Implementation.UseCases.Commands.EfCarModels;
-using Taxi.Implementation.UseCases.Queries.EfCarBrands;
-using Taxi.Implementation.UseCases.Queries.EfCarModel;
-using Taxi.Implementation.UseCases.Queries.EfCars;
-using Taxi.Implementation.UseCases.Queries.EfDebtors;
-using Taxi.Implementation.UseCases.Queries.EfFuelTypes;
-using Taxi.Implementation.UseCases.Queries.EfMaintenances;
-using Taxi.Implementation.UseCases.Queries.LocationPrices;
-using Taxi.Implementation.UseCases.Queries.Locations;
-using Taxi.Implementation.UseCases.Queries.MaintenancesTypes;
-using Taxi.Implementation.UseCases.Queries.Rides;
-using Taxi.Implementation.UseCases.Queries.Users;
-using Taxi.Implementation;
 using Taxi.Application.UseCases.Queries.Shift;
-using Taxi.Implementation.UseCases.Queries.Shifts;
 using Taxi.Application.UseCases.Commands.CarBrand;
-using Taxi.Implementation.UseCases.Commands.EfCarBrands;
 using Taxi.Application.UseCases.Commands.Car;
-using Taxi.Implementation.UseCases.Commands.EfCars;
 using Taxi.Application.UseCases.Commands.DebtCollection;
-using Taxi.Implementation.UseCases.Commands.EfDebtCollection;
 using Taxi.Application.UseCases.Commands.Debtor;
-using Taxi.Implementation.UseCases.Commands.EfDebtors;
 using Taxi.Application.UseCases.Commands.LocationPrice;
-using Taxi.Implementation.UseCases.Commands.EfLocationPrices;
 using Taxi.Application.UseCases.Commands.Location;
-using Taxi.Implementation.UseCases.Commands.EfLocations;
 using Taxi.Application.UseCases.Commands.Maintenance;
-using Taxi.Implementation.UseCases.Commands.EfMaintenances;
 using Taxi.Application.UseCases.Commands.Ride;
-using Taxi.Implementation.UseCases.Commands.EfRides;
 using Taxi.Application.UseCases.Commands.Shift;
-using Taxi.Implementation.UseCases.Commands.EfShifts;
 using Taxi.Application.UseCases.Commands.User;
-using Taxi.Implementation.UseCases.Commands.EfUsers;
 using Taxi.Application.Logging;
-using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Queries;
 using Taxi.Implementation.UseCases.Queries;
+using Taxi.Implementation.UseCases.Queries.DapperCars;
+using Taxi.Implementation.UseCases.Queries.DapperCarBrands;
+using Taxi.Implementation.UseCases.Queries.DapperCarModels;
+using Taxi.Implementation.UseCases.Queries.DapperDebtors;
+using Taxi.Implementation.UseCases.Queries.DapperFuelTypes;
+using Taxi.Implementation.UseCases.Queries.DapperLocationPrices;
+using Taxi.Implementation.UseCases.Queries.DapperMaintenances;
+using Taxi.Implementation.UseCases.Queries.DapperLocations;
+using Taxi.Implementation.UseCases.Queries.DapperMaintenancesTypes;
+using Taxi.Implementation.UseCases.Queries.DapperRides;
+using Taxi.Implementation.UseCases.Queries.DapperShifts;
+using Taxi.Implementation.UseCases.Queries.DapperUsers;
+using Taxi.Implementation.UseCases.Commands.DapperCarBrands;
+using Taxi.Implementation.UseCases.Commands.DapperCarModels;
+using Taxi.Implementation.UseCases.Commands.DapperCars;
+using Taxi.Implementation.UseCases.Commands.DapperDebtCollection;
+using Taxi.Implementation.UseCases.Commands.DapperDebtors;
+using Taxi.Implementation.UseCases.Commands.DapperLocationPrices;
+using Taxi.Implementation.UseCases.Commands.DapperLocations;
+using Taxi.Implementation.UseCases.Commands.DapperMaintenances;
+using Taxi.Implementation.UseCases.Commands.DapperRides;
+using Taxi.Implementation.UseCases.Commands.DapperShifts;
+using Taxi.Implementation.UseCases.Commands.DapperUsers;
 
 namespace Taxi.API.Extensions
 {
@@ -65,83 +63,84 @@ namespace Taxi.API.Extensions
 
             //query
 
-            services.AddTransient<IGetCarBrandsQuery, EfGetCarBrandsQuery>();
-            services.AddTransient<IFindCarBrandQuery, EfFindCarBrandQuery>();
+            services.AddTransient<IGetCarBrandsQuery, DapperGetCarBrandsQuery>();
+            services.AddTransient<IFindCarBrandQuery, DapperFindCarBrandQuery>();
 
-            services.AddTransient<IGetCarModelsQuery, EfGetCarModelsQuery>();
-            services.AddTransient<IFindCarModelQuery, EfFindCarModelQuery>();
+            services.AddTransient<IGetCarModelsQuery, DapperGetCarModelsQuery>();
+            services.AddTransient<IFindCarModelQuery, DapperFindCarModelQuery>();
 
-            services.AddTransient<IGetCarsQuery, EfGetCarsQuery>();
-            services.AddTransient<IFindCarQuery, EfFindCarQuery>();
+            services.AddTransient<IGetCarsQuery, DapperGetCarsQuery>();
+            services.AddTransient<IFindCarQuery, DapperFindCarQuery>();
 
-            services.AddTransient<IGetDebtorsQuery, EfGetDebtorsQuery>();
-            services.AddTransient<IFindDebtorQuery, EfFindDebtorQuery>();
+            services.AddTransient<IGetDebtorsQuery, DapperGetDebtorsQuery>();
+            services.AddTransient<IFindDebtorQuery, DapperFindDebtorQuery>();
 
-            services.AddTransient<IGetFuelTypesQuery, EfGetFuelTypesQuery>();
-            services.AddTransient<IFindFuelTypeQuery, EfFindFuelTypeQuery>();
+            services.AddTransient<IGetFuelTypesQuery, DapperGetFuelTypesQuery>();
+            services.AddTransient<IFindFuelTypeQuery, DapperFindFuelTypeQuery>();
 
-            services.AddTransient<IGetMaintenancesQuery, EfGetMaintenancesQuery>();
-            services.AddTransient<IFindMaintenanceQuery, EfFindMaintenanceQuery>();
+            services.AddTransient<IGetMaintenancesQuery, DapperGetMaintenancesQuery>();
+            services.AddTransient<IFindMaintenanceQuery, DapperFindMaintenanceQuery>();
 
-            services.AddTransient<IGetLocationPricesQuery, EfGetLocationPricesQuery>();
-            services.AddTransient<IFindLocationPriceQuery, EfFindLocationPriceQuery>(); 
-            services.AddTransient<IFindFinishLocationPriceQuery, EfFindFinishLocationPriceQuery>(); 
+            services.AddTransient<IGetLocationPricesQuery, DapperGetLocationPricesQuery>();
+            services.AddTransient<IFindLocationPriceQuery, DapperFindLocationPriceQuery>(); 
+            services.AddTransient<IFindFinishLocationPriceQuery, DapperFindFinishLocationPriceQuery>(); 
 
-            services.AddTransient<IGetLocationsQuery, EfGetLocationsQuery>();
-            services.AddTransient<IFindLocationQuery, EfFindLocationsQuery>();
+            services.AddTransient<IGetLocationsQuery, DapperGetLocationsQuery>();
+            services.AddTransient<IFindLocationQuery, DapperFindLocationQuery>();
 
-            services.AddTransient<IGetMaintenanceTypesQuery, EfGetMaintenanceTypesQuery>();
-            services.AddTransient<IFindMaintenanceTypeQuery, EfFindMaintenanceTypeQuery>();
+            services.AddTransient<IGetMaintenanceTypesQuery, DapperGetMaintenanceTypesQuery>();
+            services.AddTransient<IFindMaintenanceTypeQuery, DapperFindMaintenanceTypeQuery>();
 
-            services.AddTransient<IGetRidesQuery, EfGetRidesQuery>();
-            services.AddTransient<IFindRideQuery, EfFindRideQuery>();
+            services.AddTransient<IGetRidesQuery, DapperGetRidesQuery>();
+            services.AddTransient<IFindShiftRidesQuery, DapperFindShiftRidesQuery>();
+            services.AddTransient<IFindRideQuery, DapperFindRideQuery>();
 
-            services.AddTransient<IGetShiftsQuery, EfGetShiftsQuery>();
-            services.AddTransient<IFindShiftQuery, EfFindShiftsQuery>();
-            services.AddTransient<IFindUnfinishedShiftQuery, EfFindUnfinishedShiftQuery>();
-            services.AddTransient<IFindUserShiftsQuery, EfFindUserShiftsQuery>();
+            services.AddTransient<IGetShiftsQuery, DapperGetShiftsQuery>();
+            services.AddTransient<IFindShiftQuery, DapperFindShiftQuery>();
+            services.AddTransient<IFindUnfinishedShiftQuery, DapperFindUnfinishedShiftQuery>();
+            services.AddTransient<IGetUserShifts, DapperGetUserShiftsQuery>();
 
-            services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
-            services.AddTransient<IFindUserQuery, EfFindUserQuery>();
+            services.AddTransient<IGetUsersQuery, DapperGetUsersQuery>();
+            services.AddTransient<IFindUserQuery, DapperFindUserQuery>();
 
             services.AddTransient<IGetLogEntries, EfGetLogEntriesQuery>();
 
             //command
 
-            services.AddTransient<ICreateCarBrandCommand, EfCreateCarBrandCommand>();
-            services.AddTransient<IEditCarBrandCommand, EfEditCarBrandCommand>();
+            services.AddTransient<ICreateCarBrandCommand, DapperCreateCarBrandCommand>();
+            services.AddTransient<IEditCarBrandCommand, DapperEditCarBrandCommand>();
 
-            services.AddTransient<ICreateCarModelCommand, EfCreateCarModelCommand>();
-            services.AddTransient<IEditCarModelCommand, EfEditCarModelCommand>();
+            services.AddTransient<ICreateCarModelCommand, DapperCreateCarModelCommand>();
+            services.AddTransient<IEditCarModelCommand, DapperEditCarModelCommand>();
 
-            services.AddTransient<ICreateCarCommand, EfCreateCarCommand>();
-            services.AddTransient<IDeleteCarCommand, EfDeleteCarCommand>();
-            services.AddTransient<IEditCarCommand, EfEditCarCommand>();
+            services.AddTransient<ICreateCarCommand, DapperCreateCarCommand>();
+            services.AddTransient<IDeleteCarCommand, DapperDeleteCarCommand>();
+            services.AddTransient<IEditCarCommand, DapperEditCarCommand>();
 
-            services.AddTransient<ICreateDebtCollectionCommand, EfCreateDebtCollectionCommand>();
-            services.AddTransient<IEditDebtCollectionCommand, EfEditDebtCollectionCommand>();
+            services.AddTransient<ICreateDebtCollectionCommand, DapperCreateDebtCollectionCommand>();
+            services.AddTransient<IEditDebtCollectionCommand, DapperEditDebtCollectionCommand>();
 
-            services.AddTransient<ICreateDebtorCommand, EfCreateDebtorCommand>();
-            services.AddTransient<IEditDebtorCommand, EfEditDebtorCommand>();
+            services.AddTransient<ICreateDebtorCommand, DapperCreateDebtorCommand>();
+            services.AddTransient<IEditDebtorCommand, DapperEditDebtorCommand>();
 
-            services.AddTransient<ICreateLocationPriceCommand, EfCreateLocationPriceCommand>();
-            services.AddTransient<IEditLocationPriceCommand, EfEditLocationPriceCommand>();
+            services.AddTransient<ICreateLocationPriceCommand, DapperCreateLocationPriceCommand>();
+            services.AddTransient<IEditLocationPriceCommand, DapperEditLocationPriceCommand>();
 
-            services.AddTransient<ICreateLocationCommand, EfCreateLocationCommand>();
-            services.AddTransient<IEditLocationCommand, EfEditLocationCommand>();
+            services.AddTransient<ICreateLocationCommand, DapperCreateLocationCommand>();
+            services.AddTransient<IEditLocationCommand, DapperEditLocationCommand>();
 
-            services.AddTransient<ICreateMaintenanceCommand, EfCreateMaintenanceCommand>();
-            services.AddTransient<IEditMaintenanceCommand, EfEditMaintenanceCommand>();
+            services.AddTransient<ICreateMaintenanceCommand, DapperCreateMaintenanceCommand>();
+            services.AddTransient<IEditMaintenanceCommand, DapperEditMaintenanceCommand>();
 
-            services.AddTransient<ICreateRideCommand, EfCreateRideCommand>();
-            services.AddTransient<IEditRideCommand, EfEditRideCommand>();
+            services.AddTransient<ICreateRideCommand, DapperCreateRideCommand>();
+            services.AddTransient<IEditRideCommand, DapperEditRideCommand>();
 
-            services.AddTransient<ICreateShiftCommand, EfCreateShiftCommand>();
-            services.AddTransient<IEditShiftCommand, EfEditShiftCommand>();
+            services.AddTransient<ICreateShiftCommand, DapperCreateShiftCommand>();
+            services.AddTransient<IEditShiftCommand, DapperEditShiftCommand>();
 
-            services.AddTransient<ICreateUserCommand, EfCreateUserCommand>();
-            services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
-            services.AddTransient<IEditUserCommand, EfEditUserCommand>();
+            services.AddTransient<ICreateUserCommand, DapperCreateUserCommand>();
+            services.AddTransient<IDeleteUserCommand, DapperDeleteUserCommand>();
+            services.AddTransient<IEditUserCommand, DapperEditUserCommand>();
 
         }
     }

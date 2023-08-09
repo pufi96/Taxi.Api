@@ -16,30 +16,30 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.UseCases.Queries.Locations
 {
-    public class EfFindLocationsQuery : EfUseCase, IFindLocationQuery
-    {
-        public EfFindLocationsQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
-        {
-        }
+    //public class EfFindLocationsQuery : EfUseCase, IFindLocationQuery
+    //{
+    //    public EfFindLocationsQuery(TaxiDbContext context, IApplicationUser user) : base(context, user)
+    //    {
+    //    }
 
-        public int Id => 16;
+    //    public int Id => 16;
 
-        public string Name => "Find Location";
+    //    public string Name => "Find Location";
 
-        public string Description => "Find Location";
+    //    public string Description => "Find Location";
 
-        public LocationDto Execute(int id)
-        {
-            var query = Context.Locations.FirstOrDefault(x => x.Id == id & x.IsActive);
+    //    public LocationDto Execute(int id)
+    //    {
+    //        var query = Context.Locations.FirstOrDefault(x => x.Id == id & x.IsActive);
 
-            if (query == null)
-            {
-                throw new EntityNotFoundException(nameof(Location), id);
-            }
+    //        if (query == null)
+    //        {
+    //            throw new EntityNotFoundException(nameof(Location), id);
+    //        }
 
-            LocationDto result = Mapper.Map<LocationDto>(query);
+    //        LocationDto result = Mapper.Map<LocationDto>(query);
 
-            return result;
-        }
-    }
+    //        return result;
+    //    }
+    //}
 }

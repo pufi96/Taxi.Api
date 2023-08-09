@@ -36,13 +36,14 @@ namespace Taxi.Implementation.UseCases.Commands.DapperRides
             {
                 var insertQuery = @"
                     INSERT INTO Rides 
-                    (IsLocal, RidePrice, LocationPriceId, ShiftId)
-                    VALUES (@IsLocal, @RidePrice, @LocationPriceId, @ShiftId)";
+                    (IsLocal, RidePrice, LocationPriceId, ShiftId, DebtorId)
+                    VALUES (@IsLocal, @RidePrice, @LocationPriceId, @ShiftId, @DebtorId)";
 
                 DynamicParameters param = new DynamicParameters();
                 param.Add("@IsLocal", request.IsLocal);
                 param.Add("@RidePrice", request.RidePrice);
                 param.Add("@LocationPriceId", request.LocationPriceId);
+                param.Add("@DebtorId", request.DebtorId);
                 param.Add("@ShiftId", request.ShiftId);
 
                 connection.Execute(insertQuery, param);

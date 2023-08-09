@@ -1,11 +1,6 @@
 ﻿using Dapper;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Taxi.Application;
 using Taxi.Application.UseCases.Commands.User;
 using Taxi.Application.UseCases.DTO;
 using Taxi.DatabaseAccess;

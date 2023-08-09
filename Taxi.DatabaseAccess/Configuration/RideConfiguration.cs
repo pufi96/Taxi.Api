@@ -17,6 +17,11 @@ namespace Taxi.DatabaseAccess.Configuration
                     .WithMany(x => x.Rides)
                     .HasForeignKey(x => x.ShiftId)
                     .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.Debtor)
+                    .WithMany(x => x.Rides)
+                    .HasForeignKey(x => x.DebtorId)
+                    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

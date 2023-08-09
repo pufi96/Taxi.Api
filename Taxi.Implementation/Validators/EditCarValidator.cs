@@ -10,7 +10,7 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
-    public class EditCarValidator : AbstractValidator<EditCarDto>
+    public class EditCarValidator : AbstractValidator<CarDto>
     {
         private TaxiDbContext _context;
         public EditCarValidator(TaxiDbContext context)

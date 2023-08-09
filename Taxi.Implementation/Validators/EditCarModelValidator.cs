@@ -21,8 +21,8 @@ namespace Taxi.Implementation.Validators
 
             RuleFor(x => x.CarModelName).NotEmpty().WithMessage("Car model name is required.");
 
-            RuleFor(x => x.CarBrand).NotEmpty().WithMessage("Car brand id is required.")
-                                      .Must(CarBrandNotFound).WithMessage("Car brand is not found.");
+            //RuleFor(x => x.CarBrand).NotEmpty().WithMessage("Car brand id is required.")
+            //                          .Must(CarBrandNotFound).WithMessage("Car brand is not found.");
             _context = context;
         }
         private bool CarModelNotFound(int Id)

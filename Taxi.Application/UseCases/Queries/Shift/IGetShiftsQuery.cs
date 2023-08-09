@@ -8,7 +8,7 @@ using Taxi.Application.UseCases.Queries.Searches;
 
 namespace Taxi.Application.UseCases.Queries.Shift
 {
-    public interface IGetShiftsQuery : IQuery<ShiftSearch, PagedResponse<ShiftDtoUserRides>>
+    public interface IGetShiftsQuery : IQuery<ShiftSearch, IEnumerable<ShiftDto>>
     {
     }
 }

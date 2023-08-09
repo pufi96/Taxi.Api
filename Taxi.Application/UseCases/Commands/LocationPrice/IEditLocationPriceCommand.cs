@@ -2,7 +2,7 @@
 
 namespace Taxi.Application.UseCases.Commands.LocationPrice
 {
-    public interface IEditLocationPriceCommand : ICommand<EditLocationPricesDto>
+    public interface IEditLocationPriceCommand : ICommand<LocationPricesDto>
     {
     }
 }

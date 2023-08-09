@@ -10,7 +10,7 @@ using Taxi.Domain.Entities;
 
 namespace Taxi.Implementation.Validators
 {
-    public class EditShiftValidator : AbstractValidator<UpdateShiftDto>
+    public class EditShiftValidator : AbstractValidator<ShiftDto>
     {
         private TaxiDbContext _context;
         public EditShiftValidator(TaxiDbContext context)
@@ -26,8 +26,8 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.MileageStart).NotEmpty().WithMessage("Mileage start is required.")
                                         .Must(MileageStartWithHigherNumberThenCarMileage).WithMessage("Mileage start must be positive number and can't be lower than car mileage.");
            
-            RuleFor(x => x.MileageEnd).NotEmpty().WithMessage("Mileage start is required.")
-                                        .Must(MileageEndWithHigherNumberThenMileageStart).WithMessage("Mileage end can't be lower than mileage start.");
+            //RuleFor(x => x.MileageEnd).NotEmpty().WithMessage("Mileage start is required.")
+            //                            .Must(MileageEndWithHigherNumberThenMileageStart).WithMessage("Mileage end can't be lower than mileage start.");
 
             _context = context;
         }
