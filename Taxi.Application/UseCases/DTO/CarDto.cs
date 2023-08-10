@@ -18,6 +18,7 @@ namespace Taxi.Application.UseCases.DTO
         public double EngineVolume { get; set; }
         public int HorsePower { get; set; }
         public string ImageFilePath { get; set; }
+        public BlobFileDto? Image { get; set; } 
         public int FuelTypeId { get; set; }
         public int CarModelId { get; set; }
     }

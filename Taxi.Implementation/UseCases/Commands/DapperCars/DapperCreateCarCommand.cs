@@ -35,7 +35,7 @@ namespace Taxi.Implementation.UseCases.Commands.DapperCars
             using (var connection = Context.CreateConnection())
             {
                 var insertQuery = @"
-                    INSERT INTO CarModels 
+                    INSERT INTO Cars
                     (Registration, ValidityOfRegistration, Mileage, Description, Color, ChassisNumber, EngineVolume, HorsePower, ImageFilePath, FuelTypeId, CarModelId)
                     VALUES (@Registration, @ValidityOfRegistration, @Mileage, @Description, @Color, @ChassisNumber, @EngineVolume, @HorsePower, @ImageFilePath, @FuelTypeId, @CarModelId)";
 

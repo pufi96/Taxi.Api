@@ -51,6 +51,7 @@ using Taxi.Implementation.UseCases.Commands.DapperMaintenances;
 using Taxi.Implementation.UseCases.Commands.DapperRides;
 using Taxi.Implementation.UseCases.Commands.DapperShifts;
 using Taxi.Implementation.UseCases.Commands.DapperUsers;
+using Taxi.Implementation.UseCases.Commands;
 
 namespace Taxi.API.Extensions
 {
@@ -104,7 +105,7 @@ namespace Taxi.API.Extensions
             services.AddTransient<IFindUserQuery, DapperFindUserQuery>();
 
             services.AddTransient<IGetLogEntries, EfGetLogEntriesQuery>();
-
+            
             //command
 
             services.AddTransient<ICreateCarBrandCommand, DapperCreateCarBrandCommand>();
@@ -142,6 +143,8 @@ namespace Taxi.API.Extensions
             services.AddTransient<IDeleteUserCommand, DapperDeleteUserCommand>();
             services.AddTransient<IEditUserCommand, DapperEditUserCommand>();
 
+
+            services.AddTransient<IAzureStorage, AzureStorage>();
         }
     }
 }

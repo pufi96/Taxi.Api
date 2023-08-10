@@ -37,7 +37,7 @@ namespace Taxi.Implementation.Validators
             RuleFor(x => x.CarModelId).NotEmpty().WithMessage("Car model is required.")
                                     .Must(CarModelDoesntExsist).WithMessage("Car model doesn't exsist.");
 
-            RuleFor(x => x.Registration).NotEmpty().WithMessage("Car model is required.")
+            RuleFor(x => x.Registration).NotEmpty().WithMessage("Car registration is required.")
                                     .Must(BeValidRegistrationNumber).WithMessage("Invalid registration number.");
 
 

@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Taxi.API.DTO;
 using Taxi.Application.UseCaseHandling;
 using Taxi.Application.UseCases.Commands.Car;
 using Taxi.Application.UseCases.DTO;
+using Taxi.Application.UseCases.Queries;
 using Taxi.Application.UseCases.Queries.Car;
 using Taxi.Application.UseCases.Queries.Searches;
 using Taxi.Implementation;
@@ -25,50 +30,70 @@ namespace Taxi.API.Controllers
 
         private IQueryHandler _queryHandler;
         private ICommandHandler _commandHandler;
-
-        public CarController(IQueryHandler queryHandler, ICommandHandler commandHandler)
+        private readonly IAzureStorage _storage;
+        public CarController(IQueryHandler queryHandler, ICommandHandler commandHandler, IAzureStorage storage)
         {
             _queryHandler = queryHandler;
             _commandHandler = commandHandler;
+            _storage = storage;
         }
         // GET: api/<CarController>
         [HttpGet]
-        public IActionResult Get([FromQuery] BaseSearch search, [FromServices] IGetCarsQuery query)
+        public async Task<IActionResult> Get([FromQuery] BaseSearch search, [FromServices] IGetCarsQuery query)
         {
+            List<BlobDto>? files = await _storage.ListAsync();
+
             return Ok(_queryHandler.HandleQuery(query, search));
         }
 
         // GET api/<CarController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id, [FromServices] IFindCarQuery query)
+        public async Task<IActionResult> Get(int id, [FromServices] IFindCarQuery query)
         {
-            return Ok(_queryHandler.HandleQuery(query, id));
+            BlobFileDto response;
+            var car = _queryHandler.HandleQuery(query, id);
+
+            if (car.ImageFilePath != null)
+            {
+                response = await _storage.GetFileFromBlobStorage(car.ImageFilePath);
+                car.Image = response;
+            }
+
+            return Ok(car);
         }
 
         // POST api/<CarController>
         [HttpPost]
-        public IActionResult Post([FromForm] RegisterImageApiDto request, [FromServices] ICreateCarCommand command)
+        public async Task<IActionResult> Post([FromForm] RegisterImageApiDto request, [FromServices] ICreateCarCommand command, IFormFile file)
         {
-            if (request.Image != null)
+            if(file != null)
             {
-                var guid = Guid.NewGuid();
-                var extension = Path.GetExtension(request.Image.FileName);
+                request.Image = file;
+                BlobResponseDto? response = await _storage.UploadAsync(request.Image);
 
-                if (!AllowedExtensions.Contains(extension))
+                //var guid = Guid.NewGuid();
+                //var extension = Path.GetExtension(request.Image.FileName);
+
+                //if (!AllowedExtensions.Contains(extension))
+                //{
+                //    throw new InvalidOperationException("Unsupported file type.");
+                //}
+
+                //var fileName = guid + extension;
+
+                //var filePath = Path.Combine("wwwroot", "images", fileName);
+
+                //using (var fileStream = new FileStream(filePath, FileMode.Create))
+                //{
+                //    request.Image.CopyTo(fileStream);
+                //};
+                request.ImageFilePath = response.Blob.Name;
+
+
+                if(response.Error == true)
                 {
-                    throw new InvalidOperationException("Unsupported file type.");
+                    return StatusCode(StatusCodes.Status500InternalServerError, response.Status);
                 }
-
-                var fileName = guid + extension;
-
-                var filePath = Path.Combine("wwwroot", "images", fileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    request.Image.CopyTo(fileStream);
-                };
-
-                request.ImageFilePath = fileName;
 
             }
             _commandHandler.HandleCommand(command, request);
